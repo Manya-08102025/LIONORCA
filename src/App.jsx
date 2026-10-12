@@ -1,122 +1,65 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { ThemeProvider } from './hooks/useTheme'
+import Navbar from './components/Navbar'
+import Hero from './components/Hero'
+import ValueProposition from './components/ValueProposition'
+import ArchitectShowcase from './components/ArchitectShowcase'
+import ProcessTimeline from './components/ProcessTimeline'
+import PortfolioGallery from './components/PortfolioGallery'
+import Footer from './components/Footer'
+import LeadModal from './components/LeadModal'
+import FloatingWhatsApp from './components/FloatingWhatsApp'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [isConsultOpen, setIsConsultOpen] = useState(false)
+  const [selectedArchitect, setSelectedArchitect] = useState(null)
+
+  const handleOpenConsult = (architect = null) => {
+    setSelectedArchitect(architect)
+    setIsConsultOpen(true)
+  }
+
+  const handleCloseConsult = () => {
+    setIsConsultOpen(false)
+    setSelectedArchitect(null)
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <ThemeProvider>
+      <div className="min-h-screen transition-colors duration-700 bg-[#0a0a0a] text-neutral-100 flex flex-col font-sans selection:bg-amber-500 selection:text-black">
+        {/* Navigation Bar with Day/Night Theme Switcher */}
+        <Navbar onOpenConsult={() => handleOpenConsult()} />
 
-      <div className="ticks"></div>
+        {/* Hero Section with Interactive Day/Night Background Crossfade */}
+        <main className="flex-1">
+          <Hero onOpenConsult={() => handleOpenConsult()} />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          {/* Turnkey Advantage & Complexity Management */}
+          <ValueProposition />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+          {/* Curated 5 Regional Architects Showcase */}
+          <ArchitectShowcase onSelectArchitect={(arch) => handleOpenConsult(arch)} />
+
+          {/* 5-Step Execution & Onboarding Workflow */}
+          <ProcessTimeline />
+
+          {/* Portfolio & Budget Tiers Catalog */}
+          <PortfolioGallery onSelectProject={(project) => handleOpenConsult({ name: `${project.partnerArchitect} (${project.title})` })} />
+        </main>
+
+        {/* Luxury Corporate Footer */}
+        <Footer onOpenConsult={() => handleOpenConsult()} />
+
+        {/* Lead Capture Modal with Budget Filtering & WhatsApp Flow */}
+        <LeadModal
+          isOpen={isConsultOpen}
+          onClose={handleCloseConsult}
+          preselectedArchitect={selectedArchitect}
+        />
+
+        {/* Direct WhatsApp Concierge Floating Trigger */}
+        <FloatingWhatsApp />
+      </div>
+    </ThemeProvider>
   )
 }
-
-export default App
