@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-serif: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-playfair: "Playfair Display", Georgia, serif;
+  --font-cormorant: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Montserrat", system-ui, -apple-system, sans-serif;
-  --color-gold-300: #f3d889;
+  --color-gold-muted: #C5A059;
   --color-gold-400: #e5c158;
   --color-gold-500: #d4af37;
   --color-gold-600: #aa8c2c;
@@ -25,6 +27,10 @@ body {
 
 .font-serif {
   font-family: var(--font-serif);
+}
+
+.font-playfair {
+  font-family: var(--font-playfair);
 }
 
 .font-sans {
