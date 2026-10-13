@@ -1,155 +1,179 @@
-import { useState } from 'react'
-import { Menu, X, PhoneCall, Sparkles } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Menu, X, Sparkles, MessageCircle, Phone, MapPin } from 'lucide-react'
 import ThemeToggle from './ThemeToggle'
 import { useTheme } from '../hooks/useTheme'
 
 export default function Navbar({ onOpenConsult }) {
   const { isDark } = useTheme()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  // Prevent body scroll when mobile menu drawer is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [menuOpen])
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 backdrop-blur-md border-b ${
-        isDark
-          ? 'bg-neutral-950/80 border-white/10 text-neutral-100'
-          : 'bg-white/85 border-neutral-200/80 text-neutral-900 shadow-sm'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand Logo */}
-        <a href="#" className="flex flex-col group">
-          <div className="flex items-center gap-2">
-            <span className="text-xl sm:text-2xl font-serif tracking-[0.25em] font-bold text-amber-500 uppercase">
-              Lynor
+    <>
+      {/* =========================================================================
+          MINIMALIST HEADER (Strictly required UI elements: Logo, Theme, Hamburger)
+      ========================================================================= */}
+      <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pointer-events-none">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between pointer-events-auto">
+          {/* Lionorca Brand Logo (Top Left) */}
+          <a href="#" className="flex flex-col group select-none">
+            <span className="text-xl sm:text-2xl font-serif tracking-[0.28em] font-medium text-white uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
+              Lionorca
             </span>
-            <span
-              className={`text-xs tracking-[0.3em] uppercase font-light hidden xs:inline ${
-                isDark ? 'text-neutral-400' : 'text-neutral-600'
-              }`}
-            >
+            <span className="text-[8px] sm:text-[9px] tracking-[0.38em] uppercase text-amber-400 font-sans -mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
               Arkitechtures
             </span>
-          </div>
-          <span className="text-[9px] tracking-[0.35em] text-neutral-400 uppercase -mt-1 font-sans">
-            Luxury Turnkey Homes
-          </span>
-        </a>
+          </a>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8 text-xs tracking-[0.2em] uppercase font-medium">
-          <a
-            href="#turnkey"
-            className={`transition-colors hover:text-amber-500 ${
-              isDark ? 'text-neutral-300' : 'text-neutral-700'
-            }`}
-          >
-            Turnkey Advantage
-          </a>
-          <a
-            href="#architects"
-            className={`transition-colors hover:text-amber-500 ${
-              isDark ? 'text-neutral-300' : 'text-neutral-700'
-            }`}
-          >
-            Architects
-          </a>
-          <a
-            href="#process"
-            className={`transition-colors hover:text-amber-500 ${
-              isDark ? 'text-neutral-300' : 'text-neutral-700'
-            }`}
-          >
-            5-Step Process
-          </a>
-          <a
-            href="#portfolio"
-            className={`transition-colors hover:text-amber-500 ${
-              isDark ? 'text-neutral-300' : 'text-neutral-700'
-            }`}
-          >
-            Portfolio
-          </a>
-        </nav>
+          {/* Header Controls (Theme Toggle & Clean Hamburger Menu) */}
+          <div className="flex items-center gap-3">
+            {/* Day / Night Theme Toggle */}
+            <ThemeToggle />
 
-        {/* Right Action Bar */}
-        <div className="flex items-center gap-3 sm:gap-4">
-          {/* Day / Night Theme Switcher */}
-          <ThemeToggle />
-
-          {/* Quick Consult CTA Button */}
-          <button
-            onClick={onOpenConsult}
-            type="button"
-            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-neutral-950 shadow-md hover:shadow-amber-500/20 active:scale-95 cursor-pointer"
-          >
-            <Sparkles size={14} />
-            <span>Consult</span>
-          </button>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            type="button"
-            aria-label="Toggle Navigation Menu"
-            className={`p-2 rounded-lg md:hidden transition-colors ${
-              isDark ? 'text-neutral-200 hover:bg-neutral-800' : 'text-neutral-800 hover:bg-neutral-100'
-            }`}
-          >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div
-          className={`md:hidden border-b px-6 py-6 space-y-4 transition-all duration-300 ${
-            isDark ? 'bg-neutral-950 border-neutral-800 text-neutral-200' : 'bg-white border-neutral-200 text-neutral-900 shadow-xl'
-          }`}
-        >
-          <a
-            href="#turnkey"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block text-sm tracking-wider uppercase font-medium hover:text-amber-500"
-          >
-            Turnkey Advantage
-          </a>
-          <a
-            href="#architects"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block text-sm tracking-wider uppercase font-medium hover:text-amber-500"
-          >
-            Curated Architects
-          </a>
-          <a
-            href="#process"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block text-sm tracking-wider uppercase font-medium hover:text-amber-500"
-          >
-            5-Step Onboarding
-          </a>
-          <a
-            href="#portfolio"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block text-sm tracking-wider uppercase font-medium hover:text-amber-500"
-          >
-            Portfolio
-          </a>
-          <div className="pt-2">
+            {/* Clean Minimalist Hamburger Menu Button */}
             <button
-              onClick={() => {
-                setMobileMenuOpen(false)
-                onOpenConsult()
-              }}
+              onClick={() => setMenuOpen(true)}
               type="button"
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-full text-xs font-semibold tracking-wider uppercase bg-amber-500 text-neutral-950"
+              aria-label="Open Navigation Menu"
+              className="w-10 h-10 rounded-full border border-white/20 bg-black/40 hover:bg-black/60 text-white backdrop-blur-md flex items-center justify-center transition-all duration-300 cursor-pointer active:scale-95 shadow-sm"
             >
-              <Sparkles size={15} />
-              Book Confidential Consultation
+              <Menu size={20} className="stroke-[1.75]" />
             </button>
           </div>
         </div>
+      </header>
+
+      {/* =========================================================================
+          LUXURY FULLSCREEN MENU DRAWER
+      ========================================================================= */}
+      {menuOpen && (
+        <div className="fixed inset-0 z-50 flex flex-col justify-between bg-neutral-950/95 backdrop-blur-xl text-neutral-100 p-6 sm:p-10 animate-in fade-in duration-300">
+          {/* Top Bar inside Menu */}
+          <div className="flex items-center justify-between border-b border-white/10 pb-5">
+            <div className="flex flex-col">
+              <span className="text-xl font-serif tracking-[0.25em] font-medium text-white uppercase">
+                Lionorca
+              </span>
+              <span className="text-[8px] tracking-[0.35em] uppercase text-amber-400 font-sans -mt-0.5">
+                Arkitechtures
+              </span>
+            </div>
+
+            <button
+              onClick={() => setMenuOpen(false)}
+              type="button"
+              aria-label="Close Navigation Menu"
+              className="w-10 h-10 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all cursor-pointer active:scale-95"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          {/* Navigation Links */}
+          <nav className="my-auto py-8 space-y-6 max-w-md mx-auto w-full">
+            <div>
+              <span className="text-[10px] tracking-[0.3em] uppercase text-amber-500 font-sans font-medium block mb-2">
+                01
+              </span>
+              <a
+                href="#turnkey"
+                onClick={() => setMenuOpen(false)}
+                className="text-2xl sm:text-3xl font-serif text-white hover:text-amber-400 transition-colors tracking-wide block"
+              >
+                The Turnkey Advantage
+              </a>
+              <p className="text-xs text-neutral-400 mt-1 font-sans">
+                Single-window accountability vs 50+ vendors.
+              </p>
+            </div>
+
+            <div>
+              <span className="text-[10px] tracking-[0.3em] uppercase text-amber-500 font-sans font-medium block mb-2">
+                02
+              </span>
+              <a
+                href="#architects"
+                onClick={() => setMenuOpen(false)}
+                className="text-2xl sm:text-3xl font-serif text-white hover:text-amber-400 transition-colors tracking-wide block"
+              >
+                Curated Regional Architects
+              </a>
+              <p className="text-xs text-neutral-400 mt-1 font-sans">
+                5 handpicked local masterminds for ₹1Cr+ residences.
+              </p>
+            </div>
+
+            <div>
+              <span className="text-[10px] tracking-[0.3em] uppercase text-amber-500 font-sans font-medium block mb-2">
+                03
+              </span>
+              <a
+                href="#process"
+                onClick={() => setMenuOpen(false)}
+                className="text-2xl sm:text-3xl font-serif text-white hover:text-amber-400 transition-colors tracking-wide block"
+              >
+                5-Step Onboarding
+              </a>
+              <p className="text-xs text-neutral-400 mt-1 font-sans">
+                From discovery to 5% advance & cut-to-cut quotation.
+              </p>
+            </div>
+
+            <div>
+              <span className="text-[10px] tracking-[0.3em] uppercase text-amber-500 font-sans font-medium block mb-2">
+                04
+              </span>
+              <a
+                href="#portfolio"
+                onClick={() => setMenuOpen(false)}
+                className="text-2xl sm:text-3xl font-serif text-white hover:text-amber-400 transition-colors tracking-wide block"
+              >
+                Portfolio Catalog
+              </a>
+              <p className="text-xs text-neutral-400 mt-1 font-sans">
+                Filter by budget tiers and aesthetic styles.
+              </p>
+            </div>
+          </nav>
+
+          {/* Footer inside Drawer */}
+          <div className="border-t border-white/10 pt-6 space-y-4 max-w-md mx-auto w-full">
+            <button
+              onClick={() => {
+                setMenuOpen(false)
+                onOpenConsult()
+              }}
+              type="button"
+              className="w-full py-4 rounded-full text-xs font-semibold tracking-[0.2em] uppercase bg-amber-400 hover:bg-amber-300 text-neutral-950 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95"
+            >
+              <Sparkles size={16} />
+              <span>Schedule Consultation</span>
+            </button>
+
+            <div className="flex items-center justify-between text-[11px] text-neutral-400 font-sans pt-2">
+              <span className="flex items-center gap-1.5">
+                <MapPin size={12} className="text-amber-400" />
+                Indore, MP
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Phone size={12} className="text-amber-400" />
+                Concierge Desk
+              </span>
+            </div>
+          </div>
+        </div>
       )}
-    </header>
+    </>
   )
 }

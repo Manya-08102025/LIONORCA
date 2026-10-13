@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react'
 import { MessageCircle } from 'lucide-react'
 
 export default function FloatingWhatsApp() {
+  const [isVisible, setIsVisible] = useState(false)
   const targetPhone = '919893000000'
   const message = encodeURIComponent(
     'Namaste Lynor Team! I would like to inquire about your turnkey luxury residential services in Indore.'
@@ -8,8 +10,27 @@ export default function FloatingWhatsApp() {
 
   const whatsappUrl = `https://wa.me/${targetPhone}?text=${message}`
 
+  // Only reveal floating WhatsApp after scrolling past the minimalist hero screen
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 350) {
+        setIsVisible(true)
+      } else {
+        setIsVisible(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  if (!isVisible) return null
+
   return (
-    <aside aria-label="WhatsApp Concierge" className="fixed bottom-6 right-6 z-40">
+    <aside
+      aria-label="WhatsApp Concierge"
+      className="fixed bottom-6 right-6 z-40 animate-in fade-in duration-300"
+    >
       <a
         href={whatsappUrl}
         target="_blank"
