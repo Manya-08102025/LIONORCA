@@ -16,13 +16,15 @@ export default function Footer({ onOpenConsult }) {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           {/* Brand Column */}
           <div className="md:col-span-2 space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-serif tracking-[0.25em] font-bold text-amber-500 uppercase">
-                Lynor
-              </span>
-              <span className="text-xs tracking-[0.3em] uppercase text-neutral-300 font-light">
-                Arkitechtures
-              </span>
+            <div className="mb-3">
+              <img
+                src="/images/lionorca-logo-transparent.png"
+                alt="LIONORCA ARCHITERIORS - the complete delivery of luxury"
+                className="h-12 sm:h-14 w-auto object-contain"
+                onError={(e) => {
+                  e.target.src = '/images/lionorca-logo.png'
+                }}
+              />
             </div>
             <p className="text-sm font-sans text-neutral-300 max-w-md font-light leading-relaxed">
               Indore’s premier single-window turnkey aggregator for ₹1Cr+ luxury residential developments. We bridge design brilliance with surgical construction discipline.

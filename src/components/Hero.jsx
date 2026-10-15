@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { useTheme } from '../hooks/useTheme'
-import { Sun, Moon, Menu, X, ChevronLeft, ChevronRight, Sparkles, MapPin, Phone } from 'lucide-react'
+import { Sun, Moon, Menu, X, ChevronLeft, ChevronRight, MapPin, Phone } from 'lucide-react'
 
 const SLIDES = [
   {
     id: 1,
     image: '/images/hero-bg.png',
-    tag: "INDIA'S FIRST LUXURY TURNKEY AGGREGATOR",
     quote: "Introducing India's first all-inclusive turnkey aggregator*",
     description: "the complete delivery of luxury — from spatial blueprints to flawless key handover.",
     ctaText: "CONSULT",
@@ -15,7 +14,6 @@ const SLIDES = [
   {
     id: 2,
     image: '/images/hero-kitchen.jpg',
-    tag: "SINGLE POINT OF ACCOUNTABILITY",
     quote: "Eliminating 50+ vendors. One accountable partner.",
     description: "Where bespoke architecture meets surgical construction precision for ₹1Cr+ residences.",
     ctaText: "THE TURNKEY ADVANTAGE",
@@ -24,7 +22,6 @@ const SLIDES = [
   {
     id: 3,
     image: '/images/hero-bedroom.jpg',
-    tag: "CURATED REGIONAL ARCHITECTS",
     quote: "Home to Indore's most exclusive bespoke interiors.",
     description: "Handpicked regional architects paired with end-to-end execution and locked milestone pricing.",
     ctaText: "EXPLORE ARCHITECTS",
@@ -81,11 +78,9 @@ export default function Hero({ onOpenConsult }) {
 
   const handleTouchEnd = () => {
     if (touchStartX.current - touchEndX.current > 50) {
-      // Swipe left -> Next
       nextSlide()
     }
     if (touchStartX.current - touchEndX.current < -50) {
-      // Swipe right -> Prev
       prevSlide()
     }
   }
@@ -147,26 +142,16 @@ export default function Hero({ onOpenConsult }) {
             - Right: Two Solid Circular Buttons (Dark Mode & Contents)
         ----------------------------------------------------------------------- */}
         <div className="flex justify-between items-center w-full px-5 pt-7 absolute top-0 left-0 z-30">
-          {/* Brand Logo */}
+          {/* Authentic Brand Logo */}
           <a href="#" className="block select-none hover:opacity-95 transition-opacity">
             <img
-              src="/images/logo-transparent.png"
+              src="/images/lionorca-logo-transparent.png"
               alt="LIONORCA ARCHITERIORS - the complete delivery of luxury"
-              className="h-14 sm:h-16 w-auto max-w-[210px] sm:max-w-[240px] object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]"
+              className="h-12 sm:h-14 w-auto max-w-[210px] sm:max-w-[230px] object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]"
               onError={(e) => {
-                e.target.style.display = 'none'
-                const fallback = document.getElementById('logo-text-fallback')
-                if (fallback) fallback.style.display = 'flex'
+                e.target.src = '/images/lionorca-logo.png'
               }}
             />
-            <div id="logo-text-fallback" className="hidden flex-col">
-              <span className="font-serif text-2xl tracking-[0.22em] font-medium text-[#D2A337] uppercase leading-none">
-                LIONORCA
-              </span>
-              <span className="font-sans text-[7.5px] tracking-[0.38em] uppercase text-white/80 mt-1">
-                ARCHITERIORS
-              </span>
-            </div>
           </a>
 
           {/* Right Side Controls */}
@@ -201,49 +186,49 @@ export default function Hero({ onOpenConsult }) {
 
         {/* -----------------------------------------------------------------------
             LEFT & RIGHT SLIDER NAVIGATION ARROWS
+            - Placed at the extreme screen edges (left-2 / right-2)
+            - Vertically centered
+            - Styled with clean glassmorphic circles
         ----------------------------------------------------------------------- */}
         <button
           onClick={prevSlide}
           type="button"
           aria-label="Previous Slide"
-          className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur-md text-white flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-md border border-white/20"
+          className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 hover:bg-white/35 backdrop-blur-md text-white flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-md border border-white/25"
         >
-          <ChevronLeft size={20} className="stroke-[2]" />
+          <ChevronLeft size={20} className="stroke-[2.2]" />
         </button>
 
         <button
           onClick={nextSlide}
           type="button"
           aria-label="Next Slide"
-          className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur-md text-white flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-md border border-white/20"
+          className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 hover:bg-white/35 backdrop-blur-md text-white flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-md border border-white/25"
         >
-          <ChevronRight size={20} className="stroke-[2]" />
+          <ChevronRight size={20} className="stroke-[2.2]" />
         </button>
 
         {/* -----------------------------------------------------------------------
             2. MAIN TYPOGRAPHY / QUOTE CONTENT (Center Area)
+            - Generous horizontal padding (px-14 sm:px-16) to ensure zero overlap with arrows
+            - Yellow capsule removed
+            - High-contrast, elegant serif headline and sub-quote
         ----------------------------------------------------------------------- */}
-        <div className="absolute top-[42%] -translate-y-1/2 left-0 w-full px-7 sm:px-8 z-20 text-left">
+        <div className="absolute top-[44%] -translate-y-1/2 left-0 w-full px-14 sm:px-16 z-20 text-left">
           {SLIDES.map((slide, index) => {
             if (index !== currentSlide) return null
             return (
               <div
                 key={slide.id}
-                className="animate-in fade-in slide-in-from-bottom-3 duration-500 flex flex-col items-start"
+                className="animate-in fade-in slide-in-from-bottom-2 duration-400 flex flex-col items-start"
               >
-                {/* Pill Tag */}
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full mb-3 bg-black/40 border border-[#D2A337]/40 text-[#D2A337] text-[10px] font-sans tracking-[0.25em] uppercase backdrop-blur-md">
-                  <Sparkles size={11} />
-                  <span>{slide.tag}</span>
-                </div>
-
-                {/* Primary Quote / Tagline */}
-                <h1 className="font-serif text-3xl xs:text-4xl sm:text-[42px] font-normal text-white text-left leading-[1.18] tracking-tight drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] mb-3">
+                {/* Primary Quote / Tagline (No yellow capsule above) */}
+                <h1 className="font-serif text-2xl xs:text-3xl sm:text-[34px] font-normal text-white text-left leading-[1.2] tracking-tight drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] mb-3">
                   {slide.quote}
                 </h1>
 
                 {/* Subtitle / Definition */}
-                <p className="font-sans text-xs sm:text-sm text-neutral-300 font-light leading-relaxed max-w-sm drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)]">
+                <p className="font-sans text-xs sm:text-sm text-neutral-300 font-light leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)]">
                   {slide.description}
                 </p>
               </div>
@@ -300,14 +285,16 @@ export default function Hero({ onOpenConsult }) {
         <div className="fixed inset-0 z-50 flex flex-col justify-between bg-neutral-950/95 backdrop-blur-2xl text-neutral-100 p-6 sm:p-10 animate-in fade-in duration-300">
           {/* Top Bar inside Contents Drawer */}
           <div className="flex items-center justify-between border-b border-white/10 pb-5 max-w-md mx-auto w-full">
-            <div className="flex flex-col">
-              <span className="text-xl font-serif tracking-[0.25em] font-medium text-[#D2A337] uppercase">
-                LIONORCA
-              </span>
-              <span className="text-[8px] tracking-[0.38em] uppercase text-white/80 font-sans -mt-0.5">
-                ARCHITERIORS • CONTENTS
-              </span>
-            </div>
+            <a href="#" className="block select-none">
+              <img
+                src="/images/lionorca-logo-transparent.png"
+                alt="LIONORCA ARCHITERIORS"
+                className="h-10 sm:h-12 w-auto object-contain"
+                onError={(e) => {
+                  e.target.src = '/images/lionorca-logo.png'
+                }}
+              />
+            </a>
 
             <button
               onClick={() => setMenuOpen(false)}
@@ -396,7 +383,6 @@ export default function Hero({ onOpenConsult }) {
               type="button"
               className="w-full py-4 rounded-full text-xs font-semibold tracking-[0.2em] uppercase bg-[#D2A337] hover:bg-[#c2932b] text-neutral-950 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95"
             >
-              <Sparkles size={16} />
               <span>Schedule Consultation</span>
             </button>
 

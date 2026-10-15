@@ -51,14 +51,16 @@ export default function Navbar({ onOpenConsult }) {
         }`}
       >
         <div className="max-w-md sm:max-w-lg md:max-w-xl mx-auto px-6 h-16 flex items-center justify-between">
-          {/* Lionorca Brand Logo */}
-          <a href="#" className="flex flex-col select-none">
-            <span className="text-lg font-serif tracking-[0.25em] font-medium uppercase">
-              LIONORCA
-            </span>
-            <span className="text-[7px] tracking-[0.35em] uppercase text-[#C5A059] font-sans -mt-0.5">
-              ARKITECHTURES
-            </span>
+          {/* Authentic Lionorca Brand Logo */}
+          <a href="#" className="block select-none hover:opacity-95 transition-opacity">
+            <img
+              src="/images/lionorca-logo-transparent.png"
+              alt="LIONORCA ARCHITERIORS"
+              className="h-10 sm:h-11 w-auto max-w-[180px] object-contain drop-shadow-sm"
+              onError={(e) => {
+                e.target.src = '/images/lionorca-logo.png'
+              }}
+            />
           </a>
 
           {/* Header Controls */}
@@ -83,14 +85,16 @@ export default function Navbar({ onOpenConsult }) {
       {menuOpen && (
         <div className="fixed inset-0 z-50 flex flex-col justify-between bg-neutral-950/95 backdrop-blur-2xl text-neutral-100 p-6 sm:p-10 animate-in fade-in duration-300">
           <div className="flex items-center justify-between border-b border-white/10 pb-5 max-w-md mx-auto w-full">
-            <div className="flex flex-col">
-              <span className="text-xl font-serif tracking-[0.25em] font-medium text-white uppercase">
-                LIONORCA
-              </span>
-              <span className="text-[8px] tracking-[0.38em] uppercase text-[#C5A059] font-sans -mt-0.5">
-                ARKITECHTURES
-              </span>
-            </div>
+            <a href="#" className="block select-none">
+              <img
+                src="/images/lionorca-logo-transparent.png"
+                alt="LIONORCA ARCHITERIORS"
+                className="h-10 sm:h-12 w-auto object-contain"
+                onError={(e) => {
+                  e.target.src = '/images/lionorca-logo.png'
+                }}
+              />
+            </a>
 
             <button
               onClick={() => setMenuOpen(false)}
