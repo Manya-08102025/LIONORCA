@@ -1,74 +1,42 @@
-import { useState } from 'react'
 import { useTheme } from '../hooks/useTheme'
-import { Eye, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, ImagePlus } from 'lucide-react'
 
-const PROJECTS = [
+// 3 Blank Project Slots ready for Akshay's actual photographs
+const PLACEHOLDER_PROJECTS = [
   {
     id: 1,
-    title: 'The Courtyard Villa',
-    location: 'Nipania, Indore',
+    title: 'Signature Turnkey Villa 01',
+    location: 'Indore, MP',
     tier: '₹1Cr+ Signature',
-    turnkeyBudget: '₹1.85 Cr Turnkey',
-    style: 'Minimalist Biophilic',
-    partnerArchitect: 'Atelier Vistara',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-    area: '4,200 sq. ft.',
+    turnkeyBudget: '₹1Cr+ Turnkey',
+    style: 'Bespoke Modern',
+    partnerArchitect: 'Architect Partner 01',
+    area: '4,000+ sq. ft.',
   },
   {
     id: 2,
-    title: 'Skyline Monolith',
-    location: 'Super Corridor, Indore',
+    title: 'Signature Turnkey Villa 02',
+    location: 'Indore, MP',
     tier: '₹1Cr+ Signature',
-    turnkeyBudget: '₹2.40 Cr Turnkey',
-    style: 'Contemporary Monolithic',
-    partnerArchitect: 'Sthapatya Studio',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
-    area: '5,600 sq. ft.',
+    turnkeyBudget: '₹1Cr+ Turnkey',
+    style: 'Contemporary Minimalist',
+    partnerArchitect: 'Architect Partner 02',
+    area: '5,000+ sq. ft.',
   },
   {
     id: 3,
-    title: 'The Sandstone Manor',
-    location: 'Bypass Road, Indore',
+    title: 'Signature Turnkey Villa 03',
+    location: 'Indore, MP',
     tier: '₹1Cr+ Signature',
-    turnkeyBudget: '₹3.10 Cr Turnkey',
-    style: 'Modern Haveli',
-    partnerArchitect: 'Virasat Design Atelier',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
-    area: '6,800 sq. ft.',
-  },
-  {
-    id: 4,
-    title: 'Zenith Pavilion',
-    location: 'Mahalakshmi Nagar, Indore',
-    tier: '₹75L–₹1Cr',
-    turnkeyBudget: '₹95 Lakhs Turnkey',
-    style: 'Japandi Luxury',
-    partnerArchitect: 'Studio Kanso',
-    image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80',
-    area: '3,100 sq. ft.',
-  },
-  {
-    id: 5,
-    title: 'Terra Verve Eco-Villa',
-    location: 'Rau, Indore',
-    tier: '₹50L–₹75L',
-    turnkeyBudget: '₹68 Lakhs Turnkey',
-    style: 'Sustainable Tropical',
-    partnerArchitect: 'Aakar Urban Concepts',
-    image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80',
-    area: '2,600 sq. ft.',
+    turnkeyBudget: '₹1Cr+ Turnkey',
+    style: 'Heritage Estate',
+    partnerArchitect: 'Architect Partner 03',
+    area: '6,000+ sq. ft.',
   },
 ]
 
 export default function PortfolioGallery({ onSelectProject }) {
   const { isDark } = useTheme()
-  const [activeTier, setActiveTier] = useState('All')
-
-  const tiers = ['All', '₹1Cr+ Signature', '₹75L–₹1Cr', '₹50L–₹75L']
-
-  const filtered = activeTier === 'All'
-    ? PROJECTS
-    : PROJECTS.filter((p) => p.tier === activeTier)
 
   return (
     <section
@@ -90,33 +58,13 @@ export default function PortfolioGallery({ onSelectProject }) {
           <p className={`mt-4 md:mt-0 max-w-md text-sm font-light font-sans ${
             isDark ? 'text-neutral-400' : 'text-neutral-600'
           }`}>
-            Explore our curated residential commissions across Indore. All figures represent all-inclusive turnkey execution costs.
+            Explore our curated residential commissions across Indore. Spaces reserved for verified project photography.
           </p>
         </div>
 
-        {/* Tier Filter Tabs */}
-        <div className="flex items-center gap-3 overflow-x-auto pb-4 mb-10 no-scrollbar">
-          {tiers.map((tier) => (
-            <button
-              key={tier}
-              onClick={() => setActiveTier(tier)}
-              type="button"
-              className={`px-5 py-2.5 rounded-full text-xs font-sans tracking-wider whitespace-nowrap transition-all cursor-pointer ${
-                activeTier === tier
-                  ? 'bg-amber-500 text-neutral-950 font-bold shadow-md'
-                  : isDark
-                  ? 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
-                  : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
-              }`}
-            >
-              {tier}
-            </button>
-          ))}
-        </div>
-
-        {/* Projects Grid */}
+        {/* Projects Grid with Clean Blank Image Boxes */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filtered.map((item) => (
+          {PLACEHOLDER_PROJECTS.map((item) => (
             <div
               key={item.id}
               className={`group rounded-2xl overflow-hidden border transition-all duration-300 flex flex-col justify-between ${
@@ -125,30 +73,37 @@ export default function PortfolioGallery({ onSelectProject }) {
                   : 'bg-stone-50 border-neutral-200 hover:border-amber-500/40 hover:shadow-lg'
               }`}
             >
-              <div className="relative h-72 overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+              {/* Clean Blank Box for Project Photograph */}
+              <div
+                className={`relative h-64 flex flex-col items-center justify-center border-b transition-colors ${
+                  isDark
+                    ? 'bg-neutral-950/80 border-white/10 text-neutral-500'
+                    : 'bg-neutral-100 border-neutral-200 text-neutral-400'
+                }`}
+              >
+                <div className="w-16 h-16 rounded-2xl border border-dashed border-current flex items-center justify-center mb-2 opacity-60">
+                  <ImagePlus size={26} className="opacity-70" />
+                </div>
+                <span className="text-[11px] font-sans tracking-widest uppercase font-medium opacity-60">
+                  Project Photo Slot
+                </span>
 
-                <div className="absolute top-4 left-4 px-3 py-1 rounded-full text-[11px] font-sans tracking-wider uppercase bg-black/60 backdrop-blur-md text-amber-300 border border-white/10">
+                <div className="absolute top-4 left-4 px-3 py-1 rounded-full text-[11px] font-sans tracking-wider uppercase bg-black/40 backdrop-blur-md text-amber-300 border border-white/10">
                   {item.tier}
                 </div>
+              </div>
 
-                <div className="absolute bottom-4 left-4 right-4 text-white">
-                  <span className="text-[10px] uppercase tracking-widest text-neutral-300 font-sans block">
+              {/* Card Details */}
+              <div className="p-6">
+                <div className="mb-4">
+                  <span className="text-[10px] uppercase tracking-widest text-neutral-400 font-sans block mb-1">
                     {item.location} • {item.area}
                   </span>
                   <div className="font-serif text-lg font-bold">
                     {item.title}
                   </div>
                 </div>
-              </div>
 
-              <div className="p-6">
                 <div className="flex items-center justify-between text-xs mb-3">
                   <span className="text-neutral-400 font-sans">Lead Architect</span>
                   <span className="font-medium text-amber-400">{item.partnerArchitect}</span>

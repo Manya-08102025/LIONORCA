@@ -37,15 +37,14 @@ export default function App() {
           {/* Turnkey Advantage & Complexity Management */}
           <ValueProposition />
 
+          {/* Curated Regional Architects Showcase (Blank Photo Slots for Akshay's Photos) */}
+          <ArchitectShowcase onSelectArchitect={(arch) => handleOpenConsult(arch)} />
+
           {/* 5-Step Execution & Onboarding Workflow */}
           <ProcessTimeline />
 
-          {/* 
-            Note: The following two sections are intentionally left blank / pending 
-            for verified project photographs and architect rosters from Akshay (Client):
-            - <ArchitectShowcase onSelectArchitect={(arch) => handleOpenConsult(arch)} />
-            - <PortfolioGallery onSelectProject={(project) => handleOpenConsult(project)} />
-          */}
+          {/* Portfolio & Budget Tiers Catalog (Blank Photo Slots for Akshay's Photos) */}
+          <PortfolioGallery onSelectProject={(project) => handleOpenConsult({ name: `${project.partnerArchitect} (${project.title})` })} />
         </main>
 
         {/* Luxury Corporate Footer */}
