@@ -128,22 +128,6 @@ export default function Navbar({ onOpenConsult }) {
                 02
               </span>
               <a
-                href="#architects"
-                onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#C5A059] transition-colors tracking-wide block"
-              >
-                Curated Regional Architects
-              </a>
-              <p className="text-xs text-neutral-400 mt-1 font-sans">
-                Handpicked local masterminds for ₹1Cr+ residences.
-              </p>
-            </div>
-
-            <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A059] font-sans font-medium block mb-2">
-                03
-              </span>
-              <a
                 href="#process"
                 onClick={() => setMenuOpen(false)}
                 className="text-2xl sm:text-3xl font-serif text-white hover:text-[#C5A059] transition-colors tracking-wide block"
@@ -157,17 +141,17 @@ export default function Navbar({ onOpenConsult }) {
 
             <div>
               <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A059] font-sans font-medium block mb-2">
-                04
+                03
               </span>
               <a
-                href="#portfolio"
+                href="#architects"
                 onClick={() => setMenuOpen(false)}
                 className="text-2xl sm:text-3xl font-serif text-white hover:text-[#C5A059] transition-colors tracking-wide block"
               >
-                Portfolio & Budget Tiers
+                Top Architects & Their Work
               </a>
               <p className="text-xs text-neutral-400 mt-1 font-sans">
-                Filter by budget tiers and aesthetic styles.
+                Indore's leading architectural minds and their signature creations.
               </p>
             </div>
           </nav>

@@ -5,7 +5,6 @@ import Hero from './components/Hero'
 import ValueProposition from './components/ValueProposition'
 import ArchitectShowcase from './components/ArchitectShowcase'
 import ProcessTimeline from './components/ProcessTimeline'
-import PortfolioGallery from './components/PortfolioGallery'
 import Footer from './components/Footer'
 import LeadModal from './components/LeadModal'
 import FloatingWhatsApp from './components/FloatingWhatsApp'
@@ -32,19 +31,17 @@ export default function App() {
 
         {/* Main Content Sections */}
         <main className="flex-1">
+          {/* Page 1: Hero Section */}
           <Hero onOpenConsult={() => handleOpenConsult()} />
 
-          {/* Turnkey Advantage & Complexity Management */}
+          {/* Page 2: Turnkey Advantage */}
           <ValueProposition />
 
-          {/* Curated Regional Architects Showcase (Blank Photo Slots for Akshay's Photos) */}
-          <ArchitectShowcase onSelectArchitect={(arch) => handleOpenConsult(arch)} />
-
-          {/* 5-Step Execution & Onboarding Workflow */}
+          {/* Page 3: 5-Step Simple Workflow */}
           <ProcessTimeline />
 
-          {/* Portfolio & Budget Tiers Catalog (Blank Photo Slots for Akshay's Photos) */}
-          <PortfolioGallery onSelectProject={(project) => handleOpenConsult({ name: `${project.partnerArchitect} (${project.title})` })} />
+          {/* Page 4: Top Architects & Their Work (Replaces Portfolio & Budget Tiers) */}
+          <ArchitectShowcase onSelectArchitect={(arch) => handleOpenConsult(arch)} />
         </main>
 
         {/* Luxury Corporate Footer */}

@@ -6,15 +6,15 @@ const SLIDES = [
   {
     id: 1,
     image: '/images/hero-bg.png',
-    quote: "Introducing India's first all-inclusive turnkey aggregator*",
-    description: "the complete delivery of luxury — from spatial blueprints to flawless key handover.",
+    quote: "The Complete Delivery of Luxury.",
+    description: "India's first all-inclusive turnkey aggregator — from architectural blueprints to flawless key handover.",
     ctaText: "CONSULT",
     action: "consult",
   },
   {
     id: 2,
     image: '/images/hero-kitchen.jpg',
-    quote: "Eliminating 50+ vendors. One accountable partner.",
+    quote: "One Accountable Partner. Zero Stress.",
     description: "Where bespoke architecture meets surgical construction precision for ₹1Cr+ residences.",
     ctaText: "THE TURNKEY ADVANTAGE",
     action: "turnkey",
@@ -22,8 +22,8 @@ const SLIDES = [
   {
     id: 3,
     image: '/images/hero-bedroom.jpg',
-    quote: "Home to Indore's most exclusive bespoke interiors.",
-    description: "Handpicked regional architects paired with end-to-end execution and locked milestone pricing.",
+    quote: "Indore's Finest Homes, Crafted Turnkey.",
+    description: "Top regional architects paired with end-to-end execution and locked milestone pricing.",
     ctaText: "CONSULT WITH US",
     action: "consult",
   },
@@ -222,13 +222,20 @@ export default function Hero({ onOpenConsult }) {
                 key={slide.id}
                 className="animate-in fade-in slide-in-from-bottom-2 duration-400 flex flex-col items-start"
               >
-                {/* Primary Quote / Tagline (No yellow capsule above) */}
-                <h1 className="font-serif text-2xl xs:text-3xl sm:text-[34px] font-normal text-white text-left leading-[1.2] tracking-tight drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] mb-3">
-                  {slide.quote}
+                {/* Primary Quote / Tagline */}
+                <h1 className="font-serif text-3xl xs:text-4xl sm:text-[42px] font-normal text-white text-left leading-[1.15] tracking-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] mb-3.5">
+                  {index === 0 ? (
+                    <>
+                      The Complete Delivery of{' '}
+                      <span className="text-[#D2A337] italic font-normal">Luxury.</span>
+                    </>
+                  ) : (
+                    slide.quote
+                  )}
                 </h1>
 
                 {/* Subtitle / Definition */}
-                <p className="font-sans text-xs sm:text-sm text-neutral-300 font-light leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)]">
+                <p className="font-sans text-xs sm:text-sm text-neutral-300 font-light leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)] max-w-sm">
                   {slide.description}
                 </p>
               </div>
@@ -329,14 +336,14 @@ export default function Hero({ onOpenConsult }) {
                 02
               </span>
               <a
-                href="#architects"
+                href="#process"
                 onClick={() => setMenuOpen(false)}
                 className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D2A337] transition-colors tracking-wide block"
               >
-                Curated Regional Architects
+                How It Works (5 Steps)
               </a>
               <p className="text-xs text-neutral-400 mt-1 font-sans">
-                Handpicked local masterminds for ₹1Cr+ residences.
+                From your first chat to unlocking your finished home.
               </p>
             </div>
 
@@ -345,30 +352,14 @@ export default function Hero({ onOpenConsult }) {
                 03
               </span>
               <a
-                href="#process"
+                href="#architects"
                 onClick={() => setMenuOpen(false)}
                 className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D2A337] transition-colors tracking-wide block"
               >
-                5-Step Onboarding Process
+                Top Architects & Their Work
               </a>
               <p className="text-xs text-neutral-400 mt-1 font-sans">
-                Discovery, matchmaking, 5% advance & cut-to-cut quotation.
-              </p>
-            </div>
-
-            <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D2A337] font-sans font-medium block mb-1">
-                04
-              </span>
-              <a
-                href="#portfolio"
-                onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D2A337] transition-colors tracking-wide block"
-              >
-                Portfolio & Budget Tiers
-              </a>
-              <p className="text-xs text-neutral-400 mt-1 font-sans">
-                Filter by budget tiers and aesthetic styles.
+                Indore's leading architectural minds and their signature creations.
               </p>
             </div>
           </nav>

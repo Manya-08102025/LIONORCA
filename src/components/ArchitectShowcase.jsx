@@ -1,35 +1,55 @@
-import { useState } from 'react'
 import { useTheme } from '../hooks/useTheme'
-import { MapPin, ArrowUpRight, ImagePlus } from 'lucide-react'
+import { MapPin, ArrowUpRight, ImagePlus, User, Sparkles } from 'lucide-react'
 
-// 3 Curated Architect Placeholder Slots ready for Akshay's actual photographs & details
-const PLACEHOLDER_ARCHITECTS = [
+// Top Architects Roster with dedicated slots for Architect Portraits & Their Work
+const TOP_ARCHITECTS = [
   {
     id: 'arch-1',
     name: 'Atelier Partner 01',
+    role: 'Lead Architect',
     city: 'Indore, MP',
-    style: 'Warm Minimalism & Biophilic',
-    signatureProject: 'Turnkey Commission — Slot 01',
+    style: 'Modern Minimalist & Biophilic',
+    experience: '15+ Years • 25+ Completed Homes',
     turnkeyRange: '₹1Cr+ Turnkey',
-    description: 'Reserved slot for official architectural firm profile and project photography.',
+    description:
+      'Known for open green courtyards, abundant natural light, and clean modern aesthetics.',
+    works: [
+      { id: 'w1', title: 'Living & Courtyard' },
+      { id: 'w2', title: 'Villa Facade' },
+      { id: 'w3', title: 'Master Bedroom' },
+    ],
   },
   {
     id: 'arch-2',
     name: 'Atelier Partner 02',
+    role: 'Principal Architect',
     city: 'Indore, MP',
-    style: 'Contemporary Monolithic',
-    signatureProject: 'Turnkey Commission — Slot 02',
-    turnkeyRange: '₹1Cr+ Turnkey',
-    description: 'Reserved slot for official architectural firm profile and project photography.',
+    style: 'Contemporary Monolithic & Stone',
+    experience: '12+ Years • 18+ Luxury Residences',
+    turnkeyRange: '₹1.5Cr+ Turnkey',
+    description:
+      'Renowned for double-height glass lounges, bold natural stone facades, and Italian marble finishes.',
+    works: [
+      { id: 'w1', title: 'Stone Facade' },
+      { id: 'w2', title: 'Double Lounge' },
+      { id: 'w3', title: 'Dining Pavilion' },
+    ],
   },
   {
     id: 'arch-3',
     name: 'Atelier Partner 03',
+    role: 'Heritage & Estate Designer',
     city: 'Indore, MP',
-    style: 'Modern Luxury & Heritage',
-    signatureProject: 'Turnkey Commission — Slot 03',
-    turnkeyRange: '₹1Cr+ Turnkey',
-    description: 'Reserved slot for official architectural firm profile and project photography.',
+    style: 'Royal Heritage & Classical Haveli',
+    experience: '20+ Years • 30+ Landmark Estates',
+    turnkeyRange: '₹2Cr+ Turnkey',
+    description:
+      'Masters of handcrafted stone arches, carved teak wood ceilings, and timeless royal Indian luxury.',
+    works: [
+      { id: 'w1', title: 'Heritage Archway' },
+      { id: 'w2', title: 'Teak Wood Interiors' },
+      { id: 'w3', title: 'Courtyard Pool' },
+    ],
   },
 ]
 
@@ -39,100 +59,139 @@ export default function ArchitectShowcase({ onSelectArchitect }) {
   return (
     <section
       id="architects"
-      className={`py-24 transition-colors duration-500 border-t ${
-        isDark ? 'bg-neutral-900/50 border-white/5 text-neutral-100' : 'bg-white border-neutral-200 text-neutral-900'
+      className={`py-20 sm:py-24 transition-colors duration-500 border-t ${
+        isDark ? 'bg-neutral-950 border-white/5 text-neutral-100' : 'bg-stone-50 border-neutral-200 text-neutral-900'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-          <div>
-            <span className="text-xs font-sans tracking-[0.3em] uppercase text-amber-500 font-semibold block mb-3">
-              Curated Roster
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold tracking-tight">
-              Handpicked Regional Architects
-            </h2>
-          </div>
-          <p className={`mt-4 md:mt-0 max-w-md text-sm font-light font-sans ${
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <span className="text-xs font-soft tracking-[0.25em] uppercase text-amber-500 font-semibold block mb-3">
+            Top Architects & Creators
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-soft font-bold tracking-tight mb-4">
+            Top Architects & Their Work
+          </h2>
+          <p className={`text-base sm:text-lg font-soft font-normal leading-relaxed ${
             isDark ? 'text-neutral-400' : 'text-neutral-600'
           }`}>
-            Collaborating with Indore’s leading design minds. Space reserved for verified architectural partner photography.
+            We partner with Indore’s finest architectural minds. Below are their profiles and signature project slots, ready for their actual photos and completed work.
           </p>
         </div>
 
-        {/* Architect Cards Grid - Blank Placeholder Boxes */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {PLACEHOLDER_ARCHITECTS.map((architect) => (
+        {/* Architect Cards Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {TOP_ARCHITECTS.map((architect) => (
             <div
               key={architect.id}
-              className={`group rounded-2xl overflow-hidden border transition-all duration-300 flex flex-col justify-between ${
+              className={`rounded-3xl border p-6 transition-all duration-300 flex flex-col justify-between ${
                 isDark
-                  ? 'bg-neutral-900 border-white/10 hover:border-amber-500/40'
-                  : 'bg-stone-50 border-neutral-200 hover:border-amber-500/40 hover:shadow-lg'
+                  ? 'bg-neutral-900/80 border-white/10 hover:border-amber-500/40'
+                  : 'bg-white border-neutral-200 hover:border-amber-500/40 hover:shadow-xl'
               }`}
             >
-              {/* Clean Blank Box for Image Placement */}
-              <div
-                className={`relative h-64 flex flex-col items-center justify-center border-b transition-colors ${
-                  isDark
-                    ? 'bg-neutral-950/80 border-white/10 text-neutral-500'
-                    : 'bg-neutral-100 border-neutral-200 text-neutral-400'
-                }`}
-              >
-                {/* Subtle border outline inside */}
-                <div className="w-16 h-16 rounded-2xl border border-dashed border-current flex items-center justify-center mb-2 opacity-60">
-                  <ImagePlus size={26} className="opacity-70" />
-                </div>
-                <span className="text-[11px] font-sans tracking-widest uppercase font-medium opacity-60">
-                  Photo Slot
-                </span>
+              <div>
+                {/* 1. Architect Profile Header (Photo Slot + Details) */}
+                <div className="flex items-start gap-4 mb-6">
+                  {/* Architect Picture Slot */}
+                  <div
+                    className={`w-24 h-28 sm:w-28 sm:h-32 rounded-2xl border-2 border-dashed flex flex-col items-center justify-center shrink-0 relative transition-colors ${
+                      isDark
+                        ? 'bg-neutral-950 border-white/20 text-neutral-400'
+                        : 'bg-stone-100 border-neutral-300 text-neutral-500'
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center mb-1.5">
+                      <User size={20} />
+                    </div>
+                    <span className="text-[10px] font-soft font-medium uppercase tracking-wider text-center px-1">
+                      Architect Photo
+                    </span>
+                  </div>
 
-                {/* City badge */}
-                <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-sans tracking-wider uppercase bg-black/40 backdrop-blur-md text-amber-300 border border-white/10">
-                  <MapPin size={12} />
-                  <span>{architect.city}</span>
+                  {/* Architect Info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-soft font-semibold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-2">
+                      <Sparkles size={10} />
+                      <span>{architect.style}</span>
+                    </div>
+
+                    <h3 className={`text-lg sm:text-xl font-soft font-bold truncate ${
+                      isDark ? 'text-white' : 'text-neutral-900'
+                    }`}>
+                      {architect.name}
+                    </h3>
+
+                    <div className="text-xs font-soft text-neutral-400 mt-0.5 mb-1.5">
+                      {architect.role} • {architect.city}
+                    </div>
+
+                    <div className="text-[11px] font-soft font-medium text-amber-400/90">
+                      {architect.experience}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Short Description */}
+                <p className={`text-xs sm:text-[13px] font-soft leading-relaxed mb-6 ${
+                  isDark ? 'text-neutral-400' : 'text-neutral-600'
+                }`}>
+                  {architect.description}
+                </p>
+
+                {/* 2. "Their Work" Section (3 Photo Boxes) */}
+                <div className="mb-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-soft font-bold uppercase tracking-wider text-amber-500">
+                      Their Work & Projects
+                    </span>
+                    <span className="text-[10px] font-soft text-neutral-400">
+                      3 Project Slots
+                    </span>
+                  </div>
+
+                  {/* 3 Photo Boxes Grid */}
+                  <div className="grid grid-cols-3 gap-2.5">
+                    {architect.works.map((work) => (
+                      <div
+                        key={work.id}
+                        className={`aspect-[4/3] rounded-xl border border-dashed flex flex-col items-center justify-center p-2 text-center transition-colors ${
+                          isDark
+                            ? 'bg-neutral-950/70 border-white/15 text-neutral-400 hover:border-amber-500/40'
+                            : 'bg-stone-100 border-neutral-300 text-neutral-500 hover:border-amber-500/40'
+                        }`}
+                      >
+                        <ImagePlus size={18} className="text-amber-500/80 mb-1 shrink-0" />
+                        <span className="text-[10px] font-soft font-medium line-clamp-1 leading-tight">
+                          {work.title}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              {/* Card Body */}
-              <div className="p-6 flex-1 flex flex-col justify-between">
+              {/* 3. Card Footer (Budget Scope & Consult Action) */}
+              <div className={`pt-4 border-t flex items-center justify-between ${
+                isDark ? 'border-white/10' : 'border-neutral-200'
+              }`}>
                 <div>
-                  <h3 className="text-xl font-serif font-bold group-hover:text-amber-500 transition-colors mb-2">
-                    {architect.name}
-                  </h3>
-
-                  <div className="text-xs font-sans text-amber-500/90 mb-3 font-medium tracking-wide">
-                    {architect.style}
-                  </div>
-
-                  <p className={`text-xs font-sans leading-relaxed mb-6 ${
-                    isDark ? 'text-neutral-400' : 'text-neutral-600'
-                  }`}>
-                    {architect.description}
-                  </p>
+                  <span className="text-[10px] uppercase tracking-wider text-neutral-400 block font-soft font-medium">
+                    Turnkey Scope
+                  </span>
+                  <span className="text-sm font-soft font-bold text-amber-500">
+                    {architect.turnkeyRange}
+                  </span>
                 </div>
 
-                {/* Footer details & Action */}
-                <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] uppercase tracking-wider text-neutral-400 block font-sans">
-                      Turnkey Budget Scope
-                    </span>
-                    <span className="text-sm font-semibold font-serif text-amber-400">
-                      {architect.turnkeyRange}
-                    </span>
-                  </div>
-
-                  <button
-                    onClick={() => onSelectArchitect(architect)}
-                    type="button"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all bg-amber-500/10 hover:bg-amber-500 text-amber-500 hover:text-neutral-950 border border-amber-500/30 cursor-pointer"
-                  >
-                    <span>Consult</span>
-                    <ArrowUpRight size={14} />
-                  </button>
-                </div>
+                <button
+                  onClick={() => onSelectArchitect(architect)}
+                  type="button"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-soft font-semibold uppercase tracking-wider transition-all bg-amber-500 text-neutral-950 hover:bg-amber-400 cursor-pointer shadow-sm active:scale-95"
+                >
+                  <span>Consult</span>
+                  <ArrowUpRight size={14} />
+                </button>
               </div>
             </div>
           ))}
