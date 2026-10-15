@@ -320,7 +320,7 @@ export default function Hero({ onOpenConsult }) {
                 The Turnkey Advantage.
               </a>
               <p className="text-xs text-neutral-400 mt-1 font-sans">
-                Single-window accountability vs 50+ vendors.
+                One dedicated team for your complete home — zero stress.
               </p>
             </div>
 

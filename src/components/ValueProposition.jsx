@@ -2,21 +2,21 @@ export default function ValueProposition() {
   const points = [
     {
       id: 1,
-      title: 'Single Point of Contact',
+      title: 'One Team for Everything',
       description:
-        'We manage the entire lifecycle—from spatial planning and 3D visualization to final construction.',
+        'You don’t have to chase separate architects, contractors, or painters. We take care of everything from the first design sketch to the final brick.',
     },
     {
       id: 2,
-      title: 'Bespoke Craftsmanship',
+      title: 'What You See Is What We Build',
       description:
-        'We source premium materials and manage elite artisans to ensure the physical execution perfectly matches the 3D render.',
+        'We select high-quality materials and skilled craftsmen so your real home looks exactly like the 3D design you approved.',
     },
     {
       id: 3,
-      title: 'Move-In Ready Delivery',
+      title: 'Ready to Move In',
       description:
-        'We handle the heavy lifting, the interior styling, and the final cleaning. You simply turn the key and walk into a finished masterpiece.',
+        'We handle all the heavy construction, interior styling, and deep cleaning. All you have to do is turn the key and start living in your new home.',
     },
   ]
 
@@ -42,10 +42,10 @@ export default function ValueProposition() {
         <div className="space-y-10 sm:space-y-12 w-full">
           {points.map((point) => (
             <div key={point.id} className="flex flex-col items-start text-left space-y-2.5">
-              <h3 className="font-sans font-bold text-white text-base sm:text-lg tracking-wide">
+              <h3 className="font-soft font-bold text-white text-base sm:text-lg tracking-wide">
                 {point.title}
               </h3>
-              <p className="font-sans text-neutral-300 text-sm sm:text-[15px] font-light leading-relaxed">
+              <p className="font-soft text-neutral-300 text-sm sm:text-[15px] font-normal leading-relaxed">
                 {point.description}
               </p>
             </div>
