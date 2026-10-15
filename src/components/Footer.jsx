@@ -48,7 +48,7 @@ export default function Footer({ onOpenConsult }) {
             </h4>
             <p><a href="#turnkey" className="hover:text-amber-400 transition-colors">The Turnkey Advantage</a></p>
             <p><a href="#architects" className="hover:text-amber-400 transition-colors">Curated Regional Architects</a></p>
-            <p><a href="#process" className="hover:text-amber-400 transition-colors">5-Step Execution Workflow</a></p>
+            <p><a href="#process" className="hover:text-amber-400 transition-colors">How It Works (5 Steps)</a></p>
             <p><a href="#portfolio" className="hover:text-amber-400 transition-colors">Featured Residences</a></p>
           </div>
 

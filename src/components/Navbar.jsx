@@ -148,10 +148,10 @@ export default function Navbar({ onOpenConsult }) {
                 onClick={() => setMenuOpen(false)}
                 className="text-2xl sm:text-3xl font-serif text-white hover:text-[#C5A059] transition-colors tracking-wide block"
               >
-                5-Step Onboarding Process
+                How It Works (5 Steps)
               </a>
               <p className="text-xs text-neutral-400 mt-1 font-sans">
-                From discovery to 5% advance & cut-to-cut quotation.
+                From your first chat to unlocking your finished home.
               </p>
             </div>
 
