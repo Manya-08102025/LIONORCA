@@ -128,46 +128,14 @@ export default function Navbar({ onOpenConsult }) {
                 02
               </span>
               <a
-                href="#architects"
-                onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#C5A059] transition-colors tracking-wide block"
-              >
-                Curated Regional Architects
-              </a>
-              <p className="text-xs text-neutral-400 mt-1 font-sans">
-                5 handpicked local masterminds for ₹1Cr+ residences.
-              </p>
-            </div>
-
-            <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A059] font-sans font-medium block mb-2">
-                03
-              </span>
-              <a
                 href="#process"
                 onClick={() => setMenuOpen(false)}
                 className="text-2xl sm:text-3xl font-serif text-white hover:text-[#C5A059] transition-colors tracking-wide block"
               >
-                5-Step Onboarding
+                5-Step Onboarding Process
               </a>
               <p className="text-xs text-neutral-400 mt-1 font-sans">
                 From discovery to 5% advance & cut-to-cut quotation.
-              </p>
-            </div>
-
-            <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A059] font-sans font-medium block mb-2">
-                04
-              </span>
-              <a
-                href="#portfolio"
-                onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#C5A059] transition-colors tracking-wide block"
-              >
-                Portfolio Catalog
-              </a>
-              <p className="text-xs text-neutral-400 mt-1 font-sans">
-                Filter by budget tiers and aesthetic styles.
               </p>
             </div>
           </nav>

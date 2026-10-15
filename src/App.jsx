@@ -30,21 +30,22 @@ export default function App() {
         {/* Navigation Bar with Day/Night Theme Switcher */}
         <Navbar onOpenConsult={() => handleOpenConsult()} />
 
-        {/* Hero Section with Interactive Day/Night Background Crossfade */}
+        {/* Main Content Sections */}
         <main className="flex-1">
           <Hero onOpenConsult={() => handleOpenConsult()} />
 
           {/* Turnkey Advantage & Complexity Management */}
           <ValueProposition />
 
-          {/* Curated 5 Regional Architects Showcase */}
-          <ArchitectShowcase onSelectArchitect={(arch) => handleOpenConsult(arch)} />
-
           {/* 5-Step Execution & Onboarding Workflow */}
           <ProcessTimeline />
 
-          {/* Portfolio & Budget Tiers Catalog */}
-          <PortfolioGallery onSelectProject={(project) => handleOpenConsult({ name: `${project.partnerArchitect} (${project.title})` })} />
+          {/* 
+            Note: The following two sections are intentionally left blank / pending 
+            for verified project photographs and architect rosters from Akshay (Client):
+            - <ArchitectShowcase onSelectArchitect={(arch) => handleOpenConsult(arch)} />
+            - <PortfolioGallery onSelectProject={(project) => handleOpenConsult(project)} />
+          */}
         </main>
 
         {/* Luxury Corporate Footer */}
