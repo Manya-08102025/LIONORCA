@@ -7,23 +7,23 @@ const SLIDES = [
     id: 1,
     image: '/images/hero-bg.png',
     quote: "The Complete Delivery of Luxury.",
-    description: "India's first all-inclusive turnkey aggregator — from architectural blueprints to flawless key handover.",
+    description: "From your first dream sketch to the final keys — we design and build your complete home in Indore.",
     ctaText: "CONSULT",
     action: "consult",
   },
   {
     id: 2,
     image: '/images/hero-kitchen.jpg',
-    quote: "One Accountable Partner. Zero Stress.",
-    description: "Where bespoke architecture meets surgical construction precision for ₹1Cr+ residences.",
+    quote: "One Dedicated Team. Zero Stress.",
+    description: "No running behind 50+ workers and contractors. We handle everything with locked pricing and verified quality.",
     ctaText: "THE TURNKEY ADVANTAGE",
     action: "turnkey",
   },
   {
     id: 3,
     image: '/images/hero-bedroom.jpg',
-    quote: "Indore's Finest Homes, Crafted Turnkey.",
-    description: "Top regional architects paired with end-to-end execution and locked milestone pricing.",
+    quote: "Indore's Finest Homes, Delivered Turnkey.",
+    description: "Top regional architects and master builders working together to build your dream residence.",
     ctaText: "CONSULT WITH US",
     action: "consult",
   },
@@ -352,14 +352,30 @@ export default function Hero({ onOpenConsult }) {
                 03
               </span>
               <a
+                href="#houses"
+                onClick={() => setMenuOpen(false)}
+                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D2A337] transition-colors tracking-wide block"
+              >
+                House & Interior Designs
+              </a>
+              <p className="text-xs text-neutral-400 mt-1 font-sans">
+                Explore house layouts and interior styles.
+              </p>
+            </div>
+
+            <div>
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D2A337] font-sans font-medium block mb-1">
+                04
+              </span>
+              <a
                 href="#architects"
                 onClick={() => setMenuOpen(false)}
                 className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D2A337] transition-colors tracking-wide block"
               >
-                Top Architects & Their Work
+                Top Architects
               </a>
               <p className="text-xs text-neutral-400 mt-1 font-sans">
-                Indore's leading architectural minds and their signature creations.
+                Indore's top architects and their portfolio work.
               </p>
             </div>
           </nav>
@@ -384,7 +400,7 @@ export default function Hero({ onOpenConsult }) {
               </span>
               <span className="flex items-center gap-1.5">
                 <Phone size={12} className="text-[#D2A337]" />
-                Concierge Desk
+                Call Us: +91 98930 00000
               </span>
             </div>
           </div>

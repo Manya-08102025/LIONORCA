@@ -3,8 +3,9 @@ import { ThemeProvider } from './hooks/useTheme'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import ValueProposition from './components/ValueProposition'
-import ArchitectShowcase from './components/ArchitectShowcase'
 import ProcessTimeline from './components/ProcessTimeline'
+import PortfolioGallery from './components/PortfolioGallery'
+import ArchitectShowcase from './components/ArchitectShowcase'
 import Footer from './components/Footer'
 import LeadModal from './components/LeadModal'
 import FloatingWhatsApp from './components/FloatingWhatsApp'
@@ -40,7 +41,10 @@ export default function App() {
           {/* Page 3: 5-Step Simple Workflow */}
           <ProcessTimeline />
 
-          {/* Page 4: Top Architects & Their Work (Replaces Portfolio & Budget Tiers) */}
+          {/* Page 4: House & Interior Design Options */}
+          <PortfolioGallery onSelectProject={(item) => handleOpenConsult({ name: item.title })} />
+
+          {/* Page 5 (Last Page): Top Architects & Their Portfolio */}
           <ArchitectShowcase onSelectArchitect={(arch) => handleOpenConsult(arch)} />
         </main>
 
@@ -54,7 +58,7 @@ export default function App() {
           preselectedArchitect={selectedArchitect}
         />
 
-        {/* Direct WhatsApp Concierge Floating Trigger */}
+        {/* Floating WhatsApp Button */}
         <FloatingWhatsApp />
       </div>
     </ThemeProvider>

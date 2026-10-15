@@ -144,14 +144,30 @@ export default function Navbar({ onOpenConsult }) {
                 03
               </span>
               <a
+                href="#houses"
+                onClick={() => setMenuOpen(false)}
+                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#C5A059] transition-colors tracking-wide block"
+              >
+                House & Interior Designs
+              </a>
+              <p className="text-xs text-neutral-400 mt-1 font-sans">
+                Explore house layouts and interior styles.
+              </p>
+            </div>
+
+            <div>
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A059] font-sans font-medium block mb-2">
+                04
+              </span>
+              <a
                 href="#architects"
                 onClick={() => setMenuOpen(false)}
                 className="text-2xl sm:text-3xl font-serif text-white hover:text-[#C5A059] transition-colors tracking-wide block"
               >
-                Top Architects & Their Work
+                Top Architects
               </a>
               <p className="text-xs text-neutral-400 mt-1 font-sans">
-                Indore's leading architectural minds and their signature creations.
+                Indore's top architects and their portfolio work.
               </p>
             </div>
           </nav>
@@ -176,7 +192,7 @@ export default function Navbar({ onOpenConsult }) {
               </span>
               <span className="flex items-center gap-1.5">
                 <Phone size={12} className="text-[#C5A059]" />
-                Concierge Desk
+                Call Us: +91 98930 00000
               </span>
             </div>
           </div>

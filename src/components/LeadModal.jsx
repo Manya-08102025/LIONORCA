@@ -49,19 +49,18 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
     const budgetText = budgetLabels[formData.budget] || formData.budget
 
     const encodedMessage = encodeURIComponent(
-      `*New Turnkey Consultation Request | Lynor Arkitechtures*\n\n` +
+      `*New Home Consultation Request | Lionorca Architeriors*\n\n` +
       `*Client Name:* ${formData.name}\n` +
       `*Contact Phone:* ${formData.phone}\n` +
       `*Target Budget:* ${budgetText}\n` +
       `*Property Type:* ${formData.propertyType}\n` +
       (preselectedArchitect ? `*Preferred Architect:* ${preselectedArchitect.name}\n` : '') +
-      `*Project Needs:* ${formData.projectNeeds || 'Turnkey end-to-end management'}\n\n` +
+      `*Project Needs:* ${formData.projectNeeds || 'Turnkey home design and construction'}\n\n` +
       `---\n` +
-      `_Namaste! I would like to schedule a confidential discovery session for my upcoming residence in Indore._\n` +
-      `_कृपया प्लॉट साइज एवं टाइमलाइन संबंधी आगे की प्रक्रिया साझा करें।_`
+      `_Hello! I would like to schedule a consultation for my upcoming home in Indore._`
     )
 
-    // Simulate instant lead submission and redirect to WhatsApp
+    // Redirect to WhatsApp
     setTimeout(() => {
       setStatus('success')
       window.open(`https://wa.me/${targetPhone}?text=${encodedMessage}`, '_blank')
@@ -96,15 +95,15 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
 
         {/* Modal Header */}
         <div className="mb-6">
-          <div className="inline-flex items-center gap-1.5 text-xs font-sans tracking-widest uppercase text-amber-500 font-semibold mb-2">
+          <div className="inline-flex items-center gap-1.5 text-xs font-soft tracking-wider uppercase text-amber-500 font-semibold mb-2">
             <Shield size={14} />
-            <span>Direct Founder Escalation</span>
+            <span>Free Consultation</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-tight">
-            Schedule Confidential Consultation
+          <h2 className="text-2xl sm:text-3xl font-soft font-bold tracking-tight">
+            Book a Consultation
           </h2>
-          <p className="text-xs sm:text-sm text-neutral-400 mt-1 font-sans">
-            Frictionless onboarding. No OTPs. Connect directly with Lynor’s leadership team.
+          <p className="text-xs sm:text-sm text-neutral-400 mt-1 font-soft">
+            Tell us about your home and connect directly with our team on WhatsApp.
           </p>
         </div>
 
@@ -217,24 +216,24 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
                 <AlertCircle size={20} className="shrink-0 text-amber-400 mt-0.5" />
                 <div>
                   <strong className="block font-semibold text-amber-300 mb-1">
-                    Turnkey Scope Notice
+                    Project Scope
                   </strong>
-                  Lynor Arkitechtures specializes exclusively in end-to-end turnkey residential projects starting from ₹25 Lakhs (with core focus on ₹1Cr+ residences). For budgets below ₹25L or standalone room renovations, we recommend engaging direct local contractors.
+                  Lionorca Architeriors handles full turnkey home design and construction starting from ₹25 Lakhs (with primary focus on ₹1Cr+ residences).
                 </div>
               </div>
             )}
 
             {/* Project Needs / Plot Details */}
             <div>
-              <label className="block text-xs uppercase tracking-wider font-medium text-neutral-300 mb-1.5">
-                Brief Scope / Plot Location in Indore (2–3 lines)
+              <label className="block text-xs uppercase tracking-wider font-medium text-neutral-300 mb-1.5 font-soft">
+                Plot Location / Project Details (Optional)
               </label>
               <textarea
                 rows={3}
-                placeholder="e.g. 3,500 sq ft plot in Nipania. Looking for modern elevation, double height living, and complete turnkey execution."
+                placeholder="e.g. 3,000 sq ft plot in Indore. Looking for modern 4 BHK villa with complete interior design and turnkey execution."
                 value={formData.projectNeeds}
                 onChange={(e) => setFormData({ ...formData, projectNeeds: e.target.value })}
-                className={`w-full px-4 py-2.5 rounded-xl text-sm border focus:outline-none focus:border-amber-500 transition-colors ${
+                className={`w-full px-4 py-2.5 rounded-xl text-sm border focus:outline-none focus:border-amber-500 transition-colors font-soft ${
                   isDark
                     ? 'bg-neutral-800/80 border-white/10 text-white placeholder-neutral-500'
                     : 'bg-neutral-50 border-neutral-300 text-neutral-900 placeholder-neutral-400'
@@ -247,14 +246,14 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
               <button
                 type="submit"
                 disabled={status === 'declined' || !formData.budget}
-                className={`w-full py-3.5 px-6 rounded-full text-xs font-semibold tracking-widest uppercase transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg ${
+                className={`w-full py-3.5 px-6 rounded-full text-xs font-semibold tracking-wider uppercase transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg font-soft ${
                   status === 'declined' || !formData.budget
                     ? 'bg-neutral-700 text-neutral-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-neutral-950 shadow-amber-500/20 active:scale-98'
+                    : 'bg-[#25D366] hover:bg-[#20ba59] text-white shadow-emerald-500/20 active:scale-98'
                 }`}
               >
-                <MessageCircle size={16} />
-                <span>Trigger WhatsApp Concierge & Consult</span>
+                <MessageCircle size={17} className="fill-white stroke-none" />
+                <span>Chat on WhatsApp & Book Consultation</span>
                 <ArrowRight size={15} />
               </button>
             </div>

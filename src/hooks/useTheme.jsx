@@ -6,7 +6,7 @@ export function ThemeProvider({ children }) {
   // Default to dark mode for luxury architectural framing
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('lynor-theme')
+      const saved = localStorage.getItem('lionorca-theme')
       if (saved !== null) {
         return saved === 'dark'
       }
@@ -30,11 +30,11 @@ export function ThemeProvider({ children }) {
     if (isDark) {
       root.classList.add('dark')
       root.classList.remove('light')
-      localStorage.setItem('lynor-theme', 'dark')
+      localStorage.setItem('lionorca-theme', 'dark')
     } else {
       root.classList.add('light')
       root.classList.remove('dark')
-      localStorage.setItem('lynor-theme', 'light')
+      localStorage.setItem('lionorca-theme', 'light')
     }
   }, [isDark])
 

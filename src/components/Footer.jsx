@@ -26,8 +26,8 @@ export default function Footer({ onOpenConsult }) {
                 }}
               />
             </div>
-            <p className="text-sm font-sans text-neutral-300 max-w-md font-light leading-relaxed">
-              Indore’s premier single-window turnkey aggregator for ₹1Cr+ luxury residential developments. We bridge design brilliance with surgical construction discipline.
+            <p className="text-sm font-soft text-neutral-300 max-w-md font-normal leading-relaxed">
+              Indore’s trusted home design and turnkey construction partner. From initial architectural drawings to handing over your ready keys.
             </p>
             <div className="pt-2">
               <button
@@ -47,8 +47,8 @@ export default function Footer({ onOpenConsult }) {
               Navigation
             </h4>
             <p><a href="#turnkey" className="hover:text-amber-400 transition-colors">The Turnkey Advantage</a></p>
-            <p><a href="#process" className="hover:text-amber-400 transition-colors">How It Works (5 Steps)</a></p>
-            <p><a href="#architects" className="hover:text-amber-400 transition-colors">Top Architects & Their Work</a></p>
+            <p><a href="#houses" className="hover:text-amber-400 transition-colors">House & Interior Designs</a></p>
+            <p><a href="#architects" className="hover:text-amber-400 transition-colors">Top Architects</a></p>
           </div>
 
           {/* Contact Details */}
@@ -62,18 +62,18 @@ export default function Footer({ onOpenConsult }) {
             </div>
             <div className="flex items-center gap-2.5">
               <Phone size={16} className="text-amber-500 shrink-0" />
-              <span>+91 98930 00000 (Concierge Desk)</span>
+              <span>+91 98930 00000</span>
             </div>
             <div className="flex items-center gap-2.5">
               <Mail size={16} className="text-amber-500 shrink-0" />
-              <span>consult@lynorarkitechtures.com</span>
+              <span>contact@lionorca.com</span>
             </div>
           </div>
         </div>
 
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-400 font-sans">
-          <p>© {new Date().getFullYear()} Lynor Arkitechtures (Lionorca). All rights reserved.</p>
-          <p className="mt-2 sm:mt-0">Private & Confidential Client Onboarding Policy.</p>
+          <p>© {new Date().getFullYear()} Lionorca Architeriors. All rights reserved.</p>
+          <p className="mt-2 sm:mt-0">Indore, Madhya Pradesh</p>
         </div>
       </div>
     </footer>
