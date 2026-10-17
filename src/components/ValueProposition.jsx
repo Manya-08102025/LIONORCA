@@ -28,13 +28,13 @@ export default function ValueProposition() {
       {/* Mobile-First Left-Aligned Stack Container */}
       <div className="max-w-md sm:max-w-lg md:max-w-xl mx-auto flex flex-col items-start text-left">
         {/* Section Header */}
-        <h2 className="font-serif text-3xl sm:text-4xl md:text-[42px] font-normal text-[#C5A864] tracking-tight leading-tight">
+        <h2 className="font-serif text-3xl sm:text-4xl md:text-[42px] font-normal text-[#D1B67F] tracking-tight leading-tight">
           The Turnkey Advantage.
         </h2>
 
         {/* Short Gold Horizontal Divider Line (~2px height) */}
         <div
-          className="w-14 h-[2px] bg-[#C5A864] mt-4 mb-12 sm:mb-14 rounded-full"
+          className="w-14 h-[2px] bg-[#D1B67F] mt-4 mb-12 sm:mb-14 rounded-full"
           aria-hidden="true"
         />
 

@@ -108,13 +108,13 @@ export default function Navbar({ onOpenConsult }) {
 
           <nav className="my-auto py-8 space-y-6 max-w-md mx-auto w-full text-left">
             <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A059] font-sans font-medium block mb-2">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D1B67F] font-sans font-medium block mb-2">
                 01
               </span>
               <a
                 href="#turnkey"
                 onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#C5A059] transition-colors tracking-wide block"
+                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D1B67F] transition-colors tracking-wide block"
               >
                 The Turnkey Advantage.
               </a>
@@ -124,13 +124,13 @@ export default function Navbar({ onOpenConsult }) {
             </div>
 
             <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A059] font-sans font-medium block mb-2">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D1B67F] font-sans font-medium block mb-2">
                 02
               </span>
               <a
                 href="#process"
                 onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#C5A059] transition-colors tracking-wide block"
+                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D1B67F] transition-colors tracking-wide block"
               >
                 How It Works (5 Steps)
               </a>
@@ -140,13 +140,13 @@ export default function Navbar({ onOpenConsult }) {
             </div>
 
             <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A059] font-sans font-medium block mb-2">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D1B67F] font-sans font-medium block mb-2">
                 03
               </span>
               <a
                 href="#houses"
                 onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#C5A059] transition-colors tracking-wide block"
+                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D1B67F] transition-colors tracking-wide block"
               >
                 House & Interior Designs
               </a>
@@ -156,13 +156,13 @@ export default function Navbar({ onOpenConsult }) {
             </div>
 
             <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A059] font-sans font-medium block mb-2">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D1B67F] font-sans font-medium block mb-2">
                 04
               </span>
               <a
                 href="#architects"
                 onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#C5A059] transition-colors tracking-wide block"
+                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D1B67F] transition-colors tracking-wide block"
               >
                 Top Architects
               </a>
@@ -179,7 +179,7 @@ export default function Navbar({ onOpenConsult }) {
                 onOpenConsult()
               }}
               type="button"
-              className="w-full py-4 rounded-full text-xs font-semibold tracking-[0.2em] uppercase bg-[#C5A059] hover:bg-[#b8934c] text-neutral-950 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95"
+              className="w-full py-4 rounded-full text-xs font-semibold tracking-[0.2em] uppercase bg-[#D1B67F] hover:bg-[#c2a56c] text-neutral-950 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95"
             >
               <Sparkles size={16} />
               <span>Schedule Consultation</span>
@@ -187,11 +187,11 @@ export default function Navbar({ onOpenConsult }) {
 
             <div className="flex items-center justify-between text-[11px] text-neutral-400 font-sans pt-2">
               <span className="flex items-center gap-1.5">
-                <MapPin size={12} className="text-[#C5A059]" />
+                <MapPin size={12} className="text-[#D1B67F]" />
                 Indore, MP
               </span>
               <span className="flex items-center gap-1.5">
-                <Phone size={12} className="text-[#C5A059]" />
+                <Phone size={12} className="text-[#D1B67F]" />
                 Call Us: +91 98930 00000
               </span>
             </div>

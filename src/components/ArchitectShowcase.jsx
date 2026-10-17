@@ -51,7 +51,7 @@ export default function ArchitectShowcase({ onSelectArchitect }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-xl mx-auto mb-14">
-          <span className="text-xs font-soft tracking-wider uppercase text-amber-500 font-semibold block mb-2">
+          <span className="text-xs font-soft tracking-wider uppercase text-[#D1B67F] font-semibold block mb-2">
             Architects
           </span>
           <h2 className="text-3xl sm:text-4xl font-soft font-bold tracking-tight mb-3">
@@ -71,8 +71,8 @@ export default function ArchitectShowcase({ onSelectArchitect }) {
               key={architect.id}
               className={`rounded-2xl border p-6 transition-all duration-300 flex flex-col justify-between ${
                 isDark
-                  ? 'bg-neutral-900/80 border-white/10 hover:border-amber-500/40'
-                  : 'bg-white border-neutral-200 hover:border-amber-500/40 hover:shadow-lg'
+                  ? 'bg-neutral-900/80 border-white/10 hover:border-[#D1B67F]/50'
+                  : 'bg-white border-neutral-200 hover:border-[#D1B67F]/50 hover:shadow-lg'
               }`}
             >
               <div>
@@ -86,7 +86,7 @@ export default function ArchitectShowcase({ onSelectArchitect }) {
                         : 'bg-stone-100 border-neutral-300 text-neutral-500'
                     }`}
                   >
-                    <User size={22} className="text-amber-500/80 mb-1" />
+                    <User size={22} className="text-[#D1B67F] mb-1" />
                     <span className="text-[10px] font-soft font-medium text-center px-1">
                       Photo Slot
                     </span>
@@ -99,7 +99,7 @@ export default function ArchitectShowcase({ onSelectArchitect }) {
                     }`}>
                       {architect.name}
                     </h3>
-                    <div className="text-xs font-soft text-amber-400/90 font-medium mt-1">
+                    <div className="text-xs font-soft text-[#D1B67F] font-medium mt-1">
                       {architect.style}
                     </div>
                     <div className="text-xs font-soft text-neutral-400 mt-0.5">
@@ -123,7 +123,7 @@ export default function ArchitectShowcase({ onSelectArchitect }) {
                             : 'bg-stone-100 border-neutral-300 text-neutral-500'
                         }`}
                       >
-                        <ImagePlus size={16} className="text-amber-500/70 mb-1" />
+                        <ImagePlus size={16} className="text-[#D1B67F] mb-1" />
                         <span className="text-[10px] font-soft font-medium">
                           {work.title}
                         </span>
@@ -137,7 +137,7 @@ export default function ArchitectShowcase({ onSelectArchitect }) {
               <button
                 onClick={() => onSelectArchitect(architect)}
                 type="button"
-                className="w-full mt-2 py-2.5 px-4 rounded-xl text-xs font-soft font-semibold uppercase tracking-wider transition-all bg-amber-500 text-neutral-950 hover:bg-amber-400 cursor-pointer flex items-center justify-center gap-1.5 shadow-sm active:scale-98"
+                className="w-full mt-2 py-2.5 px-4 rounded-xl text-xs font-soft font-semibold uppercase tracking-wider transition-all bg-[#D1B67F] text-neutral-950 hover:bg-[#c2a56c] cursor-pointer flex items-center justify-center gap-1.5 shadow-sm active:scale-98"
               >
                 <span>Consult Architect</span>
                 <ArrowUpRight size={14} />

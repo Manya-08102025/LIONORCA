@@ -26,7 +26,7 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen transition-colors duration-700 bg-[#0a0a0a] text-neutral-100 flex flex-col font-sans selection:bg-amber-500 selection:text-black">
+      <div className="min-h-screen transition-colors duration-700 bg-[#0a0a0a] text-neutral-100 flex flex-col font-sans selection:bg-[#D1B67F] selection:text-black">
         {/* Navigation Bar with Day/Night Theme Switcher */}
         <Navbar onOpenConsult={() => handleOpenConsult()} />
 

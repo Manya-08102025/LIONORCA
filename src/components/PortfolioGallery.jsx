@@ -39,7 +39,7 @@ export default function PortfolioGallery({ onSelectProject }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-xl mx-auto mb-14">
-          <span className="text-xs font-soft tracking-wider uppercase text-amber-500 font-semibold block mb-2">
+          <span className="text-xs font-soft tracking-wider uppercase text-[#D1B67F] font-semibold block mb-2">
             Designs & Layouts
           </span>
           <h2 className="text-3xl sm:text-4xl font-soft font-bold tracking-tight mb-3">
@@ -59,8 +59,8 @@ export default function PortfolioGallery({ onSelectProject }) {
               key={item.id}
               className={`rounded-2xl overflow-hidden border transition-all duration-300 flex flex-col justify-between ${
                 isDark
-                  ? 'bg-neutral-900 border-white/10 hover:border-amber-500/40'
-                  : 'bg-stone-50 border-neutral-200 hover:border-amber-500/40 hover:shadow-lg'
+                  ? 'bg-neutral-900 border-white/10 hover:border-[#D1B67F]/50'
+                  : 'bg-stone-50 border-neutral-200 hover:border-[#D1B67F]/50 hover:shadow-lg'
               }`}
             >
               {/* Photo Box for House / Interior Photo */}
@@ -78,7 +78,7 @@ export default function PortfolioGallery({ onSelectProject }) {
                   House / Interior Photo Slot
                 </span>
 
-                <div className="absolute top-4 left-4 px-3 py-1 rounded-full text-[11px] font-soft font-medium bg-black/40 backdrop-blur-md text-amber-300 border border-white/10">
+                <div className="absolute top-4 left-4 px-3 py-1 rounded-full text-[11px] font-soft font-medium bg-black/40 backdrop-blur-md text-[#E0C99E] border border-white/10">
                   {item.specs}
                 </div>
               </div>
@@ -92,7 +92,7 @@ export default function PortfolioGallery({ onSelectProject }) {
                     {item.title}
                   </h3>
 
-                  <div className="text-xs font-soft text-amber-500/90 font-medium mb-3">
+                  <div className="text-xs font-soft text-[#D1B67F] font-medium mb-3">
                     {item.style}
                   </div>
 
@@ -106,7 +106,7 @@ export default function PortfolioGallery({ onSelectProject }) {
                 <button
                   onClick={() => onSelectProject && onSelectProject(item)}
                   type="button"
-                  className="w-full py-2.5 px-4 rounded-xl text-xs font-soft font-semibold uppercase tracking-wider transition-all bg-amber-500 text-neutral-950 hover:bg-amber-400 cursor-pointer flex items-center justify-center gap-1.5 shadow-sm active:scale-98"
+                  className="w-full py-2.5 px-4 rounded-xl text-xs font-soft font-semibold uppercase tracking-wider transition-all bg-[#D1B67F] text-neutral-950 hover:bg-[#c2a56c] cursor-pointer flex items-center justify-center gap-1.5 shadow-sm active:scale-98"
                 >
                   <span>Inquire About This Design</span>
                   <ArrowUpRight size={14} />

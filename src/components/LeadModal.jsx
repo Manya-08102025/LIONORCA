@@ -79,7 +79,7 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
       <div
         className={`relative w-full max-w-xl rounded-2xl shadow-2xl border p-6 sm:p-8 my-8 z-10 transition-all ${
           isDark
-            ? 'bg-neutral-900 border-amber-500/30 text-white'
+            ? 'bg-neutral-900 border-[#D1B67F]/30 text-white'
             : 'bg-white border-neutral-300 text-neutral-900'
         }`}
       >
@@ -95,7 +95,7 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
 
         {/* Modal Header */}
         <div className="mb-6">
-          <div className="inline-flex items-center gap-1.5 text-xs font-soft tracking-wider uppercase text-amber-500 font-semibold mb-2">
+          <div className="inline-flex items-center gap-1.5 text-xs font-soft tracking-wider uppercase text-[#D1B67F] font-semibold mb-2">
             <Shield size={14} />
             <span>Free Consultation</span>
           </div>
@@ -212,10 +212,10 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
 
             {/* Automatic Polite Decline for < ₹25 Lakhs */}
             {status === 'declined' && (
-              <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3 text-amber-200 text-xs leading-relaxed">
-                <AlertCircle size={20} className="shrink-0 text-amber-400 mt-0.5" />
+              <div className="p-4 rounded-xl bg-[#D1B67F]/10 border border-[#D1B67F]/30 flex items-start gap-3 text-[#EAD8B5] text-xs leading-relaxed">
+                <AlertCircle size={20} className="shrink-0 text-[#D1B67F] mt-0.5" />
                 <div>
-                  <strong className="block font-semibold text-amber-300 mb-1">
+                  <strong className="block font-semibold text-[#D1B67F] mb-1">
                     Project Scope
                   </strong>
                   Lionorca Architeriors handles full turnkey home design and construction starting from ₹25 Lakhs (with primary focus on ₹1Cr+ residences).
@@ -233,7 +233,7 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
                 placeholder="e.g. 3,000 sq ft plot in Indore. Looking for modern 4 BHK villa with complete interior design and turnkey execution."
                 value={formData.projectNeeds}
                 onChange={(e) => setFormData({ ...formData, projectNeeds: e.target.value })}
-                className={`w-full px-4 py-2.5 rounded-xl text-sm border focus:outline-none focus:border-amber-500 transition-colors font-soft ${
+                className={`w-full px-4 py-2.5 rounded-xl text-sm border focus:outline-none focus:border-[#D1B67F] transition-colors font-soft ${
                   isDark
                     ? 'bg-neutral-800/80 border-white/10 text-white placeholder-neutral-500'
                     : 'bg-neutral-50 border-neutral-300 text-neutral-900 placeholder-neutral-400'

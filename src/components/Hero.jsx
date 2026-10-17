@@ -227,7 +227,7 @@ export default function Hero({ onOpenConsult }) {
                   {index === 0 ? (
                     <>
                       The Complete Delivery of{' '}
-                      <span className="text-[#D2A337] italic font-normal">Luxury.</span>
+                      <span className="text-[#D1B67F] italic font-normal">Luxury.</span>
                     </>
                   ) : (
                     slide.quote
@@ -252,7 +252,7 @@ export default function Hero({ onOpenConsult }) {
             onClick={() => handleCtaClick(SLIDES[currentSlide].action)}
             type="button"
             aria-label={SLIDES[currentSlide].ctaText}
-            className="w-[84%] max-w-[340px] py-4 rounded-full bg-[#D2A337] hover:bg-[#c2932b] active:scale-95 text-neutral-950 font-serif font-medium text-xl sm:text-2xl tracking-[0.08em] uppercase transition-all duration-300 shadow-[0_4px_25px_rgba(0,0,0,0.7)] cursor-pointer text-center"
+            className="w-[84%] max-w-[340px] py-4 rounded-full bg-[#D1B67F] hover:bg-[#c2a56c] active:scale-95 text-neutral-950 font-serif font-medium text-xl sm:text-2xl tracking-[0.08em] uppercase transition-all duration-300 shadow-[0_4px_25px_rgba(0,0,0,0.7)] cursor-pointer text-center"
           >
             {SLIDES[currentSlide].ctaText}
           </button>
@@ -267,7 +267,7 @@ export default function Hero({ onOpenConsult }) {
                 aria-label={`Go to slide ${index + 1}`}
                 className={`transition-all duration-300 rounded-full cursor-pointer ${
                   index === currentSlide
-                    ? 'w-7 h-2 bg-[#D2A337] shadow-[0_0_8px_rgba(210,163,55,0.8)]'
+                    ? 'w-7 h-2 bg-[#D1B67F] shadow-[0_0_8px_rgba(209,182,127,0.7)]'
                     : 'w-2 h-2 bg-white/40 hover:bg-white/70'
                 }`}
               />
@@ -316,13 +316,13 @@ export default function Hero({ onOpenConsult }) {
           {/* Contents List */}
           <nav className="my-auto py-8 space-y-6 max-w-md mx-auto w-full text-left">
             <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D2A337] font-sans font-medium block mb-1">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D1B67F] font-sans font-medium block mb-1">
                 01
               </span>
               <a
                 href="#turnkey"
                 onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D2A337] transition-colors tracking-wide block"
+                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D1B67F] transition-colors tracking-wide block"
               >
                 The Turnkey Advantage.
               </a>
@@ -332,13 +332,13 @@ export default function Hero({ onOpenConsult }) {
             </div>
 
             <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D2A337] font-sans font-medium block mb-1">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D1B67F] font-sans font-medium block mb-1">
                 02
               </span>
               <a
                 href="#process"
                 onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D2A337] transition-colors tracking-wide block"
+                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D1B67F] transition-colors tracking-wide block"
               >
                 How It Works (5 Steps)
               </a>
@@ -348,13 +348,13 @@ export default function Hero({ onOpenConsult }) {
             </div>
 
             <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D2A337] font-sans font-medium block mb-1">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D1B67F] font-sans font-medium block mb-1">
                 03
               </span>
               <a
                 href="#houses"
                 onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D2A337] transition-colors tracking-wide block"
+                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D1B67F] transition-colors tracking-wide block"
               >
                 House & Interior Designs
               </a>
@@ -364,13 +364,13 @@ export default function Hero({ onOpenConsult }) {
             </div>
 
             <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D2A337] font-sans font-medium block mb-1">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D1B67F] font-sans font-medium block mb-1">
                 04
               </span>
               <a
                 href="#architects"
                 onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D2A337] transition-colors tracking-wide block"
+                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D1B67F] transition-colors tracking-wide block"
               >
                 Top Architects
               </a>
@@ -388,18 +388,18 @@ export default function Hero({ onOpenConsult }) {
                 onOpenConsult()
               }}
               type="button"
-              className="w-full py-4 rounded-full text-xs font-semibold tracking-[0.2em] uppercase bg-[#D2A337] hover:bg-[#c2932b] text-neutral-950 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95"
+              className="w-full py-4 rounded-full text-xs font-semibold tracking-[0.2em] uppercase bg-[#D1B67F] hover:bg-[#c2a56c] text-neutral-950 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95"
             >
               <span>Schedule Consultation</span>
             </button>
 
             <div className="flex items-center justify-between text-[11px] text-neutral-400 font-sans pt-2">
               <span className="flex items-center gap-1.5">
-                <MapPin size={12} className="text-[#D2A337]" />
+                <MapPin size={12} className="text-[#D1B67F]" />
                 Indore, MP
               </span>
               <span className="flex items-center gap-1.5">
-                <Phone size={12} className="text-[#D2A337]" />
+                <Phone size={12} className="text-[#D1B67F]" />
                 Call Us: +91 98930 00000
               </span>
             </div>

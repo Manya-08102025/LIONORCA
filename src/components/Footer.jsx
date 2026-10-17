@@ -33,10 +33,10 @@ export default function Footer({ onOpenConsult }) {
               <button
                 onClick={onOpenConsult}
                 type="button"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-500 text-neutral-950 hover:bg-amber-400 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-[#D1B67F] text-neutral-950 hover:bg-[#c2a56c] transition-colors cursor-pointer"
               >
                 <Sparkles size={14} />
-                <span>Book Direct Founder Discovery</span>
+                <span>Book Free Consultation</span>
               </button>
             </div>
           </div>
@@ -46,9 +46,10 @@ export default function Footer({ onOpenConsult }) {
             <h4 className="text-white font-semibold text-sm font-serif tracking-normal mb-4">
               Navigation
             </h4>
-            <p><a href="#turnkey" className="hover:text-amber-400 transition-colors">The Turnkey Advantage</a></p>
-            <p><a href="#houses" className="hover:text-amber-400 transition-colors">House & Interior Designs</a></p>
-            <p><a href="#architects" className="hover:text-amber-400 transition-colors">Top Architects</a></p>
+            <p><a href="#turnkey" className="hover:text-[#D1B67F] transition-colors">The Turnkey Advantage</a></p>
+            <p><a href="#process" className="hover:text-[#D1B67F] transition-colors">How It Works (5 Steps)</a></p>
+            <p><a href="#houses" className="hover:text-[#D1B67F] transition-colors">House & Interior Designs</a></p>
+            <p><a href="#architects" className="hover:text-[#D1B67F] transition-colors">Top Architects</a></p>
           </div>
 
           {/* Contact Details */}
@@ -57,15 +58,15 @@ export default function Footer({ onOpenConsult }) {
               Indore Office
             </h4>
             <div className="flex items-start gap-2.5">
-              <MapPin size={16} className="text-amber-500 shrink-0 mt-0.5" />
+              <MapPin size={16} className="text-[#D1B67F] shrink-0 mt-0.5" />
               <span>Vijay Nagar & Bypass Corridors, Indore, Madhya Pradesh 452010</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <Phone size={16} className="text-amber-500 shrink-0" />
+              <Phone size={16} className="text-[#D1B67F] shrink-0" />
               <span>+91 98930 00000</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <Mail size={16} className="text-amber-500 shrink-0" />
+              <Mail size={16} className="text-[#D1B67F] shrink-0" />
               <span>contact@lionorca.com</span>
             </div>
           </div>

@@ -6,10 +6,14 @@
   --font-cormorant: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Montserrat", system-ui, -apple-system, sans-serif;
   --font-soft: "Plus Jakarta Sans", "Montserrat", system-ui, -apple-system, sans-serif;
-  --color-gold-muted: #C5A059;
-  --color-gold-400: #e5c158;
-  --color-gold-500: #d4af37;
-  --color-gold-600: #aa8c2c;
+  --color-gold-muted: #D1B67F;
+  --color-gold-400: #E0C99E;
+  --color-gold-500: #D1B67F;
+  --color-gold-600: #BA9D66;
+  --color-champagne-300: #EAD8B5;
+  --color-champagne-400: #E0C99E;
+  --color-champagne-500: #D1B67F;
+  --color-champagne-600: #BA9D66;
   --color-dark-950: #050505;
   --color-dark-900: #0a0a0a;
   --color-dark-850: #121212;
