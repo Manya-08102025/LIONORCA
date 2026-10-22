@@ -1,38 +1,38 @@
 import { useState, useEffect, useRef } from 'react'
-import { useTheme } from '../hooks/useTheme'
-import { Sun, Moon, Menu, X, ChevronLeft, ChevronRight, MapPin, Phone } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const SLIDES = [
   {
     id: 1,
-    image: '/images/hero-bg.png',
-    quote: "The Complete Delivery of Luxury.",
-    description: "From your first dream sketch to the final keys — we design and build your complete home in Indore.",
-    ctaText: "CONSULT",
-    action: "consult",
+    image: '/images/hero-bright-1.jpg',
+    quote: 'The Complete Delivery of Luxury.',
+    description:
+      'From your first architectural sketch to the final keys — we design and build your bespoke residence.',
+    ctaText: 'Book a Discovery Session',
+    action: 'consult',
   },
   {
     id: 2,
-    image: '/images/hero-kitchen.jpg',
-    quote: "One Dedicated Team. Zero Stress.",
-    description: "No running behind 50+ workers and contractors. We handle everything with locked pricing and verified quality.",
-    ctaText: "THE TURNKEY ADVANTAGE",
-    action: "turnkey",
+    image: '/images/hero-bright-2.jpg',
+    quote: 'Designer Designs, Contractor Executes, Nobody Owns the Outcome.',
+    description:
+      'Lionorca Architeriors owns it end to end with guaranteed milestones and verified craftsmanship.',
+    ctaText: 'Book a Discovery Session',
+    action: 'consult',
   },
   {
     id: 3,
-    image: '/images/hero-bedroom.jpg',
-    quote: "Indore's Finest Homes, Delivered Turnkey.",
-    description: "Top regional architects and master builders working together to build your dream residence.",
-    ctaText: "CONSULT WITH US",
-    action: "consult",
+    image: '/images/hero-bright-3.jpg',
+    quote: "World's Finest Design Delivery",
+    description:
+      'Handpicked metro architectural talent with relentless, daily on-site turnkey delivery in Central India.',
+    ctaText: 'Book a Discovery Session',
+    action: 'consult',
   },
 ]
 
 export default function Hero({ onOpenConsult }) {
-  const { isDark, toggleTheme } = useTheme()
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [menuOpen, setMenuOpen] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
 
   // Touch swipe support
@@ -47,18 +47,6 @@ export default function Hero({ onOpenConsult }) {
     }, 5500)
     return () => clearInterval(interval)
   }, [isPaused])
-
-  // Prevent background scrolling when menu drawer is open
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [menuOpen])
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % SLIDES.length)
@@ -107,7 +95,7 @@ export default function Hero({ onOpenConsult }) {
       onTouchEnd={handleTouchEnd}
     >
       {/* =========================================================================
-          BACKGROUND SLIDES WITH CROSSFADE
+          BACKGROUND SLIDES (Raw Gemini Flash Generated Images - 100% As-Is)
       ========================================================================= */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         {SLIDES.map((slide, index) => (
@@ -120,14 +108,9 @@ export default function Hero({ onOpenConsult }) {
             <img
               src={slide.image}
               alt={slide.quote}
-              className={`w-full h-full object-cover object-center transform transition-transform duration-7000 ease-out ${
-                index === currentSlide ? 'scale-105' : 'scale-100'
-              } ${isDark ? 'brightness-[0.88] contrast-105' : 'brightness-100 contrast-95'}`}
+              className="w-full h-full object-cover object-center"
               loading={index === 0 ? 'eager' : 'lazy'}
             />
-
-            {/* Subtle multi-layer gradient overlay to guarantee text legibility */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/75" />
           </div>
         ))}
       </div>
@@ -135,66 +118,16 @@ export default function Hero({ onOpenConsult }) {
       {/* =========================================================================
           MOBILE CANVAS CONTAINER (Strictly 9:16 mobile framing)
       ========================================================================= */}
-      <div className="relative z-20 w-full h-full max-w-[430px] mx-auto flex flex-col justify-between">
-        {/* -----------------------------------------------------------------------
-            1. HEADER / NAVIGATION (Absolute Top)
-            - Left: Authentic Lionorca Architeriors Logo
-            - Right: Two Solid Circular Buttons (Dark Mode & Contents)
-        ----------------------------------------------------------------------- */}
-        <div className="flex justify-between items-center w-full px-5 pt-7 absolute top-0 left-0 z-30">
-          {/* Authentic Brand Logo */}
-          <a href="#" className="block select-none hover:opacity-95 transition-opacity">
-            <img
-              src="/images/lionorca-logo-transparent.png"
-              alt="LIONORCA ARCHITERIORS - the complete delivery of luxury"
-              className="h-12 sm:h-14 w-auto max-w-[210px] sm:max-w-[230px] object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]"
-              onError={(e) => {
-                e.target.src = '/images/lionorca-logo.png'
-              }}
-            />
-          </a>
-
-          {/* Right Side Controls */}
-          <div className="flex items-center gap-3">
-            {/* Button 1: Dark Mode Toggle */}
-            <button
-              onClick={toggleTheme}
-              type="button"
-              aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-              title={isDark ? 'Dark Mode Active' : 'Light Mode Active'}
-              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#E0E0E0] hover:bg-white text-neutral-900 flex items-center justify-center transition-all duration-300 cursor-pointer shadow-[0_2px_10px_rgba(0,0,0,0.4)] active:scale-95"
-            >
-              {isDark ? (
-                <Moon size={18} className="fill-neutral-900 text-neutral-900" />
-              ) : (
-                <Sun size={20} className="fill-amber-500 text-amber-500" />
-              )}
-            </button>
-
-            {/* Button 2: Contents Drawer */}
-            <button
-              onClick={() => setMenuOpen(true)}
-              type="button"
-              aria-label="Open Contents Menu"
-              title="Contents"
-              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#E0E0E0] hover:bg-white text-neutral-900 flex items-center justify-center transition-all duration-300 cursor-pointer shadow-[0_2px_10px_rgba(0,0,0,0.4)] active:scale-95"
-            >
-              <Menu size={20} className="stroke-[2.2] text-neutral-900" />
-            </button>
-          </div>
-        </div>
+      <div className="relative z-20 w-full h-full max-w-[440px] mx-auto flex flex-col justify-between pt-16 sm:pt-20">
 
         {/* -----------------------------------------------------------------------
-            LEFT & RIGHT SLIDER NAVIGATION ARROWS
-            - Placed at the extreme screen edges (left-2 / right-2)
-            - Vertically centered
-            - Styled with clean glassmorphic circles
+            SLIDER NAVIGATION ARROWS
         ----------------------------------------------------------------------- */}
         <button
           onClick={prevSlide}
           type="button"
           aria-label="Previous Slide"
-          className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 hover:bg-white/35 backdrop-blur-md text-white flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-md border border-white/25"
+          className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/35 hover:bg-black/55 backdrop-blur-md text-white flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-md border border-white/25"
         >
           <ChevronLeft size={20} className="stroke-[2.2]" />
         </button>
@@ -203,18 +136,15 @@ export default function Hero({ onOpenConsult }) {
           onClick={nextSlide}
           type="button"
           aria-label="Next Slide"
-          className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 hover:bg-white/35 backdrop-blur-md text-white flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-md border border-white/25"
+          className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/35 hover:bg-black/55 backdrop-blur-md text-white flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-md border border-white/25"
         >
           <ChevronRight size={20} className="stroke-[2.2]" />
         </button>
 
         {/* -----------------------------------------------------------------------
-            2. MAIN TYPOGRAPHY / QUOTE CONTENT (Center Area)
-            - Generous horizontal padding (px-14 sm:px-16) to ensure zero overlap with arrows
-            - Yellow capsule removed
-            - High-contrast, elegant serif headline and sub-quote
+            2. MAIN TYPOGRAPHY (Directly on image - Bolder, Larger, High Legibility)
         ----------------------------------------------------------------------- */}
-        <div className="absolute top-[44%] -translate-y-1/2 left-0 w-full px-14 sm:px-16 z-20 text-left">
+        <div className="absolute top-[44%] -translate-y-1/2 left-0 w-full px-10 sm:px-14 z-20 text-left">
           {SLIDES.map((slide, index) => {
             if (index !== currentSlide) return null
             return (
@@ -222,20 +152,34 @@ export default function Hero({ onOpenConsult }) {
                 key={slide.id}
                 className="animate-in fade-in slide-in-from-bottom-2 duration-400 flex flex-col items-start"
               >
-                {/* Primary Quote / Tagline */}
-                <h1 className="font-serif text-3xl xs:text-4xl sm:text-[42px] font-normal text-white text-left leading-[1.15] tracking-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] mb-3.5">
+                {/* Primary Quote / Tagline (Bold, commanding, crisp against any background) */}
+                <h1 className="font-serif text-3xl xs:text-4xl sm:text-[44px] md:text-[48px] font-black text-white text-left leading-[1.12] tracking-tight mb-3.5 [text-shadow:0_3px_20px_rgba(0,0,0,0.95),0_1px_4px_rgba(0,0,0,0.95),0_0_35px_rgba(0,0,0,0.6)]">
                   {index === 0 ? (
                     <>
                       The Complete Delivery of{' '}
-                      <span className="text-[#D1B67F] italic font-normal">Luxury.</span>
+                      <span className="text-[#F5D58A] italic font-bold [text-shadow:0_3px_20px_rgba(0,0,0,0.95),0_1px_4px_rgba(0,0,0,0.95)]">
+                        Luxury.
+                      </span>
+                    </>
+                  ) : index === 1 ? (
+                    <>
+                      Designer Designs. Contractor Executes.{' '}
+                      <span className="text-[#F5D58A] [text-shadow:0_3px_20px_rgba(0,0,0,0.95),0_1px_4px_rgba(0,0,0,0.95)]">
+                        Nobody Owns the Outcome.
+                      </span>
                     </>
                   ) : (
-                    slide.quote
+                    <>
+                      World's Finest{' '}
+                      <span className="text-[#F5D58A] [text-shadow:0_3px_20px_rgba(0,0,0,0.95),0_1px_4px_rgba(0,0,0,0.95)]">
+                        Design Delivery.
+                      </span>
+                    </>
                   )}
                 </h1>
 
                 {/* Subtitle / Definition */}
-                <p className="font-sans text-xs sm:text-sm text-neutral-300 font-light leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)] max-w-sm">
+                <p className="font-sans text-xs sm:text-sm md:text-base text-white/95 font-bold leading-relaxed max-w-sm [text-shadow:0_2px_14px_rgba(0,0,0,0.95),0_1px_3px_rgba(0,0,0,0.95)]">
                   {slide.description}
                 </p>
               </div>
@@ -247,17 +191,17 @@ export default function Hero({ onOpenConsult }) {
             3. CALL TO ACTION, PAGINATION DOTS & SCROLL INDICATOR (Bottom Area)
         ----------------------------------------------------------------------- */}
         <div className="absolute bottom-8 left-0 w-full flex flex-col items-center gap-3.5 z-20 px-6">
-          {/* Active Slide CTA Button */}
+          {/* Active Slide CTA Button (Rich Bold Champagne Gold) */}
           <button
             onClick={() => handleCtaClick(SLIDES[currentSlide].action)}
             type="button"
             aria-label={SLIDES[currentSlide].ctaText}
-            className="w-[84%] max-w-[340px] py-4 rounded-full bg-[#D1B67F] hover:bg-[#c2a56c] active:scale-95 text-neutral-950 font-serif font-medium text-xl sm:text-2xl tracking-[0.08em] uppercase transition-all duration-300 shadow-[0_4px_25px_rgba(0,0,0,0.7)] cursor-pointer text-center"
+            className="w-[88%] max-w-[340px] py-4 px-6 rounded-full bg-gradient-to-r from-[#D4AC55] via-[#C99E4A] to-[#B88D38] hover:from-[#C99E4A] hover:to-[#A87D2A] active:scale-95 text-neutral-950 font-sans font-black text-xs sm:text-sm tracking-[0.16em] uppercase transition-all duration-300 shadow-[0_6px_30px_rgba(0,0,0,0.7)] cursor-pointer text-center border border-[#B3872E]/40"
           >
             {SLIDES[currentSlide].ctaText}
           </button>
 
-          {/* Carousel Pagination Dots */}
+          {/* Carousel Pagination Dots (No white pill) */}
           <div className="flex items-center gap-2 pt-1">
             {SLIDES.map((slide, index) => (
               <button
@@ -267,145 +211,23 @@ export default function Hero({ onOpenConsult }) {
                 aria-label={`Go to slide ${index + 1}`}
                 className={`transition-all duration-300 rounded-full cursor-pointer ${
                   index === currentSlide
-                    ? 'w-7 h-2 bg-[#D1B67F] shadow-[0_0_8px_rgba(209,182,127,0.7)]'
-                    : 'w-2 h-2 bg-white/40 hover:bg-white/70'
+                    ? 'w-7 h-2 bg-[#F5D58A] shadow-[0_0_10px_rgba(245,213,138,0.9)]'
+                    : 'w-2 h-2 bg-white/60 hover:bg-white shadow-sm'
                 }`}
               />
             ))}
           </div>
 
-          {/* Minimalist White "V" Scroll Indicator */}
+          {/* Minimalist "V" Scroll Indicator */}
           <a
             href="#turnkey"
             aria-label="Scroll to explore contents"
-            className="text-white/90 hover:text-white transition-colors cursor-pointer text-xl font-serif font-light leading-none animate-bounce pt-0.5"
+            className="text-white hover:text-white/80 transition-colors cursor-pointer text-xl font-serif font-bold leading-none animate-bounce pt-0.5 [text-shadow:0_2px_8px_rgba(0,0,0,0.9)]"
           >
             V
           </a>
         </div>
       </div>
-
-      {/* =========================================================================
-          CONTENTS DRAWER (Triggered by the Right Circle Button)
-      ========================================================================= */}
-      {menuOpen && (
-        <div className="fixed inset-0 z-50 flex flex-col justify-between bg-neutral-950/95 backdrop-blur-2xl text-neutral-100 p-6 sm:p-10 animate-in fade-in duration-300">
-          {/* Top Bar inside Contents Drawer */}
-          <div className="flex items-center justify-between border-b border-white/10 pb-5 max-w-md mx-auto w-full">
-            <a href="#" className="block select-none">
-              <img
-                src="/images/lionorca-logo-transparent.png"
-                alt="LIONORCA ARCHITERIORS"
-                className="h-10 sm:h-12 w-auto object-contain"
-                onError={(e) => {
-                  e.target.src = '/images/lionorca-logo.png'
-                }}
-              />
-            </a>
-
-            <button
-              onClick={() => setMenuOpen(false)}
-              type="button"
-              aria-label="Close Contents Menu"
-              className="w-10 h-10 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all cursor-pointer active:scale-95"
-            >
-              <X size={18} />
-            </button>
-          </div>
-
-          {/* Contents List */}
-          <nav className="my-auto py-8 space-y-6 max-w-md mx-auto w-full text-left">
-            <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D1B67F] font-sans font-medium block mb-1">
-                01
-              </span>
-              <a
-                href="#turnkey"
-                onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D1B67F] transition-colors tracking-wide block"
-              >
-                The Turnkey Advantage.
-              </a>
-              <p className="text-xs text-neutral-400 mt-1 font-sans">
-                One dedicated team for your complete home — zero stress.
-              </p>
-            </div>
-
-            <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D1B67F] font-sans font-medium block mb-1">
-                02
-              </span>
-              <a
-                href="#process"
-                onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D1B67F] transition-colors tracking-wide block"
-              >
-                How It Works (5 Steps)
-              </a>
-              <p className="text-xs text-neutral-400 mt-1 font-sans">
-                From your first chat to unlocking your finished home.
-              </p>
-            </div>
-
-            <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D1B67F] font-sans font-medium block mb-1">
-                03
-              </span>
-              <a
-                href="#houses"
-                onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D1B67F] transition-colors tracking-wide block"
-              >
-                House & Interior Designs
-              </a>
-              <p className="text-xs text-neutral-400 mt-1 font-sans">
-                Explore house layouts and interior styles.
-              </p>
-            </div>
-
-            <div>
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#D1B67F] font-sans font-medium block mb-1">
-                04
-              </span>
-              <a
-                href="#architects"
-                onClick={() => setMenuOpen(false)}
-                className="text-2xl sm:text-3xl font-serif text-white hover:text-[#D1B67F] transition-colors tracking-wide block"
-              >
-                Top Architects
-              </a>
-              <p className="text-xs text-neutral-400 mt-1 font-sans">
-                Indore's top architects and their portfolio work.
-              </p>
-            </div>
-          </nav>
-
-          {/* Drawer Footer Actions */}
-          <div className="border-t border-white/10 pt-6 space-y-4 max-w-md mx-auto w-full">
-            <button
-              onClick={() => {
-                setMenuOpen(false)
-                onOpenConsult()
-              }}
-              type="button"
-              className="w-full py-4 rounded-full text-xs font-semibold tracking-[0.2em] uppercase bg-[#D1B67F] hover:bg-[#c2a56c] text-neutral-950 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95"
-            >
-              <span>Schedule Consultation</span>
-            </button>
-
-            <div className="flex items-center justify-between text-[11px] text-neutral-400 font-sans pt-2">
-              <span className="flex items-center gap-1.5">
-                <MapPin size={12} className="text-[#D1B67F]" />
-                Indore, MP
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Phone size={12} className="text-[#D1B67F]" />
-                Call Us: +91 98930 00000
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   )
 }

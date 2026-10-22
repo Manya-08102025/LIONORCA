@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { X, Send, AlertCircle, CheckCircle2, MessageCircle, Shield, ArrowRight } from 'lucide-react'
+import { X, CheckCircle2, MessageCircle, Shield, ArrowRight, AlertCircle } from 'lucide-react'
 import { useTheme } from '../hooks/useTheme'
 
 export default function LeadModal({ isOpen, onClose, preselectedArchitect = null }) {
@@ -38,7 +38,7 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
     setStatus('submitting')
 
     // Construct bilingual WhatsApp message for founder routing
-    const targetPhone = '919893000000' // Founder contact endpoint
+    const targetPhone = '919893000000'
     const budgetLabels = {
       '25l-50l': '₹25 Lakhs – ₹50 Lakhs',
       '50l-1cr': '₹50 Lakhs – ₹1 Crore',
@@ -49,22 +49,21 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
     const budgetText = budgetLabels[formData.budget] || formData.budget
 
     const encodedMessage = encodeURIComponent(
-      `*New Home Consultation Request | Lionorca Architeriors*\n\n` +
+      `*New Consultation Request | Lionorca Architeriors*\n\n` +
       `*Client Name:* ${formData.name}\n` +
       `*Contact Phone:* ${formData.phone}\n` +
-      `*Target Budget:* ${budgetText}\n` +
-      `*Property Type:* ${formData.propertyType}\n` +
+      `*Target Turnkey Budget:* ${budgetText}\n` +
+      `*Property Category:* ${formData.propertyType}\n` +
       (preselectedArchitect ? `*Preferred Architect:* ${preselectedArchitect.name}\n` : '') +
-      `*Project Needs:* ${formData.projectNeeds || 'Turnkey home design and construction'}\n\n` +
+      `*Project Scope:* ${formData.projectNeeds || 'Turnkey luxury home design and construction'}\n\n` +
       `---\n` +
-      `_Hello! I would like to schedule a consultation for my upcoming home in Indore._`
+      `_Hello! I would like to schedule a consultation for my upcoming residence in Indore._`
     )
 
-    // Redirect to WhatsApp
     setTimeout(() => {
       setStatus('success')
       window.open(`https://wa.me/${targetPhone}?text=${encodedMessage}`, '_blank')
-    }, 600)
+    }, 500)
   }
 
   return (
@@ -79,8 +78,8 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
       <div
         className={`relative w-full max-w-xl rounded-2xl shadow-2xl border p-6 sm:p-8 my-8 z-10 transition-all ${
           isDark
-            ? 'bg-neutral-900 border-[#D1B67F]/30 text-white'
-            : 'bg-white border-neutral-300 text-neutral-900'
+            ? 'bg-neutral-900 border-[#E5C583]/30 text-white'
+            : 'bg-white border-stone-300 text-stone-900'
         }`}
       >
         {/* Close Button */}
@@ -88,38 +87,50 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
           onClick={onClose}
           type="button"
           aria-label="Close dialog"
-          className="absolute top-5 right-5 p-2 rounded-full hover:bg-neutral-800/20 transition-colors text-neutral-400 hover:text-white cursor-pointer"
+          className="absolute top-5 right-5 p-2 rounded-full hover:bg-neutral-800/20 transition-colors text-neutral-400 hover:text-stone-900 dark:hover:text-white cursor-pointer"
         >
           <X size={20} />
         </button>
 
         {/* Modal Header */}
         <div className="mb-6">
-          <div className="inline-flex items-center gap-1.5 text-xs font-soft tracking-wider uppercase text-[#D1B67F] font-semibold mb-2">
+          <div
+            className={`inline-flex items-center gap-1.5 text-xs font-soft tracking-wider uppercase font-bold mb-2 ${
+              isDark ? 'text-[#E5C583]' : 'text-[#8E651E]'
+            }`}
+          >
             <Shield size={14} />
             <span>Free Consultation</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-soft font-bold tracking-tight">
-            Book a Consultation
+            Schedule a Consultation
           </h2>
-          <p className="text-xs sm:text-sm text-neutral-400 mt-1 font-soft">
-            Tell us about your home and connect directly with our team on WhatsApp.
+          <p
+            className={`text-xs sm:text-sm mt-1 font-soft ${
+              isDark ? 'text-neutral-400' : 'text-stone-600'
+            }`}
+          >
+            Connect directly with the Lionorca senior turnkey team to review your plot & architectural vision.
           </p>
         </div>
 
         {status === 'success' ? (
           <div className="text-center py-8">
-            <div className="w-16 h-16 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center mx-auto mb-4">
               <CheckCircle2 size={36} />
             </div>
             <h3 className="text-2xl font-serif font-bold mb-2">Consultation Initiated</h3>
-            <p className="text-sm text-neutral-300 font-sans max-w-md mx-auto mb-6">
-              Your inquiry has been routed directly to the founder. WhatsApp has opened to confirm your plot dimensions and design timeline.
+            <p
+              className={`text-sm font-soft max-w-md mx-auto mb-6 ${
+                isDark ? 'text-neutral-300' : 'text-stone-600'
+              }`}
+            >
+              Your inquiry has been routed directly to the founder. WhatsApp has opened to confirm your design requirements and timeline.
             </p>
             <button
               onClick={onClose}
               type="button"
-              className="px-6 py-2.5 rounded-full bg-amber-500 text-neutral-950 font-semibold text-xs tracking-wider uppercase"
+              className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#D4AC55] via-[#C99E4A] to-[#B88D38] text-neutral-950 font-bold text-xs tracking-wider uppercase border border-[#B3872E]/30"
             >
               Close Window
             </button>
@@ -128,7 +139,11 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
           <form onSubmit={handleSubmit} className="space-y-4 font-sans">
             {/* Full Name */}
             <div>
-              <label className="block text-xs uppercase tracking-wider font-medium text-neutral-300 mb-1.5">
+              <label
+                className={`block text-xs uppercase tracking-wider font-semibold mb-1.5 ${
+                  isDark ? 'text-neutral-300' : 'text-stone-700'
+                }`}
+              >
                 Full Name *
               </label>
               <input
@@ -137,17 +152,21 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
                 placeholder="e.g. Vikramaditya Agrawal"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl text-sm border focus:outline-none focus:border-amber-500 transition-colors ${
+                className={`w-full px-4 py-3 rounded-xl text-sm border focus:outline-none transition-colors ${
                   isDark
-                    ? 'bg-neutral-800/80 border-white/10 text-white placeholder-neutral-500'
-                    : 'bg-neutral-50 border-neutral-300 text-neutral-900 placeholder-neutral-400'
+                    ? 'bg-neutral-800/80 border-white/10 text-white placeholder-neutral-500 focus:border-[#E5C583]'
+                    : 'bg-stone-50 border-stone-300 text-stone-900 placeholder-stone-400 focus:border-[#8E651E]'
                 }`}
               />
             </div>
 
             {/* Phone Number */}
             <div>
-              <label className="block text-xs uppercase tracking-wider font-medium text-neutral-300 mb-1.5">
+              <label
+                className={`block text-xs uppercase tracking-wider font-semibold mb-1.5 ${
+                  isDark ? 'text-neutral-300' : 'text-stone-700'
+                }`}
+              >
                 Phone Number (WhatsApp Preferred) *
               </label>
               <input
@@ -156,10 +175,10 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
                 placeholder="+91 98XXX XXXXX"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl text-sm border focus:outline-none focus:border-amber-500 transition-colors ${
+                className={`w-full px-4 py-3 rounded-xl text-sm border focus:outline-none transition-colors ${
                   isDark
-                    ? 'bg-neutral-800/80 border-white/10 text-white placeholder-neutral-500'
-                    : 'bg-neutral-50 border-neutral-300 text-neutral-900 placeholder-neutral-400'
+                    ? 'bg-neutral-800/80 border-white/10 text-white placeholder-neutral-500 focus:border-[#E5C583]'
+                    : 'bg-stone-50 border-stone-300 text-stone-900 placeholder-stone-400 focus:border-[#8E651E]'
                 }`}
               />
             </div>
@@ -167,16 +186,20 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
             {/* Property Type & Mandatory Budget Tier */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs uppercase tracking-wider font-medium text-neutral-300 mb-1.5">
-                  Property Type
+                <label
+                  className={`block text-xs uppercase tracking-wider font-semibold mb-1.5 ${
+                    isDark ? 'text-neutral-300' : 'text-stone-700'
+                  }`}
+                >
+                  Property Category
                 </label>
                 <select
                   value={formData.propertyType}
                   onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })}
-                  className={`w-full px-4 py-3 rounded-xl text-sm border focus:outline-none focus:border-amber-500 transition-colors ${
+                  className={`w-full px-4 py-3 rounded-xl text-sm border focus:outline-none transition-colors ${
                     isDark
-                      ? 'bg-neutral-800 border-white/10 text-white'
-                      : 'bg-neutral-50 border-neutral-300 text-neutral-900'
+                      ? 'bg-neutral-800 border-white/10 text-white focus:border-[#E5C583]'
+                      : 'bg-stone-50 border-stone-300 text-stone-900 focus:border-[#8E651E]'
                   }`}
                 >
                   <option value="Bespoke Villa / Bungalow">Bespoke Villa / Bungalow</option>
@@ -187,17 +210,21 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
               </div>
 
               <div>
-                <label className="block text-xs uppercase tracking-wider font-medium text-neutral-300 mb-1.5">
+                <label
+                  className={`block text-xs uppercase tracking-wider font-semibold mb-1.5 ${
+                    isDark ? 'text-neutral-300' : 'text-stone-700'
+                  }`}
+                >
                   Target Turnkey Budget *
                 </label>
                 <select
                   required
                   value={formData.budget}
                   onChange={handleBudgetChange}
-                  className={`w-full px-4 py-3 rounded-xl text-sm border focus:outline-none focus:border-amber-500 transition-colors ${
+                  className={`w-full px-4 py-3 rounded-xl text-sm border focus:outline-none transition-colors ${
                     isDark
-                      ? 'bg-neutral-800 border-white/10 text-white'
-                      : 'bg-neutral-50 border-neutral-300 text-neutral-900'
+                      ? 'bg-neutral-800 border-white/10 text-white focus:border-[#E5C583]'
+                      : 'bg-stone-50 border-stone-300 text-stone-900 focus:border-[#8E651E]'
                   }`}
                 >
                   <option value="" disabled>Select Budget Bracket</option>
@@ -212,31 +239,50 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
 
             {/* Automatic Polite Decline for < ₹25 Lakhs */}
             {status === 'declined' && (
-              <div className="p-4 rounded-xl bg-[#D1B67F]/10 border border-[#D1B67F]/30 flex items-start gap-3 text-[#EAD8B5] text-xs leading-relaxed">
-                <AlertCircle size={20} className="shrink-0 text-[#D1B67F] mt-0.5" />
+              <div
+                className={`p-4 rounded-xl border flex items-start gap-3 text-xs leading-relaxed ${
+                  isDark
+                    ? 'bg-[#E5C583]/10 border-[#E5C583]/30 text-neutral-200'
+                    : 'bg-[#8E651E]/10 border-[#8E651E]/30 text-stone-800'
+                }`}
+              >
+                <AlertCircle
+                  size={20}
+                  className={`shrink-0 mt-0.5 ${
+                    isDark ? 'text-[#E5C583]' : 'text-[#8E651E]'
+                  }`}
+                />
                 <div>
-                  <strong className="block font-semibold text-[#D1B67F] mb-1">
+                  <strong
+                    className={`block font-bold mb-1 ${
+                      isDark ? 'text-[#E5C583]' : 'text-[#8E651E]'
+                    }`}
+                  >
                     Project Scope
                   </strong>
-                  Lionorca Architeriors handles full turnkey home design and construction starting from ₹25 Lakhs (with primary focus on ₹1Cr+ residences).
+                  Lionorca Architeriors handles full turnkey home design and construction starting from ₹25 Lakhs (with primary focus on ₹1Cr+ bespoke residences).
                 </div>
               </div>
             )}
 
             {/* Project Needs / Plot Details */}
             <div>
-              <label className="block text-xs uppercase tracking-wider font-medium text-neutral-300 mb-1.5 font-soft">
-                Plot Location / Project Details (Optional)
+              <label
+                className={`block text-xs uppercase tracking-wider font-semibold mb-1.5 font-soft ${
+                  isDark ? 'text-neutral-300' : 'text-stone-700'
+                }`}
+              >
+                Plot Location / Project Scope (Optional)
               </label>
               <textarea
                 rows={3}
                 placeholder="e.g. 3,000 sq ft plot in Indore. Looking for modern 4 BHK villa with complete interior design and turnkey execution."
                 value={formData.projectNeeds}
                 onChange={(e) => setFormData({ ...formData, projectNeeds: e.target.value })}
-                className={`w-full px-4 py-2.5 rounded-xl text-sm border focus:outline-none focus:border-[#D1B67F] transition-colors font-soft ${
+                className={`w-full px-4 py-2.5 rounded-xl text-sm border focus:outline-none transition-colors font-soft ${
                   isDark
-                    ? 'bg-neutral-800/80 border-white/10 text-white placeholder-neutral-500'
-                    : 'bg-neutral-50 border-neutral-300 text-neutral-900 placeholder-neutral-400'
+                    ? 'bg-neutral-800/80 border-white/10 text-white placeholder-neutral-500 focus:border-[#E5C583]'
+                    : 'bg-stone-50 border-stone-300 text-stone-900 placeholder-stone-400 focus:border-[#8E651E]'
                 }`}
               />
             </div>
@@ -246,14 +292,14 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
               <button
                 type="submit"
                 disabled={status === 'declined' || !formData.budget}
-                className={`w-full py-3.5 px-6 rounded-full text-xs font-semibold tracking-wider uppercase transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg font-soft ${
+                className={`w-full py-3.5 px-6 rounded-xl text-xs font-bold tracking-wider uppercase transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg font-soft ${
                   status === 'declined' || !formData.budget
                     ? 'bg-neutral-700 text-neutral-400 cursor-not-allowed'
                     : 'bg-[#25D366] hover:bg-[#20ba59] text-white shadow-emerald-500/20 active:scale-98'
                 }`}
               >
                 <MessageCircle size={17} className="fill-white stroke-none" />
-                <span>Chat on WhatsApp & Book Consultation</span>
+                <span>Confirm on WhatsApp & Book Consultation</span>
                 <ArrowRight size={15} />
               </button>
             </div>

@@ -6,19 +6,29 @@
   --font-cormorant: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Montserrat", system-ui, -apple-system, sans-serif;
   --font-soft: "Plus Jakarta Sans", "Montserrat", system-ui, -apple-system, sans-serif;
-  --color-gold-muted: #D1B67F;
-  --color-gold-400: #E0C99E;
-  --color-gold-500: #D1B67F;
-  --color-gold-600: #BA9D66;
-  --color-champagne-300: #EAD8B5;
-  --color-champagne-400: #E0C99E;
-  --color-champagne-500: #D1B67F;
-  --color-champagne-600: #BA9D66;
-  --color-dark-950: #050505;
-  --color-dark-900: #0a0a0a;
-  --color-dark-850: #121212;
-  --color-dark-800: #18181b;
-  --color-dark-700: #27272a;
+
+  /* Rich Champagne Gold Tones */
+  --color-gold-300: #F5E8C8;
+  --color-gold-400: #E5C583;
+  --color-gold-500: #C99E4A;
+  --color-gold-600: #AA7E2D;
+  --color-gold-700: #8E651E;
+  --color-gold-800: #735014;
+  --color-champagne-gold: #C99E4A;
+  --color-champagne-deep: #8E651E;
+}
+
+/* Contrast-optimized brand champagne gold */
+:root {
+  --brand-gold-text: #8E651E;
+  --brand-gold-border: rgba(142, 101, 30, 0.35);
+  --brand-gold-bg: rgba(142, 101, 30, 0.08);
+}
+
+.dark {
+  --brand-gold-text: #E5C583;
+  --brand-gold-border: rgba(229, 197, 131, 0.35);
+  --brand-gold-bg: rgba(229, 197, 131, 0.12);
 }
 
 html {
@@ -45,3 +55,43 @@ body {
 .font-soft {
   font-family: var(--font-soft);
 }
+
+/* Custom Luxury Gold Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f7f7f5;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4ac55;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b88d38;
+}
+
+/* Luxury Card Elevation */
+.luxury-card-hover {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease;
+}
+.luxury-card-hover:hover {
+  transform: translateY(-6px) scale(1.008);
+  box-shadow: 0 20px 35px -10px rgba(142, 101, 30, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Subtle Ambient Background Floating */
+@keyframes subtle-float {
+  0%, 100% {
+    transform: translateY(0px) scale(1.05);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.07);
+  }
+}
+
+.ambient-bg-float {
+  animation: subtle-float 20s ease-in-out infinite;
+  will-change: transform;
+}
+

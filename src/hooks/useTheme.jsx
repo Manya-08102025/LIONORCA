@@ -1,47 +1,25 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect } from 'react'
 
 const ThemeContext = createContext()
 
 export function ThemeProvider({ children }) {
-  // Default to dark mode for luxury architectural framing
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('lionorca-theme')
-      if (saved !== null) {
-        return saved === 'dark'
-      }
-      return true // Default dark for luxury theme
-    }
-    return true
-  })
+  // Website is strictly locked to Bright Luxury Light Theme
+  const isDark = false
 
-  // Preload background assets via JS Image objects to guarantee zero flicker
-  useEffect(() => {
-    const dayImg = new Image()
-    dayImg.src = '/images/hero-day.jpg'
-
-    const nightImg = new Image()
-    nightImg.src = '/images/hero-night.jpg'
-  }, [])
-
-  // Sync document root class and local storage
+  // Sync document root class to light
   useEffect(() => {
     const root = document.documentElement
-    if (isDark) {
-      root.classList.add('dark')
-      root.classList.remove('light')
-      localStorage.setItem('lionorca-theme', 'dark')
-    } else {
-      root.classList.add('light')
-      root.classList.remove('dark')
-      localStorage.setItem('lionorca-theme', 'light')
-    }
-  }, [isDark])
+    root.classList.add('light')
+    root.classList.remove('dark')
+    localStorage.setItem('lionorca-theme', 'light')
+  }, [])
 
-  const toggleTheme = () => setIsDark((prev) => !prev)
+  const toggleTheme = () => {
+    // Light theme locked as requested
+  }
 
   return (
-    <ThemeContext.Provider value={{ isDark, toggleTheme, setIsDark }}>
+    <ThemeContext.Provider value={{ isDark: false, toggleTheme, setIsDark: () => {} }}>
       {children}
     </ThemeContext.Provider>
   )
