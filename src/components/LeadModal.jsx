@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { X, CheckCircle2, MessageCircle, Shield, ArrowRight, AlertCircle } from 'lucide-react'
+import { db, isFirebaseConfigured, doc, setDoc } from '../services/firebase'
 
 export default function LeadModal({ isOpen, onClose, preselectedArchitect = null }) {
   const [formData, setFormData] = useState({
@@ -44,6 +45,43 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
     }
 
     const budgetText = budgetLabels[formData.budget] || formData.budget
+
+    // Persist to Admin CMS (LocalStorage & Firebase Firestore)
+    try {
+      const leadId = `lead-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`
+      const newLead = {
+        id: leadId,
+        date: new Date().toISOString().slice(0, 10),
+        name: formData.name,
+        phone: formData.phone,
+        email: '',
+        projectType: formData.propertyType,
+        investmentRange: budgetText,
+        status: 'New',
+        notes: formData.projectNeeds || (preselectedArchitect ? `Preferred Architect: ${preselectedArchitect.name}` : ''),
+      }
+
+      // 1. Sync to local storage
+      const stored = localStorage.getItem('lionorca_admin_data')
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored)
+          parsed.leads = [newLead, ...(parsed.leads || [])]
+          localStorage.setItem('lionorca_admin_data', JSON.stringify(parsed))
+        } catch {
+          // ignore error
+        }
+      }
+
+      // 2. Sync to Firebase Firestore if connected
+      if (isFirebaseConfigured && db) {
+        setDoc(doc(db, 'leads', leadId), newLead).catch((err) =>
+          console.warn('Firestore lead sync note:', err)
+        )
+      }
+    } catch (saveErr) {
+      console.warn('Lead capture storage note:', saveErr)
+    }
 
     const encodedMessage = encodeURIComponent(
       `*New Consultation Request | Lionorca Architeriors*\n\n` +
