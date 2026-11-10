@@ -6,7 +6,7 @@ export default function Contact({ onOpenConsult }) {
     name: '',
     phone: '',
     budget: '',
-    propertyType: 'Bespoke Villa / Bungalow',
+    propertyType: 'Private Villa / Independent House',
     notes: '',
   })
   const [status, setStatus] = useState('idle')
@@ -31,26 +31,27 @@ export default function Contact({ onOpenConsult }) {
     setStatus('submitting')
 
     const budgetLabels = {
+      'under-25l': 'Under ₹25 Lakhs',
       '25l-50l': '₹25 Lakhs – ₹50 Lakhs',
       '50l-1cr': '₹50 Lakhs – ₹1.0 Crore',
-      '1cr-2.5cr': '₹1.0 Crore – ₹2.5 Crore (Signature Turnkey Villa)',
-      '2.5cr-plus': '₹2.5 Crore+ (Ultra Luxury Estate)',
+      '1cr-2.5cr': '₹1.0 Crore – ₹2.5 Crore (Bespoke Villa)',
+      '2.5cr-plus': '₹2.5 Crore+ (Signature Estate)',
     }
 
     const budgetText = budgetLabels[formData.budget] || formData.budget
     const encodedMessage = encodeURIComponent(
-      `*New Discovery Session Inquiry | Linorga Architeriors*\n\n` +
+      `*New Discovery Session Inquiry | Lionorca Architeriors*\n\n` +
       `*Name:* ${formData.name}\n` +
       `*Phone:* ${formData.phone}\n` +
-      `*Turnkey Budget:* ${budgetText}\n` +
-      `*Property Type:* ${formData.propertyType}\n` +
-      `*Project Notes:* ${formData.notes || 'Full Turnkey Planning & Execution'}\n\n` +
-      `_Hello! I would like to schedule a dedicated Discovery Session with the Linorga team._`
+      `*Expected Investment Range:* ${budgetText}\n` +
+      `*Type of Project:* ${formData.propertyType}\n` +
+      `*Approximate Area & Location:* ${formData.notes || 'Full Turnkey Planning & Execution'}\n\n` +
+      `_Hello! I would like to schedule a dedicated Discovery Session with the Lionorca team._`
     )
 
     setTimeout(() => {
       setStatus('success')
-      window.open(`https://wa.me/919893000000?text=${encodedMessage}`, '_blank')
+      window.open(`https://wa.me/919755667695?text=${encodedMessage}`, '_blank')
     }, 500)
   }
 
@@ -136,23 +137,24 @@ export default function Contact({ onOpenConsult }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs uppercase tracking-wider font-semibold text-slate-700 mb-1.5">
-                      Property Category
+                      Type of Project
                     </label>
                     <select
                       value={formData.propertyType}
                       onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl text-sm border border-slate-300 focus:outline-none focus:border-[#D1B67F] transition-colors bg-white"
                     >
-                      <option value="Bespoke Villa / Bungalow">Bespoke Villa / Bungalow</option>
-                      <option value="Luxury Farmhouse">Luxury Farmhouse</option>
-                      <option value="Penthouse Interior">Penthouse Interior</option>
-                      <option value="Ancestral Redevelopment">Ancestral Redevelopment</option>
+                      <option value="Private Villa / Independent House">Private Villa / Independent House</option>
+                      <option value="Luxury Apartment / Penthouse">Luxury Apartment / Penthouse</option>
+                      <option value="Farmhouse / Country Estate">Farmhouse / Country Estate</option>
+                      <option value="Boutique Office / Hospitality">Boutique Office / Hospitality</option>
+                      <option value="Full Home Renovation / Extension">Full Home Renovation / Extension</option>
                     </select>
                   </div>
 
                   <div>
                     <label className="block text-xs uppercase tracking-wider font-semibold text-slate-700 mb-1.5">
-                      Target Turnkey Budget *
+                      Expected Investment Range *
                     </label>
                     <select
                       required
@@ -160,11 +162,11 @@ export default function Contact({ onOpenConsult }) {
                       onChange={handleBudgetChange}
                       className="w-full px-4 py-3 rounded-xl text-sm border border-slate-300 focus:outline-none focus:border-[#D1B67F] transition-colors bg-white"
                     >
-                      <option value="" disabled>Select Budget Bracket</option>
+                      <option value="" disabled>Select Investment Range</option>
                       <option value="under-25l">Under ₹25 Lakhs</option>
                       <option value="25l-50l">₹25 Lakhs – ₹50 Lakhs</option>
                       <option value="50l-1cr">₹50 Lakhs – ₹1.0 Crore</option>
-                      <option value="1cr-2.5cr">₹1.0 Crore – ₹2.5 Crore (Turnkey Villa)</option>
+                      <option value="1cr-2.5cr">₹1.0 Crore – ₹2.5 Crore (Bespoke Villa)</option>
                       <option value="2.5cr-plus">₹2.5 Crore+ (Signature Estate)</option>
                     </select>
                   </div>
@@ -182,7 +184,7 @@ export default function Contact({ onOpenConsult }) {
 
                 <div>
                   <label className="block text-xs uppercase tracking-wider font-semibold text-slate-700 mb-1.5">
-                    Plot Dimensions / Project Scope (Optional)
+                    Approximate Area (Sq. Ft.) &amp; Location (Optional)
                   </label>
                   <textarea
                     rows={3}
@@ -221,15 +223,28 @@ export default function Contact({ onOpenConsult }) {
               <div className="space-y-4 text-sm font-soft text-slate-600">
                 <div className="flex items-start gap-3">
                   <MapPin size={18} className="text-[#9E7D3B] shrink-0 mt-0.5" />
-                  <span>Vijay Nagar & Super Corridor Commercial Spine, Indore, MP 452010</span>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Central+Business+Park,+Scheme+No+94,+Indore"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#9E7D3B] transition-colors leading-relaxed"
+                  >
+                    204, FA1, Central Business Park, HDFC Bank Building,<br />
+                    Bengali to Pipliyahana Service Rd, Sch. No. 94,<br />
+                    Indore, Madhya Pradesh 452016
+                  </a>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone size={18} className="text-[#9E7D3B] shrink-0" />
-                  <span>Direct Hotline: +91 98930 00000</span>
+                  <a href="tel:+919755667695" className="hover:text-[#9E7D3B] transition-colors font-medium">
+                    +91 97556 67695
+                  </a>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail size={18} className="text-[#9E7D3B] shrink-0" />
-                  <span>inquiry@linorga.com</span>
+                  <a href="mailto:lionorca.architeriors@gmail.com" className="hover:text-[#9E7D3B] transition-colors">
+                    lionorca.architeriors@gmail.com
+                  </a>
                 </div>
                 <div className="flex items-center gap-3">
                   <Clock size={18} className="text-[#9E7D3B] shrink-0" />

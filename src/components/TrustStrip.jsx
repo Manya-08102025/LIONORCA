@@ -1,56 +1,33 @@
-import { useTheme } from '../hooks/useTheme'
-import { Sparkles, MapPin, ShieldCheck, Compass } from 'lucide-react'
 import ScrollReveal from './ScrollReveal'
+import { Sparkles, MapPin, ShieldCheck, Compass } from 'lucide-react'
 
 export default function TrustStrip() {
-  const { isDark } = useTheme()
-
   const items = [
-    { icon: Compass, text: 'Handpicked Architects' },
-    { icon: ShieldCheck, text: 'One Accountable Turnkey Delivery' },
-    { icon: MapPin, text: 'Indore, Bhopal, Ujjain & Nearby' },
+    { icon: Compass, text: 'Handpicked Architects and Interior Designers' },
+    { icon: ShieldCheck, text: 'One Accountable Turnkey Contract' },
+    { icon: MapPin, text: 'Indore, Bhopal, Ujjain & Central India' },
   ]
 
   return (
-    <div className="w-full py-5 px-4 sm:px-6 border-b border-[#E5C583]/40 bg-[#F8F5EE] text-stone-900 shadow-xs relative z-20 overflow-hidden">
-      {/* Soft Blurred Luxury Interior Glass Plinth Background */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <img
-          src="/images/bg-villa.jpg"
-          alt=""
-          className="w-full h-full object-cover"
-          style={{
-            filter: 'blur(6px)',
-            transform: 'scale(1.15)',
-            opacity: 0.45,
-          }}
-        />
-        <div className="absolute inset-0 bg-[#F8F5EE]/65 backdrop-blur-md" />
-      </div>
-
-      <ScrollReveal animation="blur-up" duration={700}>
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left relative z-10">
+    <div id="trust-strip" className="w-full py-6 sm:py-8 px-6 sm:px-12 border-b border-stone-200/80 bg-white/70 backdrop-blur-md text-charcoal relative z-20">
+      <ScrollReveal className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left relative z-10">
         {/* Desktop inline row */}
-        <div className="hidden sm:flex items-center justify-center md:justify-start flex-wrap gap-y-2 gap-x-4 lg:gap-x-8 text-xs sm:text-[13px] font-soft font-medium tracking-wide">
+        <div className="hidden sm:flex items-center justify-center md:justify-start flex-wrap gap-y-2 gap-x-6 lg:gap-x-10 text-xs sm:text-[13px] font-sans font-medium tracking-wide">
           {items.map((item, index) => {
             const Icon = item.icon
             return (
-              <div key={index} className="flex items-center gap-2">
+              <div key={index} className="flex items-center gap-2.5">
                 <Icon
                   size={15}
-                  className={`${
-                    isDark ? 'text-[#E5C583]' : 'text-[#8E651E]'
-                  } shrink-0`}
+                  className="text-champagne shrink-0"
                 />
-                <span className="font-semibold">{item.text}</span>
+                <span className="font-medium text-charcoal/90 tracking-wide">{item.text}</span>
                 {index < items.length - 1 && (
                   <span
-                    className={`${
-                      isDark ? 'text-[#E5C583]/50' : 'text-[#8E651E]/50'
-                    } ml-2 hidden lg:inline`}
+                    className="text-ash-dark ml-3 hidden lg:inline text-base font-serif"
                     aria-hidden="true"
                   >
-                    &bull;
+                    /
                   </span>
                 )}
               </div>
@@ -59,27 +36,18 @@ export default function TrustStrip() {
         </div>
 
         {/* Mobile compact stack */}
-        <div className="sm:hidden flex flex-col items-center gap-1.5 text-xs font-soft font-medium tracking-wide">
-          <div
-            className={`flex items-center gap-2 ${
-              isDark ? 'text-[#E5C583]' : 'text-[#8E651E]'
-            }`}
-          >
+        <div className="sm:hidden flex flex-col items-center gap-1.5 text-xs font-sans font-medium tracking-wide">
+          <div className="flex items-center gap-2 text-champagne">
             <Sparkles size={13} />
-            <span className="text-[11px] uppercase tracking-[0.2em] font-bold">
+            <span className="text-[11px] uppercase tracking-[0.2em] font-semibold">
               The Lionorca Standard
             </span>
           </div>
-          <p
-            className={`text-center text-[12px] leading-relaxed ${
-              isDark ? 'text-neutral-300' : 'text-slate-600'
-            }`}
-          >
-            Handpicked architects &bull; One accountable turnkey delivery &bull; Indore, Bhopal, Ujjain & nearby
+          <p className="text-center text-[12px] leading-relaxed text-charcoal-muted">
+            Handpicked Architects and Interior Designers • One accountable turnkey delivery • Central India
           </p>
         </div>
-      </div>
-    </ScrollReveal>
-  </div>
-)
+      </ScrollReveal>
+    </div>
+  )
 }

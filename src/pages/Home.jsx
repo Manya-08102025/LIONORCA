@@ -1,53 +1,86 @@
-import { Link } from 'react-router-dom'
+import React from 'react'
 import Hero from '../components/Hero'
+import TrustStrip from '../components/TrustStrip'
+import FoundersPhilosophy from '../components/FoundersPhilosophy'
 import ValueProposition from '../components/ValueProposition'
+import ArchitectShowcase from '../components/ArchitectShowcase'
 import ProcessTimeline from '../components/ProcessTimeline'
 import PortfolioGallery from '../components/PortfolioGallery'
-import ArchitectShowcase from '../components/ArchitectShowcase'
-import { ArrowRight, ShieldCheck, Sparkles, Building, Layers, CheckCircle2 } from 'lucide-react'
+import MediaSection from '../components/MediaSection'
+import DiscoverySessionSection from '../components/DiscoverySessionSection'
 
-export default function Home({ onOpenConsult }) {
+/**
+ * Page/Home: Standard Vertical Scrolling Structure
+ *
+ * Reverted to natural document flow:
+ * - Removed sticky, top-0, h-screen, and z-index layer constraints
+ * - 100% natural, smooth vertical touch scrolling
+ * - Complete preservation of all CMS data, Sanity props, and consultation handlers
+ * - Zero heavy JS animation libraries or scroll listener jank
+ */
+export default function Home({
+  onOpenConsult,
+  architects,
+  projects,
+  sanityData,
+  sanityArchitects,
+  sanityProjects,
+}) {
+  const resolvedArchitects = architects || sanityArchitects || sanityData?.architects
+  const resolvedProjects = projects || sanityProjects || sanityData?.projects
+
   return (
-    <div className="flex flex-col">
-      {/* Page 1: Hero Carousel Banner */}
+    <div className="flex flex-col w-full min-h-screen text-charcoal font-sans selection:bg-champagne/20 selection:text-charcoal bg-[#FCFCFA]">
+      {/* 01: Hero Carousel Banner */}
       <Hero onOpenConsult={onOpenConsult} />
 
-      {/* Quick Banner: Jump to The Linorga Advantage */}
-      <section className="bg-gradient-to-r from-slate-900 via-[#131926] to-slate-900 text-white py-12 px-4 sm:px-6 border-y border-[#D1B67F]/20">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-          <div className="space-y-2">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#D1B67F] font-semibold flex items-center justify-center md:justify-start gap-2">
-              <Sparkles size={14} />
-              <span>The Linorga Difference</span>
-            </span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight">
-              Building a Luxury Home Shouldn't Feel Like a Full-Time Nightmare.
-            </h2>
-            <p className="text-sm text-slate-300 max-w-2xl font-soft">
-              Explore how our single-point turnkey delivery eliminates contractor delays, hidden costs, and fragmented communication.
-            </p>
-          </div>
-          <Link
-            to="/advantage"
-            className="shrink-0 px-7 py-3.5 rounded-full bg-[#D1B67F] hover:bg-[#c2a56c] text-[#0F172A] font-semibold text-xs tracking-widest uppercase transition-all shadow-lg active:scale-95 flex items-center gap-2"
-          >
-            <span>Explore The Linorga Advantage</span>
-            <ArrowRight size={15} />
-          </Link>
-        </div>
-      </section>
+      {/* 02: Trust Strip (Frosted Glass) */}
+      <div className="w-full">
+        <TrustStrip />
+      </div>
 
-      {/* Page 2: Turnkey Advantage Preview */}
-      <ValueProposition />
+      {/* 02.5: Founder's Philosophy (Editorial Quote & Portrait) */}
+      <div className="w-full">
+        <FoundersPhilosophy />
+      </div>
 
-      {/* Page 3: 5-Step Simple Workflow */}
-      <ProcessTimeline />
+      {/* 03: The Problem & Promise (Exact ValueProposition per Sample) */}
+      <div className="w-full">
+        <ValueProposition onOpenConsult={onOpenConsult} />
+      </div>
 
-      {/* Page 4: House & Interior Design Options */}
-      <PortfolioGallery onSelectProject={(item) => onOpenConsult({ name: item.title })} />
+      {/* 04: Featured Architects */}
+      <div className="w-full">
+        <ArchitectShowcase
+          onSelectArchitect={(arch) => onOpenConsult?.(arch)}
+          architects={resolvedArchitects}
+          data={sanityData}
+        />
+      </div>
 
-      {/* Page 5: Top Architects & Portfolio */}
-      <ArchitectShowcase onSelectArchitect={(arch) => onOpenConsult(arch)} />
+      {/* 05: How We Work / Process Timeline */}
+      <div className="w-full">
+        <ProcessTimeline />
+      </div>
+
+      {/* 06: Signature Projects / Typologies */}
+      <div className="w-full">
+        <PortfolioGallery
+          onSelectProject={(item) => onOpenConsult?.({ name: item.title })}
+          projects={resolvedProjects}
+          data={sanityData}
+        />
+      </div>
+
+      {/* 07: Media & Insights */}
+      <div className="w-full">
+        <MediaSection onOpenConsult={onOpenConsult} />
+      </div>
+
+      {/* 08: Discovery Session */}
+      <div className="w-full">
+        <DiscoverySessionSection />
+      </div>
     </div>
   )
 }

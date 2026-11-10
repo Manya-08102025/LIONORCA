@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const SLIDES = [
   {
@@ -7,7 +8,7 @@ const SLIDES = [
     image: '/images/hero-bright-1.jpg',
     quote: 'The Complete Delivery of Luxury.',
     description:
-      'From your first architectural sketch to the final keys — we design and build your bespoke residence.',
+      'Bring your vision to life under one roof — offering complete turnkey execution and dedicated project management consultancy from architectural sketch to final keys.',
     ctaText: 'Book a Discovery Session',
     action: 'consult',
   },
@@ -23,67 +24,73 @@ const SLIDES = [
   {
     id: 3,
     image: '/images/hero-bright-3.jpg',
-    quote: "World's Finest Design Delivery",
+    quote: 'Finest match of Design Delivery',
     description:
-      'Handpicked metro architectural talent with relentless, daily on-site turnkey delivery in Central India.',
+      'Handpicked architects and designers with relentless onsite turnkey delivery.',
     ctaText: 'Book a Discovery Session',
     action: 'consult',
   },
-]
+];
 
 export default function Hero({ onOpenConsult }) {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [isPaused, setIsPaused] = useState(false)
+  const [currentSlide, setCurrentSlide] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const match = window.location.search.match(/slide=(\d+)/);
+      if (match) return parseInt(match[1], 10) % SLIDES.length;
+    }
+    return 0;
+  });
+  const [isPaused, setIsPaused] = useState(false);
 
   // Touch swipe support
-  const touchStartX = useRef(0)
-  const touchEndX = useRef(0)
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
-  // Auto-slide every 5.5 seconds
+  // Auto-slide every 6.5 seconds (6-7s duration)
   useEffect(() => {
-    if (isPaused) return
+    if (isPaused) return;
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % SLIDES.length)
-    }, 5500)
-    return () => clearInterval(interval)
-  }, [isPaused])
+      setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
+    }, 6500);
+    return () => clearInterval(interval);
+  }, [isPaused]);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % SLIDES.length)
-  }
+    setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
+  };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length)
-  }
+    setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
+  };
 
   const handleTouchStart = (e) => {
-    touchStartX.current = e.targetTouches[0].clientX
-  }
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
 
   const handleTouchMove = (e) => {
-    touchEndX.current = e.targetTouches[0].clientX
-  }
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
 
   const handleTouchEnd = () => {
     if (touchStartX.current - touchEndX.current > 50) {
-      nextSlide()
+      nextSlide();
     }
     if (touchStartX.current - touchEndX.current < -50) {
-      prevSlide()
+      prevSlide();
     }
-  }
+  };
 
   const handleCtaClick = (action) => {
     if (action === 'consult') {
-      onOpenConsult()
+      onOpenConsult?.();
     } else if (action === 'turnkey') {
-      const el = document.getElementById('turnkey')
-      if (el) el.scrollIntoView({ behavior: 'smooth' })
+      const el = document.getElementById('turnkey');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
     } else if (action === 'architects') {
-      const el = document.getElementById('architects')
-      if (el) el.scrollIntoView({ behavior: 'smooth' })
+      const el = document.getElementById('architects');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
-  }
+  };
 
   return (
     <section
@@ -94,104 +101,112 @@ export default function Hero({ onOpenConsult }) {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* =========================================================================
-          BACKGROUND SLIDES (Raw Gemini Flash Generated Images - 100% As-Is)
-      ========================================================================= */}
+      {/* Background Slides with subtle dimming to compliment the text */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         {SLIDES.map((slide, index) => (
           <div
             key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              }`}
           >
             <img
               src={slide.image}
               alt={slide.quote}
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover object-center opacity-85"
               loading={index === 0 ? 'eager' : 'lazy'}
             />
+            {/* Very subtle dimming overlay to enhance text contrast without heavy shadows */}
+            <div className="absolute inset-0 bg-black/20 pointer-events-none" />
           </div>
         ))}
       </div>
 
-      {/* =========================================================================
-          MOBILE CANVAS CONTAINER (Strictly 9:16 mobile framing)
-      ========================================================================= */}
-      <div className="relative z-20 w-full h-full max-w-[440px] mx-auto flex flex-col justify-between pt-16 sm:pt-20">
+      {/* Navigation Arrows (Anchored to Screen Edges, Scaled for Mobile Clearance) */}
+      <button
+        onClick={prevSlide}
+        type="button"
+        aria-label="Previous Slide"
+        className="absolute left-1.5 sm:left-6 md:left-8 top-1/2 -translate-y-1/2 z-30 w-8 h-8 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md text-white flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-md border border-white/20"
+      >
+        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 stroke-[2.2]" />
+      </button>
 
-        {/* -----------------------------------------------------------------------
-            SLIDER NAVIGATION ARROWS
-        ----------------------------------------------------------------------- */}
-        <button
-          onClick={prevSlide}
-          type="button"
-          aria-label="Previous Slide"
-          className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/35 hover:bg-black/55 backdrop-blur-md text-white flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-md border border-white/25"
-        >
-          <ChevronLeft size={20} className="stroke-[2.2]" />
-        </button>
+      <button
+        onClick={nextSlide}
+        type="button"
+        aria-label="Next Slide"
+        className="absolute right-1.5 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-30 w-8 h-8 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md text-white flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-md border border-white/20"
+      >
+        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 stroke-[2.2]" />
+      </button>
 
-        <button
-          onClick={nextSlide}
-          type="button"
-          aria-label="Next Slide"
-          className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/35 hover:bg-black/55 backdrop-blur-md text-white flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-md border border-white/25"
-        >
-          <ChevronRight size={20} className="stroke-[2.2]" />
-        </button>
+      {/* Content Container (Centered Grand Desktop & Mobile Framing) */}
+      <div className="relative z-20 w-full h-full max-w-[460px] sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto flex flex-col justify-between pt-16 sm:pt-20">
 
-        {/* -----------------------------------------------------------------------
-            2. MAIN TYPOGRAPHY (Directly on image - Bolder, Larger, High Legibility)
-        ----------------------------------------------------------------------- */}
-        <div className="absolute top-[44%] -translate-y-1/2 left-0 w-full px-10 sm:px-14 z-20 text-left">
+        {/* Main Typography - Strictly Centered */}
+        <div className="absolute top-[44%] -translate-y-1/2 left-0 w-full px-5 sm:px-12 md:px-0 z-20 flex flex-col items-center text-center">
           {SLIDES.map((slide, index) => {
-            if (index !== currentSlide) return null
+            if (index !== currentSlide) return null;
             return (
               <div
                 key={slide.id}
-                className="animate-in fade-in slide-in-from-bottom-2 duration-400 flex flex-col items-start"
+                className="animate-in fade-in slide-in-from-bottom-2 duration-400 flex flex-col items-center text-center w-full"
               >
-                {/* Primary Quote / Tagline (Bold, commanding, crisp against any background) */}
-                <h1 className="font-serif text-3xl xs:text-4xl sm:text-[44px] md:text-[48px] font-black text-white text-left leading-[1.12] tracking-tight mb-3.5 [text-shadow:0_3px_20px_rgba(0,0,0,0.95),0_1px_4px_rgba(0,0,0,0.95),0_0_35px_rgba(0,0,0,0.6)]">
+                {/* Headline: Larger, Bolder Cormorant Garamond Serif Strictly Centered */}
+                <motion.h1
+                  initial={{ opacity: 0, y: 25 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-serif text-[32px] xs:text-[36px] sm:text-[56px] md:text-[64px] lg:text-[70px] font-black text-white text-center leading-[1.08] tracking-tight mb-4 [text-shadow:0_2px_8px_rgba(0,0,0,0.45)] [font-weight:900]"
+                >
                   {index === 0 ? (
                     <>
-                      The Complete Delivery of{' '}
-                      <span className="text-[#F5D58A] italic font-bold [text-shadow:0_3px_20px_rgba(0,0,0,0.95),0_1px_4px_rgba(0,0,0,0.95)]">
+                      <span className="block">The Complete</span>
+                      <span className="block">Delivery of</span>
+                      <span className="text-[#F5D58A] italic font-bold block [text-shadow:0_2px_8px_rgba(0,0,0,0.45)]">
                         Luxury.
                       </span>
                     </>
                   ) : index === 1 ? (
                     <>
-                      Designer Designs. Contractor Executes.{' '}
-                      <span className="text-[#F5D58A] [text-shadow:0_3px_20px_rgba(0,0,0,0.95),0_1px_4px_rgba(0,0,0,0.95)]">
+                      <span className="block">Designer Designs.</span>
+                      <span className="block">Contractor Executes.</span>
+                      <span className="text-[#F5D58A] font-bold block [text-shadow:0_2px_8px_rgba(0,0,0,0.45)]">
                         Nobody Owns the Outcome.
                       </span>
                     </>
                   ) : (
                     <>
-                      World's Finest{' '}
-                      <span className="text-[#F5D58A] [text-shadow:0_3px_20px_rgba(0,0,0,0.95),0_1px_4px_rgba(0,0,0,0.95)]">
+                      <span className="block">Finest match of</span>
+                      <span className="text-[#F5D58A] font-bold block [text-shadow:0_2px_8px_rgba(0,0,0,0.45)]">
                         Design Delivery.
                       </span>
                     </>
                   )}
-                </h1>
+                </motion.h1>
 
-                {/* Subtitle / Definition */}
-                <p className="font-sans text-xs sm:text-sm md:text-base text-white/95 font-bold leading-relaxed max-w-sm [text-shadow:0_2px_14px_rgba(0,0,0,0.95),0_1px_3px_rgba(0,0,0,0.95)]">
+                {/* Subtitle / Definition - Enhanced Size & Readability Strictly Centered */}
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-sans text-[14px] xs:text-[15px] sm:text-[17px] md:text-[18px] text-white font-semibold leading-relaxed w-full max-w-[280px] xs:max-w-[320px] sm:max-w-lg md:max-w-2xl text-center mx-auto [text-shadow:0_2px_10px_rgba(0,0,0,0.9),0_1px_3px_rgba(0,0,0,0.95)]"
+                >
                   {slide.description}
-                </p>
+                </motion.p>
               </div>
-            )
+            );
           })}
         </div>
 
-        {/* -----------------------------------------------------------------------
-            3. CALL TO ACTION, PAGINATION DOTS & SCROLL INDICATOR (Bottom Area)
-        ----------------------------------------------------------------------- */}
-        <div className="absolute bottom-8 left-0 w-full flex flex-col items-center gap-3.5 z-20 px-6">
-          {/* Active Slide CTA Button (Rich Bold Champagne Gold) */}
+        {/* CTA Button, Pagination Dots & V Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute bottom-8 left-0 w-full flex flex-col items-center gap-3.5 z-20 px-6"
+        >
+          {/* Active Slide CTA Button */}
           <button
             onClick={() => handleCtaClick(SLIDES[currentSlide].action)}
             type="button"
@@ -201,7 +216,7 @@ export default function Hero({ onOpenConsult }) {
             {SLIDES[currentSlide].ctaText}
           </button>
 
-          {/* Carousel Pagination Dots (No white pill) */}
+          {/* Carousel Pagination Dots */}
           <div className="flex items-center gap-2 pt-1">
             {SLIDES.map((slide, index) => (
               <button
@@ -209,11 +224,10 @@ export default function Hero({ onOpenConsult }) {
                 onClick={() => setCurrentSlide(index)}
                 type="button"
                 aria-label={`Go to slide ${index + 1}`}
-                className={`transition-all duration-300 rounded-full cursor-pointer ${
-                  index === currentSlide
+                className={`transition-all duration-300 rounded-full cursor-pointer ${index === currentSlide
                     ? 'w-7 h-2 bg-[#F5D58A] shadow-[0_0_10px_rgba(245,213,138,0.9)]'
                     : 'w-2 h-2 bg-white/60 hover:bg-white shadow-sm'
-                }`}
+                  }`}
               />
             ))}
           </div>
@@ -226,8 +240,11 @@ export default function Hero({ onOpenConsult }) {
           >
             V
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
-  )
+  );
 }
+
+
+

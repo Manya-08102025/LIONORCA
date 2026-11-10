@@ -37,7 +37,7 @@ export default function Preloader({ onComplete }) {
   return (
     <div
       aria-hidden="true"
-      className={`fixed inset-0 z-[99999] bg-[#FFFFFF] flex flex-col items-center justify-center select-none transition-transform duration-700 ease-[cubic-bezier(0.85,0,0.15,1)] ${
+      className={`fixed inset-0 z-[99999] bg-[#FCFCFA] text-[#2E2D2B] flex flex-col items-center justify-center select-none transition-transform duration-700 ease-[cubic-bezier(0.85,0,0.15,1)] ${
         isExiting ? '-translate-y-full pointer-events-none' : 'translate-y-0'
       }`}
     >
@@ -83,7 +83,7 @@ export default function Preloader({ onComplete }) {
             opacity: 0;
           }
           100% {
-            width: 200px;
+            width: 250px;
             opacity: 1;
           }
         }
@@ -109,26 +109,26 @@ export default function Preloader({ onComplete }) {
         }
       `}</style>
 
-      {/* Main Luxury Brand Lockup */}
+      {/* Main Brand Lockup matching the exact Lionorca logo specifications */}
       <div className="flex flex-col items-center justify-center px-6 text-center max-w-xl mx-auto">
-        {/* 1. Graphic Logo Reveal (Emblem Mark - Large, Majestic, Prominent) */}
+        {/* 1. Graphic Logo Reveal (Gold Hexagonal Lion Emblem) */}
         <div className="opacity-0 animate-preloader-emblem mb-6 relative flex items-center justify-center">
           <img
             src="/images/lionorca-emblem-transparent.png"
             alt="Lionorca Emblem"
-            className="w-28 sm:w-36 md:w-44 h-auto object-contain drop-shadow-[0_8px_30px_rgba(142,101,30,0.18)]"
+            className="w-28 sm:w-36 md:w-44 h-auto object-contain drop-shadow-[0_8px_30px_rgba(176,138,75,0.22)]"
             onError={(e) => {
               e.target.src = '/images/lionorca-logo.png'
             }}
           />
         </div>
 
-        {/* 2. Staggered Character-by-Character Brand Name Reveal (Slow, Dignified, Bold) */}
-        <div className="flex items-center justify-center space-x-2 sm:space-x-3.5 mb-2 pl-3">
+        {/* 2. Staggered Character-by-Character Brand Name Reveal (Exact Logo Font & Gold #B08A4B) */}
+        <div className="flex items-center justify-center space-x-1 sm:space-x-2 mb-1 pl-1">
           {letters.map((char, index) => (
             <span
               key={index}
-              className="opacity-0 animate-preloader-letter font-sans font-black text-3xl sm:text-4xl md:text-5xl text-[#7D5212] tracking-widest inline-block select-none"
+              className="opacity-0 animate-preloader-letter font-sans font-bold text-3xl sm:text-4xl md:text-5xl text-[#B08A4B] tracking-[0.16em] inline-block select-none"
               style={{
                 animationDelay: `${0.85 + index * 0.08}s`,
               }}
@@ -138,19 +138,19 @@ export default function Preloader({ onComplete }) {
           ))}
         </div>
 
-        {/* 3. Subtitle: ARCHITERIORS */}
+        {/* 3. Subtitle: ARCHITERIORS (Exact Logo Font & Charcoal #545454) */}
         <div className="opacity-0 animate-preloader-subtitle mt-1">
-          <span className="font-sans font-extrabold text-xs sm:text-sm md:text-base text-stone-800 tracking-[0.42em] uppercase block">
+          <span className="font-sans font-bold text-xs sm:text-sm md:text-base text-[#545454] tracking-[0.38em] uppercase block">
             Architeriors
           </span>
         </div>
 
-        {/* 4. Refined Champagne Divider Line */}
-        <div className="opacity-0 animate-preloader-line h-[2px] bg-gradient-to-r from-transparent via-[#8E651E]/70 to-transparent my-4" />
+        {/* 4. Solid Gold Horizontal Rule (Exact Logo Line in #B08A4B) */}
+        <div className="opacity-0 animate-preloader-line h-[1.5px] bg-[#B08A4B] my-3.5 mx-auto" />
 
-        {/* 5. Tagline: the complete delivery of luxury */}
+        {/* 5. Tagline: the complete delivery of luxury (Exact Logo Italic Font & Color #545454) */}
         <div className="opacity-0 animate-preloader-tagline">
-          <p className="font-serif italic font-normal text-sm sm:text-base text-stone-600 tracking-wider">
+          <p className="font-sans italic font-normal text-xs sm:text-sm md:text-[15px] text-[#545454] tracking-wider lowercase">
             the complete delivery of luxury
           </p>
         </div>
@@ -160,7 +160,7 @@ export default function Preloader({ onComplete }) {
       <button
         onClick={handleSkip}
         type="button"
-        className="absolute bottom-8 right-8 text-xs font-sans uppercase tracking-[0.2em] text-stone-400 hover:text-stone-800 transition-colors cursor-pointer py-2 px-4 rounded-full border border-stone-200 hover:bg-stone-50"
+        className="absolute bottom-8 right-8 text-xs font-sans uppercase tracking-[0.2em] text-[#545454]/50 hover:text-[#2E2D2B] transition-colors cursor-pointer py-2 px-4 rounded-full border border-[#E6E4DD] hover:bg-[#F4F3EE]"
       >
         Skip ➔
       </button>

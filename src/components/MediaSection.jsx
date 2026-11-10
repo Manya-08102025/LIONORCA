@@ -1,10 +1,8 @@
 import { useState } from 'react'
-import { useTheme } from '../hooks/useTheme'
-import { Play, Sparkles, Radio, Film, Video, ArrowRight, ExternalLink } from 'lucide-react'
+import { Play, Radio, Film, Video, ArrowRight } from 'lucide-react'
 import ScrollReveal from './ScrollReveal'
 
-export default function MediaSection() {
-  const { isDark } = useTheme()
+export default function MediaSection({ onOpenConsult }) {
   const [activeMedia, setActiveMedia] = useState(null)
 
   const mediaItems = [
@@ -59,11 +57,11 @@ export default function MediaSection() {
         <img
           src="/images/hero-slide-1.png"
           alt=""
-          className="w-full h-full object-cover ambient-bg-float"
+          className="w-full h-full object-cover"
           style={{
-            filter: 'blur(6px)',
+            filter: 'blur(8px)',
             transform: 'scale(1.10)',
-            opacity: 0.52,
+            opacity: 0.58,
           }}
         />
         {/* Soft, Transparent Light Glaze to keep videos and media cards sharp */}
@@ -74,7 +72,7 @@ export default function MediaSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <ScrollReveal animation="blur-up" duration={900}>
+        <ScrollReveal animation="blur-up">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <span className="text-xs font-soft tracking-[0.25em] uppercase font-bold block mb-2 text-[#8E651E]">
               Media & Insights
@@ -95,77 +93,75 @@ export default function MediaSection() {
             return (
               <ScrollReveal
                 key={item.id}
-                animation="blur-up"
-                delay={index * 130}
-                duration={850}
+                delay={index * 120}
                 className="h-full"
               >
                 <div
                   className="rounded-2xl border overflow-hidden flex flex-col justify-between transition-all duration-300 group luxury-card-hover h-full bg-white/88 backdrop-blur-2xl border-[#D4AC55]/30 hover:border-[#D4AC55] shadow-[0_10px_35px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_45px_rgba(212,172,85,0.18)] hover:-translate-y-1.5"
                 >
-                <div>
-                  {/* Media Thumbnail with Play Overlay */}
-                  <div
-                    className="relative aspect-[16/10] overflow-hidden bg-stone-900 cursor-pointer"
-                    onClick={() => setActiveMedia(item)}
-                  >
-                    <img
-                      src={item.thumbnail}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-700 opacity-80 group-hover:opacity-95"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div>
+                    {/* Media Thumbnail with Play Overlay */}
+                    <div
+                      className="relative aspect-[16/10] overflow-hidden bg-stone-900 cursor-pointer"
+                      onClick={() => setActiveMedia(item)}
+                    >
+                      <img
+                        src={item.thumbnail}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                    {/* Top Badge */}
-                    <div className="absolute top-3 left-3 z-10">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-black/60 backdrop-blur-md text-[10px] font-sans font-bold uppercase tracking-wider text-[#F5D58A] border border-white/20 shadow-xs">
-                        <Icon size={12} />
-                        <span>{item.badge}</span>
-                      </span>
-                    </div>
+                      {/* Category Badge */}
+                      <div className="absolute top-3 left-3 z-10">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-[10px] font-soft font-bold tracking-wider uppercase text-white/90 border border-white/10">
+                          <Icon size={11} className="text-[#D4AC55]" />
+                          <span>{item.badge}</span>
+                        </span>
+                      </div>
 
-                    {/* Play Button Icon */}
-                    <div className="absolute inset-0 flex items-center justify-center z-10">
-                      <div className="w-13 h-13 rounded-full bg-gradient-to-r from-[#D4AC55] via-[#C99E4A] to-[#B88D38] text-neutral-950 flex items-center justify-center shadow-[0_0_30px_rgba(212,172,85,0.4)] group-hover:scale-110 active:scale-95 transition-transform">
-                        <Play size={22} className="fill-neutral-950 ml-0.5" />
+                      {/* Play Button Overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center z-10">
+                        <div className="w-12 h-12 rounded-full bg-[#D4AC55] text-neutral-950 flex items-center justify-center shadow-lg group-hover:scale-110 active:scale-95 transition-transform">
+                          <Play size={22} className="fill-neutral-950 ml-0.5" />
+                        </div>
+                      </div>
+
+                      {/* Duration Badge */}
+                      <div className="absolute bottom-3 right-3 z-10 text-[10px] font-sans font-bold text-white/95 bg-black/80 backdrop-blur-sm px-2.5 py-1 rounded-md border border-white/10">
+                        {item.duration}
                       </div>
                     </div>
 
-                    {/* Duration Badge */}
-                    <div className="absolute bottom-3 right-3 z-10 text-[10px] font-sans font-bold text-white/95 bg-black/80 backdrop-blur-sm px-2.5 py-1 rounded-md border border-white/10">
-                      {item.duration}
+                    {/* Card Content */}
+                    <div className="p-6">
+                      <div className="text-[11px] font-soft font-bold mb-1 text-[#8E651E]">
+                        {item.guest}
+                      </div>
+                      <h3 className="text-lg font-soft font-bold mb-2.5 leading-snug transition-colors text-stone-900 group-hover:text-[#8E651E]">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs sm:text-[13px] font-soft leading-relaxed text-stone-600">
+                        {item.description}
+                      </p>
                     </div>
                   </div>
 
-                  {/* Card Content */}
-                  <div className="p-6">
-                    <div className="text-[11px] font-soft font-bold mb-1 text-[#8E651E]">
-                      {item.guest}
-                    </div>
-                    <h3 className="text-lg font-soft font-bold mb-2.5 leading-snug transition-colors text-stone-900 group-hover:text-[#8E651E]">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs sm:text-[13px] font-soft leading-relaxed text-stone-600">
-                      {item.description}
-                    </p>
+                  {/* Card Footer Action */}
+                  <div className="p-6 pt-0">
+                    <button
+                      onClick={() => setActiveMedia(item)}
+                      type="button"
+                      className="w-full py-3 px-4 rounded-xl border text-xs font-soft font-bold tracking-wider uppercase transition-all flex items-center justify-center gap-2 cursor-pointer border-stone-300 bg-white hover:bg-[#D4AC55] hover:text-neutral-950 hover:border-[#D4AC55] text-stone-800 shadow-xs"
+                    >
+                      <span>Watch Now</span>
+                      <ArrowRight size={13} />
+                    </button>
                   </div>
                 </div>
-
-                {/* Card Footer Action */}
-                <div className="p-6 pt-0">
-                  <button
-                    onClick={() => setActiveMedia(item)}
-                    type="button"
-                    className="w-full py-3 px-4 rounded-xl border text-xs font-soft font-bold tracking-wider uppercase transition-all flex items-center justify-center gap-2 cursor-pointer border-stone-300 bg-white hover:bg-[#D4AC55] hover:text-neutral-950 hover:border-[#D4AC55] text-stone-800 shadow-xs"
-                  >
-                    <span>Watch Now</span>
-                    <ArrowRight size={13} />
-                  </button>
-                </div>
-              </div>
-            </ScrollReveal>
-          )
-        })}
+              </ScrollReveal>
+            )
+          })}
         </div>
       </div>
 
