@@ -125,13 +125,14 @@ export default function Navbar({ onOpenConsult, onNavigate, currentPath }) {
   }
 
   const navItems = [
-    { num: '01', href: '/', label: 'Home', desc: 'Return to the main overview and philosophy.' },
-    { num: '02', href: '/#turnkey', label: 'The Problem & Promise', desc: 'LA unifies design and execution under one contract.' },
-    { num: '03', href: '/#architects', label: 'Featured Architects', desc: 'Handpicked architects from Indore, Mumbai & Delhi.' },
-    { num: '04', href: '/#process', label: 'How It Works', desc: 'Discovery, architect selection, design lock, and turnkey execution.' },
-    { num: '05', href: '/#houses', label: 'Signature Projects', desc: 'Villas, penthouses, and bungalows.' },
-    { num: '06', href: '/#media', label: 'Media & Insights', desc: 'Podcasts, reels, and site-education videos.' },
-    { num: '07', href: '/#contact', label: 'Discovery Session', desc: 'Book a consultation or chat on WhatsApp.' },
+    { num: '01', href: '/', label: 'Home', desc: 'Overview & gallery.' },
+    { num: '02', href: '/#philosophy', label: 'Ideology', desc: 'Architectural philosophy & design ethos.' },
+    { num: '03', href: '/#turnkey', label: 'Why Lionorca', desc: 'The single-contract turnkey advantage.' },
+    { num: '04', href: '/#architects', label: 'Architects', desc: 'Curated network of architectural masters.' },
+    { num: '05', href: '/#process', label: 'How It Works', desc: 'A transparent 5-step journey to keys.' },
+    { num: '06', href: '/#houses', label: 'Portfolio', desc: 'Signature villas & bespoke residences.' },
+    { num: '07', href: '/#media', label: 'Media & Insights', desc: 'Podcasts, walkthroughs & masterclasses.' },
+    { num: '08', href: '/#contact', label: 'Discovery Session', desc: 'Reserve your private site consultation.' },
   ]
 
   return (
@@ -140,14 +141,14 @@ export default function Navbar({ onOpenConsult, onNavigate, currentPath }) {
           CLEAN WHITE EDITORIAL NAVBAR
       ═══════════════════════════════════════════════════ */}
       <header
-        className={`fixed top-0 left-0 right-0 z-[90] transition-all duration-300 bg-white border-b ${
+        className={`fixed top-0 left-0 right-0 z-[90] transition-all duration-300 bg-white/95 backdrop-blur-md border-b ${
           isScrolled
             ? 'border-gray-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.04)]'
             : 'border-gray-200/60'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 h-18 sm:h-20 flex items-center justify-between">
-          {/* Authentic Lionorca Brand Logo (Visibly larger on mobile & desktop) */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 h-16 sm:h-[68px] flex items-center justify-between">
+          {/* Authentic Lionorca Brand Logo with Full Tagline - Sleek & Fully Visible */}
           <a
             href="/"
             onClick={(e) => handleNavClick('/', e)}
@@ -155,20 +156,20 @@ export default function Navbar({ onOpenConsult, onNavigate, currentPath }) {
           >
             <img
               src="/images/lionorca-logo-transparent.png"
-              alt="LIONORCA ARCHITERIORS"
-              className="h-12 sm:h-14 w-auto object-contain max-h-[58px]"
+              alt="LIONORCA ARCHITERIORS - The Complete Delivery of Luxury"
+              className="h-10 sm:h-11 md:h-12 w-auto object-contain max-h-[48px] sm:max-h-[50px]"
               onError={(e) => {
                 e.target.src = '/images/lionorca-full-logo.jpg'
               }}
             />
           </a>
 
-          {/* Minimalist Circular Hamburger Menu */}
+          {/* Minimalist Circular Hamburger Menu - Sleek & Refined */}
           <button
             onClick={() => setMenuOpen(true)}
             type="button"
             aria-label="Open Navigation Menu"
-            className="w-10 h-10 rounded-full border border-gray-300 hover:border-black bg-white flex flex-col items-center justify-center gap-[3px] p-2 transition-all cursor-pointer active:scale-95 shadow-xs shrink-0"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-gray-300 hover:border-black bg-white flex flex-col items-center justify-center gap-[3px] p-2 transition-all cursor-pointer active:scale-95 shadow-xs shrink-0"
           >
             <span className="w-4 h-[1px] bg-black block" />
             <span className="w-4 h-[1px] bg-black block" />
@@ -189,9 +190,9 @@ export default function Navbar({ onOpenConsult, onNavigate, currentPath }) {
           FULLSCREEN MENU DRAWER (GPU Accelerated Native CSS)
       ═══════════════════════════════════════════════════ */}
       {menuOpen && (
-        <div className="fixed inset-0 z-[100] flex flex-col justify-between bg-alabaster text-charcoal p-4 sm:p-6 lg:p-7 animate-fade-in overflow-y-auto max-h-screen">
+        <div className="fixed inset-0 z-[100] flex flex-col justify-between bg-alabaster text-charcoal p-5 sm:p-7 lg:p-8 animate-fade-in overflow-y-auto max-h-screen">
           {/* Header row */}
-          <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-ash max-w-5xl mx-auto w-full shrink-0">
+          <div className="flex items-center justify-between pb-4 sm:pb-5 border-b border-ash max-w-5xl mx-auto w-full shrink-0">
             <a
               href="/"
               onClick={(e) => handleNavClick('/', e)}
@@ -199,8 +200,8 @@ export default function Navbar({ onOpenConsult, onNavigate, currentPath }) {
             >
               <img
                 src="/images/lionorca-logo-transparent.png"
-                alt="LIONORCA ARCHITERIORS"
-                className="h-8 sm:h-10 w-auto object-contain"
+                alt="LIONORCA ARCHITERIORS - The Complete Delivery of Luxury"
+                className="h-12 sm:h-14 md:h-15 w-auto object-contain max-h-[64px]"
                 onError={(e) => {
                   e.target.src = '/images/lionorca-full-logo.jpg'
                 }}
@@ -211,9 +212,9 @@ export default function Navbar({ onOpenConsult, onNavigate, currentPath }) {
               onClick={handleCloseMenu}
               type="button"
               aria-label="Close Navigation Menu"
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-ash hover:bg-greige text-charcoal flex items-center justify-center transition-all cursor-pointer active:scale-95"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-ash hover:bg-greige text-charcoal flex items-center justify-center transition-all cursor-pointer active:scale-95"
             >
-              <X size={17} />
+              <X size={19} />
             </button>
           </div>
 
@@ -244,7 +245,7 @@ export default function Navbar({ onOpenConsult, onNavigate, currentPath }) {
             </div>
           </nav>
 
-          {/* Bottom Consultation CTA & Work With Us / Vendor Portal */}
+          {/* Bottom Consultation CTA */}
           <div className="border-t border-ash pt-3 sm:pt-3.5 space-y-2 max-w-lg mx-auto w-full shrink-0">
             <button
               onClick={() => {
@@ -257,15 +258,6 @@ export default function Navbar({ onOpenConsult, onNavigate, currentPath }) {
               <Sparkles size={14} />
               <span>Schedule Consultation</span>
             </button>
-
-            {/* Subtle Secondary Work With Us / Vendor Portal Link/Pill */}
-            <a
-              href="/work-with-us"
-              onClick={(e) => handleNavClick('/work-with-us', e)}
-              className="w-full py-2 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-sans font-semibold tracking-[0.14em] uppercase border border-ash hover:border-charcoal hover:bg-greige text-charcoal transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
-            >
-              <span>Work With Us / Vendor Portal</span>
-            </a>
 
             <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-charcoal-light font-sans pt-0.5">
               <span className="flex items-center gap-1.5">

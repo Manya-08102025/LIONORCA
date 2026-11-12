@@ -40,33 +40,33 @@ export default function ValueProposition() {
   return (
     <section
       id="turnkey"
-      className="py-14 sm:py-18 px-4 sm:px-6 lg:px-8 border-t border-stone-200/80 bg-[#FAF8F5] text-[#0F172A] relative overflow-hidden"
+      className="scroll-mt-20 sm:scroll-mt-24 pt-16 sm:pt-20 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 border-t border-stone-200/80 bg-[#FAF8F5] text-[#0F172A] relative overflow-hidden"
     >
-      {/* Clearly Visible Luxury Interior Design Background with Refined Soft Blur */}
+      {/* Editorial Blurred Luxury Interior Background with luminous contrast */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
-          src="/images/bg-villa.jpg"
+          src="/images/hero-bright-1.jpg"
           alt=""
-          className="w-full h-full object-cover object-[center_60%]"
+          className="w-full h-full object-cover object-[center_72%]"
           style={{
-            filter: 'blur(7px)',
-            transform: 'scale(1.08)',
-            opacity: 0.58,
+            filter: 'blur(12px)',
+            transform: 'scale(1.10)',
+            opacity: 0.85,
           }}
         />
-        {/* Transparent Soft Light Glaze to keep typography sharp */}
-        <div className="absolute inset-0 bg-white/20 backdrop-brightness-95" />
+        {/* Soft, translucent luminous glaze for high contrast and pure champagne radiance */}
+        <div className="absolute inset-0 bg-[#FAF9F5]/55" />
       </div>
 
       <div className="max-w-[1180px] mx-auto relative z-10">
         {/* Header - Smooth Editorial Reveal */}
         <ScrollReveal duration={0.7} y={24}>
-          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
-            <h2 className="font-['Playfair_Display',serif] text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-bold tracking-tight text-[#111827] leading-[1.16] mb-4">
-              Building a luxury home is more than what you think.
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight text-[#111827] leading-[1.18] mb-4">
+              Building a <span className="text-[#C5A059] font-bold">luxury home</span> is more <br className="hidden sm:inline" /> than what you think.
             </h2>
 
-            <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[15px] sm:text-[16.5px] text-[#1F2937] max-w-2xl mx-auto leading-relaxed font-medium">
+            <p className="font-sans text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
               A luxury home requires more than 70 contractors &amp; vendors to coordinate. Absence of your knowledge &amp; time can cost you quality of your home, your money, your work &amp; your peace.
             </p>
           </div>
@@ -84,7 +84,7 @@ export default function ValueProposition() {
                   </div>
                   <div>
                     <span className="text-[10.5px] sm:text-[11px] font-['Plus_Jakarta_Sans',sans-serif] font-bold uppercase tracking-[0.16em] text-[#6B7280] block leading-tight">
-                      Normal Contractors
+                      Regular Setup
                     </span>
                     <h3 className="font-['Playfair_Display',serif] text-[23px] sm:text-[24px] font-bold text-[#111827] leading-snug">
                       The Daily Headache
@@ -101,7 +101,7 @@ export default function ValueProposition() {
                         –
                       </span>
                       <div>
-                        <h4 className="font-['Playfair_Display',serif] text-[16px] sm:text-[16.5px] font-bold mb-0.5 text-[#111827] leading-snug">
+                        <h4 className="font-['Plus_Jakarta_Sans',sans-serif] text-[15px] sm:text-[16px] font-bold mb-0.5 text-[#111827] leading-snug">
                           {item.problemTitle}
                         </h4>
                         <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[12.5px] sm:text-[13px] leading-[1.55] text-[#4B5563] font-normal">
@@ -142,7 +142,7 @@ export default function ValueProposition() {
                         ✓
                       </span>
                       <div>
-                        <h4 className="font-['Playfair_Display',serif] text-[16px] sm:text-[16.5px] font-bold mb-0.5 text-[#9A7228] leading-snug">
+                        <h4 className="font-['Plus_Jakarta_Sans',sans-serif] text-[15px] sm:text-[16px] font-bold mb-0.5 text-[#9A7228] leading-snug">
                           {item.promiseTitle}
                         </h4>
                         <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[12.5px] sm:text-[13px] leading-[1.55] text-[#374151] font-normal">

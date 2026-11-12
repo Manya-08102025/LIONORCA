@@ -20,6 +20,8 @@ import DiscoverySessionSection from '../components/DiscoverySessionSection'
  */
 export default function Home({
   onOpenConsult,
+  onViewAllArchitects,
+  onViewAllProjects,
   architects,
   projects,
   sanityData,
@@ -55,6 +57,7 @@ export default function Home({
           onSelectArchitect={(arch) => onOpenConsult?.(arch)}
           architects={resolvedArchitects}
           data={sanityData}
+          onViewAll={onViewAllArchitects}
         />
       </div>
 
@@ -69,6 +72,7 @@ export default function Home({
           onSelectProject={(item) => onOpenConsult?.({ name: item.title })}
           projects={resolvedProjects}
           data={sanityData}
+          onViewAll={onViewAllProjects}
         />
       </div>
 

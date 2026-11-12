@@ -1,6 +1,40 @@
 import { useState } from 'react'
 import { MapPin, Phone, Mail, MessageCircle, Shield, CheckCircle2, AlertCircle, ArrowRight, Clock } from 'lucide-react'
 
+function InstagramIcon({ size = 16, className = '' }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  )
+}
+
+function FacebookIcon({ size = 16, className = '' }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+    >
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+    </svg>
+  )
+}
+
 export default function Contact({ onOpenConsult }) {
   const [formData, setFormData] = useState({
     name: '',
@@ -56,18 +90,18 @@ export default function Contact({ onOpenConsult }) {
   }
 
   return (
-    <div className="pt-24 min-h-screen bg-[#FFFFFF] text-[#0F172A]">
+    <div className="pt-20 sm:pt-24 min-h-screen bg-[#FFFFFF] text-[#0F172A]">
       {/* Header */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] to-[#FFFFFF] border-b border-slate-100 text-center">
-        <div className="max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D1B67F]/15 border border-[#D1B67F]/30 text-[#9E7D3B] text-xs font-semibold uppercase tracking-[0.22em] mb-4">
-            <Shield size={13} className="text-[#D1B67F]" />
+        <div className="max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D1B67F]/15 border border-[#D1B67F]/30 text-[#8E651E] text-xs font-bold uppercase tracking-[0.25em] mb-3">
+            <Shield size={13} className="text-[#8E651E]" />
             <span>Dedicated Consultation</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#0F172A] mb-5">
-            Contact & Discovery Session
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight text-stone-900 leading-[1.18] mb-4">
+            Contact &amp; Discovery Session
           </h1>
-          <p className="font-soft text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-4">
+          <p className="font-sans text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
             Schedule an in-person or virtual discovery session with our turnkey luxury directors in Indore.
           </p>
         </div>
@@ -229,9 +263,12 @@ export default function Contact({ onOpenConsult }) {
                     rel="noopener noreferrer"
                     className="hover:text-[#9E7D3B] transition-colors leading-relaxed"
                   >
+                    <strong className="text-slate-900 font-semibold block mb-0.5">
+                      Lionorca Ventures Pvt. Ltd.
+                    </strong>
                     204, FA1, Central Business Park, HDFC Bank Building,<br />
                     Bengali to Pipliyahana Service Rd, Sch. No. 94,<br />
-                    Indore, Madhya Pradesh 452016
+                    Indore. MP. 452016
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
@@ -249,6 +286,33 @@ export default function Contact({ onOpenConsult }) {
                 <div className="flex items-center gap-3">
                   <Clock size={18} className="text-[#9E7D3B] shrink-0" />
                   <span>Mon – Sat: 10:00 AM – 7:30 PM (By Appointment)</span>
+                </div>
+
+                {/* Social Media Links */}
+                <div className="pt-3 border-t border-slate-200/80 space-y-2">
+                  <span className="text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 block">
+                    Connect With Us
+                  </span>
+                  <div className="flex flex-col sm:flex-row gap-3 pt-1">
+                    <a
+                      href="https://www.instagram.com/lionorca_architeriors/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-slate-700 hover:text-[#9E7D3B] transition-colors text-xs font-semibold"
+                    >
+                      <InstagramIcon size={15} className="text-[#9E7D3B]" />
+                      <span>lionorca_architeriors</span>
+                    </a>
+                    <a
+                      href="https://www.facebook.com/LionorcaArchiteriors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-slate-700 hover:text-[#9E7D3B] transition-colors text-xs font-semibold"
+                    >
+                      <FacebookIcon size={15} className="text-[#9E7D3B]" />
+                      <span>Lionorca Architeriors</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

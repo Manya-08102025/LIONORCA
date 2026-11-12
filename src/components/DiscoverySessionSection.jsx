@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { MessageCircle, CheckCircle2, ArrowRight, AlertCircle, Sparkles } from 'lucide-react'
+import { MessageCircle, CheckCircle2, ArrowRight, AlertCircle, Sparkles, Briefcase } from 'lucide-react'
 import ScrollReveal from './ScrollReveal'
 
 export default function DiscoverySessionSection() {
@@ -84,14 +84,14 @@ export default function DiscoverySessionSection() {
 
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Header */}
-        <ScrollReveal className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.25em] text-[#8E651E] mb-4">
+        <ScrollReveal className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <p className="text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.25em] text-[#8E651E] mb-3">
             Final Step • Discovery
           </p>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-stone-900 leading-[1.18] mb-5">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight text-stone-900 leading-[1.18] mb-4">
             Book a Discovery Session
           </h2>
-          <p className="font-sans text-lg sm:text-xl lg:text-2xl text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
+          <p className="font-sans text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
             Share your plot details and target budget. Our team will review site viability and match you with the ideal architectural director.
           </p>
         </ScrollReveal>
@@ -242,6 +242,29 @@ export default function DiscoverySessionSection() {
                 </div>
               </form>
             )}
+          </div>
+        </ScrollReveal>
+
+        {/* ─── Understated Secondary Callout: Work With Us (Centered, before footer) ─── */}
+        <ScrollReveal delay={180} className="mt-12 sm:mt-16 text-center">
+          <div className="inline-flex flex-col items-center justify-center gap-2.5">
+            <p className="text-xs sm:text-sm font-sans text-stone-500 font-normal">
+              Are you an architect, contractor, artisan, or vendor partner?
+            </p>
+            <a
+              href="/work-with-us"
+              onClick={(e) => {
+                e.preventDefault()
+                window.history.pushState({}, '', '/work-with-us')
+                window.dispatchEvent(new PopStateEvent('popstate'))
+                window.scrollTo({ top: 0, behavior: 'instant' })
+              }}
+              className="inline-flex items-center gap-2.5 px-7 py-3 rounded-full border border-stone-300 hover:border-stone-900 bg-white/80 hover:bg-stone-900 text-stone-800 hover:text-white text-xs font-sans font-semibold tracking-widest uppercase transition-all duration-200 cursor-pointer shadow-xs hover:shadow-md active:scale-98 group"
+            >
+              <Briefcase size={14} className="text-[#8E651E] group-hover:text-champagne transition-colors" />
+              <span>Work With Us / Vendor Portal</span>
+              <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5 text-stone-400 group-hover:text-white" />
+            </a>
           </div>
         </ScrollReveal>
       </div>

@@ -18,18 +18,18 @@ export default function Process({ onOpenConsult }) {
   ]
 
   return (
-    <div className="pt-24 min-h-screen bg-[#FFFFFF] text-[#0F172A]">
+    <div className="pt-20 sm:pt-24 min-h-screen bg-[#FFFFFF] text-[#0F172A]">
       {/* Page Header */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] to-[#FFFFFF] border-b border-slate-100 text-center">
-        <div className="max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D1B67F]/15 border border-[#D1B67F]/30 text-[#9E7D3B] text-xs font-semibold uppercase tracking-[0.22em] mb-4">
-            <Clock size={13} className="text-[#D1B67F]" />
+        <div className="max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D1B67F]/15 border border-[#D1B67F]/30 text-[#8E651E] text-xs font-bold uppercase tracking-[0.25em] mb-3">
+            <Clock size={13} className="text-[#8E651E]" />
             <span>Structured Turnkey Execution</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#0F172A] mb-5">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight text-stone-900 leading-[1.18] mb-4">
             How It Works &bull; 5-Step Turnkey Process
           </h1>
-          <p className="font-soft text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-8">
+          <p className="font-sans text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal mb-8">
             From our initial exploratory discovery session to handing over your custom-crafted keys, here is the seamless step-by-step roadmap we follow.
           </p>
           <button
@@ -49,11 +49,11 @@ export default function Process({ onOpenConsult }) {
       {/* Turnkey Guarantees */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#F8FAFC] border-t border-slate-200">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#0F172A] mb-3">
-              The Linorga Turnkey Commitments
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight text-stone-900 leading-[1.18] mb-4">
+              The Lionorca Turnkey Commitments
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 font-soft">
+            <p className="font-sans text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
               Designed to make building your luxury home predictable, transparent, and enjoyable.
             </p>
           </div>

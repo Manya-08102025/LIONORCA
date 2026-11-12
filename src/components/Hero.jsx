@@ -15,7 +15,7 @@ const SLIDES = [
   {
     id: 2,
     image: '/images/hero-bright-2.jpg',
-    quote: 'Designer Designs, Contractor Executes, Nobody Owns the Outcome.',
+    quote: 'Designer Designs. Contractor Executes. Nobody Owns the Outcome.',
     description:
       'Lionorca Architeriors owns it end to end with guaranteed milestones and verified craftsmanship.',
     ctaText: 'Book a Discovery Session',
@@ -24,9 +24,9 @@ const SLIDES = [
   {
     id: 3,
     image: '/images/hero-bright-3.jpg',
-    quote: 'Finest match of Design Delivery',
+    quote: 'Finest match of Design Delivery.',
     description:
-      'Handpicked architects and designers with relentless onsite turnkey delivery.',
+      'Handpicked architects and designers with relentless onsite end - to - end delivery.',
     ctaText: 'Book a Discovery Session',
     action: 'consult',
   },
@@ -143,56 +143,78 @@ export default function Hero({ onOpenConsult }) {
       {/* Content Container (Centered Grand Desktop & Mobile Framing) */}
       <div className="relative z-20 w-full h-full max-w-[460px] sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto flex flex-col justify-between pt-16 sm:pt-20">
 
-        {/* Main Typography - Strictly Centered */}
-        <div className="absolute top-[44%] -translate-y-1/2 left-0 w-full px-5 sm:px-12 md:px-0 z-20 flex flex-col items-center text-center">
+        {/* Main Typography - In Center of Screen */}
+        <div className="absolute top-[44%] -translate-y-1/2 left-0 w-full px-6 sm:px-12 md:px-0 z-20 flex flex-col items-center">
           {SLIDES.map((slide, index) => {
             if (index !== currentSlide) return null;
             return (
               <div
                 key={slide.id}
-                className="animate-in fade-in slide-in-from-bottom-2 duration-400 flex flex-col items-center text-center w-full"
+                className="animate-in fade-in slide-in-from-bottom-2 duration-400 flex flex-col items-start text-left w-full max-w-[340px] sm:max-w-[420px] md:max-w-[440px] mx-auto"
               >
-                {/* Headline: Larger, Bolder Cormorant Garamond Serif Strictly Centered */}
+                {/* Headline: Exact Reference Playfair Display Serif */}
                 <motion.h1
                   initial={{ opacity: 0, y: 25 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-serif text-[32px] xs:text-[36px] sm:text-[56px] md:text-[64px] lg:text-[70px] font-black text-white text-center leading-[1.08] tracking-tight mb-4 [text-shadow:0_2px_8px_rgba(0,0,0,0.45)] [font-weight:900]"
+                  className="font-serif text-[36px] sm:text-[46px] md:text-[52px] lg:text-[56px] font-bold text-white text-left leading-[1.12] sm:leading-[1.14] tracking-tight mb-4 sm:mb-5 [text-shadow:0_4px_16px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.6)]"
                 >
                   {index === 0 ? (
                     <>
-                      <span className="block">The Complete</span>
-                      <span className="block">Delivery of</span>
-                      <span className="text-[#F5D58A] italic font-bold block [text-shadow:0_2px_8px_rgba(0,0,0,0.45)]">
+                      <span className="block text-left">The Complete</span>
+                      <span className="block text-left">Delivery of</span>
+                      <span className="text-[#E8BC4C] not-italic block text-left [text-shadow:0_4px_16px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.6)]">
                         Luxury.
                       </span>
                     </>
                   ) : index === 1 ? (
                     <>
-                      <span className="block">Designer Designs.</span>
-                      <span className="block">Contractor Executes.</span>
-                      <span className="text-[#F5D58A] font-bold block [text-shadow:0_2px_8px_rgba(0,0,0,0.45)]">
-                        Nobody Owns the Outcome.
+                      <span className="block text-left">Designer</span>
+                      <span className="block text-left">Designs.</span>
+                      <span className="block text-left">Contractor</span>
+                      <span className="block text-left">Executes.</span>
+                      <span className="text-[#E8BC4C] not-italic block text-left [text-shadow:0_4px_16px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.6)]">
+                        Nobody Owns
+                      </span>
+                      <span className="text-[#E8BC4C] not-italic block text-left [text-shadow:0_4px_16px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.6)]">
+                        the Outcome.
                       </span>
                     </>
                   ) : (
                     <>
-                      <span className="block">Finest match of</span>
-                      <span className="text-[#F5D58A] font-bold block [text-shadow:0_2px_8px_rgba(0,0,0,0.45)]">
+                      <span className="block text-left">Finest match of</span>
+                      <span className="text-[#E8BC4C] not-italic block text-left [text-shadow:0_4px_16px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.6)]">
                         Design Delivery.
                       </span>
                     </>
                   )}
                 </motion.h1>
 
-                {/* Subtitle / Definition - Enhanced Size & Readability Strictly Centered */}
+                {/* Subtitle / Definition - Clean, Balanced Lines Matching Reference Width */}
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-sans text-[14px] xs:text-[15px] sm:text-[17px] md:text-[18px] text-white font-semibold leading-relaxed w-full max-w-[280px] xs:max-w-[320px] sm:max-w-lg md:max-w-2xl text-center mx-auto [text-shadow:0_2px_10px_rgba(0,0,0,0.9),0_1px_3px_rgba(0,0,0,0.95)]"
+                  className="font-sans text-[13.5px] sm:text-[14.5px] md:text-[15px] text-white font-medium sm:font-semibold leading-[1.65] w-full text-left [text-shadow:0_2px_8px_rgba(0,0,0,0.85)]"
                 >
-                  {slide.description}
+                  {index === 0 ? (
+                    <>
+                      Bring your vision to life under one roof — <br className="hidden sm:inline" />
+                      offering complete turnkey execution and dedicated <br className="hidden sm:inline" />
+                      project management consultancy from sketch to final keys.
+                    </>
+                  ) : index === 1 ? (
+                    <>
+                      Lionorca Architeriors owns it end to <br className="hidden sm:inline" />
+                      end with guaranteed milestones and <br className="hidden sm:inline" />
+                      verified craftsmanship.
+                    </>
+                  ) : (
+                    <>
+                      Handpicked architects and designers with <br className="hidden sm:inline" />
+                      relentless onsite end - to - end delivery.
+                    </>
+                  )}
                 </motion.p>
               </div>
             );

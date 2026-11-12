@@ -5,19 +5,19 @@ export default function AboutUs({ onOpenConsult }) {
   const [isPlaying, setIsPlaying] = useState(false)
 
   return (
-    <div className="pt-24 min-h-screen bg-[#FFFFFF] text-[#0F172A]">
+    <div className="pt-20 sm:pt-24 min-h-screen bg-[#FFFFFF] text-[#0F172A]">
       {/* Header */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] to-[#FFFFFF] border-b border-slate-100 text-center">
-        <div className="max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D1B67F]/15 border border-[#D1B67F]/30 text-[#9E7D3B] text-xs font-semibold uppercase tracking-[0.22em] mb-4">
-            <Video size={13} className="text-[#D1B67F]" />
-            <span>Video Explanation & Consultation</span>
+        <div className="max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D1B67F]/15 border border-[#D1B67F]/30 text-[#8E651E] text-xs font-bold uppercase tracking-[0.25em] mb-3">
+            <Video size={13} className="text-[#8E651E]" />
+            <span>Video Explanation &amp; Consultation</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#0F172A] mb-5">
-            The Turnkey Philosophy &bull; About Linorga
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight text-stone-900 leading-[1.18] mb-4">
+            The Turnkey Philosophy &bull; About Lionorca
           </h1>
-          <p className="font-soft text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-8">
-            Watch our 3-minute video breakdown explaining how Linorga bridges the gap between visionary regional architects and precision site execution.
+          <p className="font-sans text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
+            Watch our 3-minute video breakdown explaining how Lionorca bridges the gap between visionary regional architects and precision site execution.
           </p>
         </div>
       </section>

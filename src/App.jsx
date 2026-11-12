@@ -6,6 +6,8 @@ import Preloader from './components/Preloader'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import WorkWithUs from './pages/WorkWithUs'
+import Architects from './pages/Architects'
+import Projects from './pages/Projects'
 import Footer from './components/Footer'
 import LeadModal from './components/LeadModal'
 import FloatingWhatsApp from './components/FloatingWhatsApp'
@@ -21,6 +23,12 @@ export default function App() {
       }
       if (pathname.includes('/work-with-us') || pathname.includes('/partner') || search.includes('page=work-with-us') || search.includes('page=partner')) {
         return '/work-with-us'
+      }
+      if (pathname.includes('/architects') || search.includes('page=architects') || search.includes('architects')) {
+        return '/architects'
+      }
+      if (pathname.includes('/projects') || search.includes('page=projects') || search.includes('projects') || pathname.includes('/signature-projects')) {
+        return '/projects'
       }
       return pathname
     }
@@ -54,6 +62,10 @@ export default function App() {
         setCurrentPath('/admin')
       } else if (pathname.includes('/work-with-us') || pathname.includes('/partner') || search.includes('page=work-with-us') || search.includes('page=partner')) {
         setCurrentPath('/work-with-us')
+      } else if (pathname.includes('/architects') || search.includes('page=architects') || search.includes('architects')) {
+        setCurrentPath('/architects')
+      } else if (pathname.includes('/projects') || search.includes('page=projects') || search.includes('projects') || pathname.includes('/signature-projects')) {
+        setCurrentPath('/projects')
       } else {
         setCurrentPath(pathname)
       }
@@ -77,8 +89,18 @@ export default function App() {
         window.history.pushState({}, '', href)
         setCurrentPath('/work-with-us')
         window.scrollTo({ top: 0, behavior: 'instant' })
+      } else if (href === '/architects') {
+        e.preventDefault()
+        window.history.pushState({}, '', href)
+        setCurrentPath('/architects')
+        window.scrollTo({ top: 0, behavior: 'instant' })
+      } else if (href === '/projects' || href === '/signature-projects') {
+        e.preventDefault()
+        window.history.pushState({}, '', '/projects')
+        setCurrentPath('/projects')
+        window.scrollTo({ top: 0, behavior: 'instant' })
       } else if (href === '/' || href === '#' || href === '/index.html' || href === 'index.html') {
-        if (currentPath === '/work-with-us' || currentPath === '/admin') {
+        if (currentPath === '/work-with-us' || currentPath === '/admin' || currentPath === '/architects' || currentPath === '/projects') {
           e.preventDefault()
           window.history.pushState({}, '', '/')
           setCurrentPath('/')
@@ -88,7 +110,7 @@ export default function App() {
           window.history.pushState({}, '', '/')
           window.scrollTo({ top: 0, behavior: 'smooth' })
         }
-      } else if (href.startsWith('/#') && (currentPath === '/work-with-us' || currentPath === '/admin')) {
+      } else if (href.startsWith('/#') && (currentPath === '/work-with-us' || currentPath === '/admin' || currentPath === '/architects' || currentPath === '/projects')) {
         e.preventDefault()
         const hash = href.replace('/', '')
         window.history.pushState({}, '', '/' + hash)
@@ -180,6 +202,20 @@ export default function App() {
       return
     }
 
+    if (path === '/architects') {
+      window.history.pushState({}, '', '/architects')
+      setCurrentPath('/architects')
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      return
+    }
+
+    if (path === '/projects' || path === '/signature-projects') {
+      window.history.pushState({}, '', '/projects')
+      setCurrentPath('/projects')
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      return
+    }
+
     const targetUrl = hash ? `/${hash}` : '/'
     window.history.pushState({}, '', targetUrl)
     setCurrentPath('/')
@@ -220,8 +256,22 @@ export default function App() {
         <main className="flex-1">
           {currentPath === '/work-with-us' ? (
             <WorkWithUs />
+          ) : currentPath === '/architects' ? (
+            <Architects
+              onOpenConsult={handleOpenConsult}
+              onBack={() => handleNavigate('/', '#architects')}
+            />
+          ) : currentPath === '/projects' || currentPath === '/signature-projects' ? (
+            <Projects
+              onOpenConsult={handleOpenConsult}
+              onBack={() => handleNavigate('/', '#houses')}
+            />
           ) : (
-            <Home onOpenConsult={handleOpenConsult} />
+            <Home
+              onOpenConsult={handleOpenConsult}
+              onViewAllArchitects={() => handleNavigate('/architects')}
+              onViewAllProjects={() => handleNavigate('/projects')}
+            />
           )}
         </main>
 

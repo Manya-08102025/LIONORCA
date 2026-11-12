@@ -73,14 +73,14 @@ export default function MediaSection({ onOpenConsult }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <ScrollReveal animation="blur-up">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="text-xs font-soft tracking-[0.25em] uppercase font-bold block mb-2 text-[#8E651E]">
-              Media & Insights
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-soft font-bold tracking-tight mb-3 text-stone-900">
-              Podcasts, Reels & Site Education
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <p className="text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.25em] text-[#8E651E] mb-3">
+              Media &amp; Insights
+            </p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight text-stone-900 leading-[1.18] mb-4">
+              Podcasts, Reels &amp; Site Education
             </h2>
-            <p className="text-sm sm:text-base font-soft text-stone-600 max-w-lg mx-auto">
+            <p className="font-sans text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
               Real site walkthroughs, architectural masterclasses, and transparent discussions on luxury home building.
             </p>
           </div>

@@ -1,6 +1,6 @@
-// Curated Architectural Showcase with Staggered Framer Motion Reveal
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+// Curated Architectural Showcase with 3-Card Sliding Carousel & View All Grid
+import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import ScrollReveal from './ScrollReveal'
 import {
   MapPin,
@@ -8,6 +8,10 @@ import {
   ImagePlus,
   X,
   ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
+  ArrowDown,
+  LayoutGrid,
 } from 'lucide-react'
 
 const containerVariants = {
@@ -26,13 +30,13 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
+      duration: 0.6,
       ease: [0.16, 1, 0.3, 1],
     },
   },
 }
 
-const ARCHITECTS = [
+export const ARCHITECTS = [
   {
     id: 1,
     name: 'Architect 1',
@@ -113,10 +117,113 @@ const ARCHITECTS = [
   },
 ]
 
-export default function ArchitectShowcase({ onSelectArchitect, architects: propArchitects, data }) {
-  const [activeProfile, setActiveProfile] = useState(null)
+export function ArchitectCard({ architect, index, onSelect }) {
+  return (
+    <div className="rounded-3xl border border-stone-200/90 p-7 sm:p-9 transition-all duration-300 flex flex-col justify-between group h-full bg-white/95 backdrop-blur-xl shadow-[0_12px_36px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_48px_rgba(0,0,0,0.09)] hover:border-champagne/60">
+      <div>
+        {/* Top Badge: Numbering + Location */}
+        <div className="flex items-center justify-between mb-5">
+          <span className="font-serif text-base text-[#8E651E] font-bold tracking-widest">
+            {index < 9 ? `0${index + 1}` : index + 1}
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-xs font-sans font-bold px-3 py-1.5 rounded-full border text-[#8E651E] bg-[#8E651E]/10 border-[#8E651E]/20">
+            <MapPin size={12} />
+            <span>{architect.city || 'Central India'}</span>
+          </span>
+        </div>
 
-  // Seamless Sanity CMS or custom prop mapping with safe fallback to ARCHITECTS
+        {/* Architect Portrait & Details */}
+        <div className="flex items-start gap-4 mb-5">
+          <div className="w-16 h-20 sm:w-18 sm:h-22 rounded-2xl border border-stone-200 overflow-hidden flex flex-col items-center justify-center shrink-0 bg-stone-100 text-stone-500">
+            {architect.image ? (
+              <img
+                src={architect.image}
+                alt={architect.name}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <>
+                <User size={22} className="text-[#8E651E] mb-1" />
+                <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-stone-500">Studio</span>
+              </>
+            )}
+          </div>
+
+          <div className="flex-1 min-w-0">
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-stone-900 group-hover:text-[#8E651E] transition-colors mb-1 truncate">
+              {architect.name}
+            </h3>
+            <div className="text-xs sm:text-sm font-sans font-bold text-[#8E651E] mb-1.5 line-clamp-1">
+              {architect.style}
+            </div>
+            <div className="text-xs sm:text-sm font-sans leading-relaxed text-stone-600 line-clamp-2 font-normal">
+              {architect.bio}
+            </div>
+          </div>
+        </div>
+
+        {/* Signature Project & Works */}
+        <div className="mb-5 pt-4 border-t border-stone-200">
+          <div className="flex items-center justify-between text-xs sm:text-sm font-sans mb-3">
+            <span className="font-semibold text-stone-600">Signature Project:</span>
+            <span className="font-bold text-[#8E651E] truncate max-w-[170px] text-right">{architect.signatureProject}</span>
+          </div>
+
+          <div className="grid grid-cols-3 gap-2">
+            {architect.works.map((work) => (
+              <div
+                key={work.id}
+                className="aspect-[4/3] rounded-xl border border-dashed flex flex-col items-center justify-center p-1.5 text-center bg-greige/70 border-ash text-charcoal-muted"
+              >
+                <ImagePlus size={13} className="text-champagne mb-1" />
+                <span className="text-[9px] font-sans font-medium line-clamp-1">{work.title}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Action Button */}
+      <div className="mt-2">
+        <button
+          onClick={() => onSelect(architect)}
+          type="button"
+          className="w-full py-3 px-5 rounded-2xl text-xs font-sans font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 text-neutral-950 bg-gradient-to-r from-[#D4AC55] via-[#C99E4A] to-[#B88D38] hover:from-[#C99E4A] hover:to-[#A87D2A] shadow-[0_4px_16px_rgba(201,158,74,0.32)] hover:shadow-[0_6px_22px_rgba(201,158,74,0.45)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99]"
+        >
+          <span>View Profile</span>
+          <ArrowUpRight size={14} className="stroke-[2.5]" />
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export default function ArchitectShowcase({ onSelectArchitect, architects: propArchitects, data, onViewAll }) {
+  const [activeProfile, setActiveProfile] = useState(null)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [cardsPerView, setCardsPerView] = useState(3)
+
+  const touchStartX = useRef(0)
+  const touchEndX = useRef(0)
+
+  // Dynamically calculate cards shown per view (1 on mobile, 2 on tablet, 3 on desktop)
+  useEffect(() => {
+    const updateCardsPerView = () => {
+      if (typeof window === 'undefined') return
+      if (window.innerWidth < 640) {
+        setCardsPerView(1)
+      } else if (window.innerWidth < 1024) {
+        setCardsPerView(2)
+      } else {
+        setCardsPerView(3)
+      }
+    }
+    updateCardsPerView()
+    window.addEventListener('resize', updateCardsPerView)
+    return () => window.removeEventListener('resize', updateCardsPerView)
+  }, [])
+
+  // Seamless data fallback mapping
   const rawList = propArchitects || (Array.isArray(data) ? data : data?.architects) || ARCHITECTS
   const architectList = rawList.map((item, idx) => ({
     id: item._id || item.id || idx + 1,
@@ -140,9 +247,35 @@ export default function ArchitectShowcase({ onSelectArchitect, architects: propA
         ],
   }))
 
+  const maxIndex = Math.max(0, architectList.length - cardsPerView)
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev < maxIndex ? prev + 1 : 0))
+  }
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : maxIndex))
+  }
+
+  // Touch swipe support
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.targetTouches[0].clientX
+  }
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.targetTouches[0].clientX
+  }
+  const handleTouchEnd = () => {
+    if (touchStartX.current - touchEndX.current > 50) {
+      handleNext()
+    }
+    if (touchStartX.current - touchEndX.current < -50) {
+      handlePrev()
+    }
+  }
+
   return (
-    <section id="architects" className="py-28 sm:py-36 lg:py-40 bg-[#FAF9F5] text-charcoal border-t border-stone-200/80 relative overflow-hidden">
-      {/* Clearly Visible Luxury Interior Design Background with Refined Soft Blur */}
+    <section id="architects" className="py-20 sm:py-28 lg:py-32 bg-[#FAF9F5] text-charcoal border-t border-stone-200/80 relative overflow-hidden">
+      {/* Blurred Luxury Background */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
           src="/images/bg-penthouse.jpg"
@@ -154,121 +287,113 @@ export default function ArchitectShowcase({ onSelectArchitect, architects: propA
             opacity: 0.42,
           }}
         />
-        {/* Transparent Soft Light Glaze to keep cards sharp */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/35 via-white/15 to-white/40" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 relative z-10">
-        {/* ─── Asymmetric Section Header: Heavily aligned left ─── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 sm:mb-20">
-          <ScrollReveal className="lg:col-span-7">
-            <p className="text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.25em] text-[#8E651E] mb-4">
-              Curated Architectural Network
-            </p>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-stone-900 leading-[1.18] mb-5">
-              Handpicked Architects
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={120} className="lg:col-span-5 flex items-end">
-            <p className="font-sans text-lg sm:text-xl lg:text-2xl text-stone-600 max-w-2xl leading-relaxed font-normal">
-              Indore, Mumbai, and Delhi architectural masters matched to your lifestyle, aesthetics, and site orientation with guaranteed turnkey execution.
-            </p>
-          </ScrollReveal>
+        {/* ─── Standardized Luxury Section Header (Center-Aligned) ─── */}
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <p className="text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.25em] text-[#8E651E] mb-3">
+            Curated Architectural Network
+          </p>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight text-stone-900 leading-[1.18] mb-4">
+            Handpicked Architects
+          </h2>
+          <p className="font-sans text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
+            Indore, Mumbai, and Delhi architectural masters matched to your site and aesthetic with guaranteed turnkey delivery.
+          </p>
         </div>
 
-        {/* ─── Staggered Card "Pop-In" Scroll Animations Grid ─── */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.15 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10"
+        {/* ─── 3-Card Sliding Carousel with Luxury Floating Edge Arrows ─── */}
+        <div
+          className="relative px-2 sm:px-4"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
-          {architectList.map((architect, index) => (
-            <motion.div
-              key={architect.id}
-              variants={cardVariants}
-              className="h-full"
+          {/* Left Edge Luxury Floating Arrow */}
+          <button
+            onClick={handlePrev}
+            type="button"
+            aria-label="Previous Architects"
+            className="absolute -left-3 sm:-left-5 lg:-left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-stone-900 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_28px_rgba(0,0,0,0.18)] backdrop-blur-md flex items-center justify-center transition-all cursor-pointer active:scale-95 group"
+          >
+            <ChevronLeft size={20} className="stroke-[2.2] text-stone-700 group-hover:text-stone-950 transition-colors" />
+          </button>
+
+          {/* Right Edge Luxury Floating Arrow */}
+          <button
+            onClick={handleNext}
+            type="button"
+            aria-label="Next Architects"
+            className="absolute -right-3 sm:-right-5 lg:-right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-stone-900 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_28px_rgba(0,0,0,0.18)] backdrop-blur-md flex items-center justify-center transition-all cursor-pointer active:scale-95 group"
+          >
+            <ChevronRight size={20} className="stroke-[2.2] text-stone-700 group-hover:text-stone-950 transition-colors" />
+          </button>
+
+          {/* Sliding Carousel Viewport */}
+          <div className="overflow-hidden w-full py-4 -my-4">
+            <div
+              className="flex transition-transform duration-500 ease-out"
+              style={{
+                transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)`,
+              }}
             >
-              <div className="rounded-3xl border border-stone-200/90 p-8 sm:p-10 transition-all duration-300 flex flex-col justify-between group h-full bg-white/95 backdrop-blur-xl shadow-[0_12px_36px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_48px_rgba(0,0,0,0.09)] hover:border-champagne/60">
-                <div>
-                  {/* Top Badge: Sōl Haus numbering + city */}
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="font-serif text-base text-[#8E651E] font-bold tracking-widest">
-                      0{index + 1}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 text-xs font-sans font-bold px-3.5 py-1.5 rounded-full border text-[#8E651E] bg-[#8E651E]/10 border-[#8E651E]/20">
-                      <MapPin size={12} />
-                      <span>{architect.city || 'Central India'}</span>
-                    </span>
-                  </div>
-
-                  {/* Architect Portrait & Details */}
-                  <div className="flex items-start gap-5 mb-6">
-                    <div className="w-18 h-22 rounded-2xl border border-stone-200 overflow-hidden flex flex-col items-center justify-center shrink-0 bg-stone-100 text-stone-500">
-                      {architect.image ? (
-                        <img
-                          src={architect.image}
-                          alt={architect.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <>
-                          <User size={22} className="text-[#8E651E] mb-1" />
-                          <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-stone-500">Studio</span>
-                        </>
-                      )}
-                    </div>
-
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 group-hover:text-[#8E651E] transition-colors mb-1">
-                        {architect.name}
-                      </h3>
-                      <div className="text-sm font-sans font-bold text-[#8E651E] mb-2">
-                        {architect.style}
-                      </div>
-                      <div className="text-sm font-sans leading-relaxed text-stone-600 line-clamp-2 font-normal">
-                        {architect.bio}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Signature Project & Works */}
-                  <div className="mb-6 pt-5 border-t border-stone-200">
-                    <div className="flex items-center justify-between text-sm font-sans mb-3.5">
-                      <span className="font-semibold text-stone-600">Signature Project:</span>
-                      <span className="font-bold text-[#8E651E]">{architect.signatureProject}</span>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-2">
-                      {architect.works.map((work) => (
-                        <div
-                          key={work.id}
-                          className="aspect-[4/3] rounded-xl border border-dashed flex flex-col items-center justify-center p-1.5 text-center bg-greige/70 border-ash text-charcoal-muted"
-                        >
-                          <ImagePlus size={14} className="text-champagne mb-1" />
-                          <span className="text-[9px] font-sans font-medium line-clamp-1">{work.title}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+              {architectList.map((architect, index) => (
+                <div
+                  key={architect.id}
+                  style={{ width: `${100 / cardsPerView}%` }}
+                  className="shrink-0 px-3 sm:px-4 h-auto flex flex-col"
+                >
+                  <ArchitectCard
+                    architect={architect}
+                    index={index}
+                    onSelect={setActiveProfile}
+                  />
                 </div>
+              ))}
+            </div>
+          </div>
 
-                {/* Actions */}
-                <div className="mt-2">
-                  <button
-                    onClick={() => setActiveProfile(architect)}
-                    type="button"
-                    className="w-full py-3.5 px-5 rounded-2xl text-xs font-sans font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 text-neutral-950 bg-gradient-to-r from-[#D4AC55] via-[#C99E4A] to-[#B88D38] hover:from-[#C99E4A] hover:to-[#A87D2A] shadow-[0_4px_16px_rgba(201,158,74,0.32)] hover:shadow-[0_6px_22px_rgba(201,158,74,0.45)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99]"
-                  >
-                    <span>View Profile</span>
-                    <ArrowUpRight size={14} className="stroke-[2.5]" />
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+          {/* Minimalist Pagination Indicators */}
+          <div className="flex items-center justify-center gap-2 pt-6">
+            {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                type="button"
+                aria-label={`Slide to architect group ${idx + 1}`}
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
+                  idx === currentIndex
+                    ? 'w-7 h-2 bg-[#8E651E]'
+                    : 'w-2 h-2 bg-stone-300 hover:bg-stone-500'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* ─── "View All Architects" Action Button (Navigates to Dedicated Clutter-Free Page) ─── */}
+        <div className="mt-12 sm:mt-16 flex justify-center">
+          <a
+            href="/architects"
+            onClick={(e) => {
+              e.preventDefault()
+              if (onViewAll) {
+                onViewAll()
+              } else {
+                window.history.pushState({}, '', '/architects')
+                window.dispatchEvent(new PopStateEvent('popstate'))
+                window.scrollTo({ top: 0, behavior: 'instant' })
+              }
+            }}
+            className="py-4 px-8 sm:px-10 rounded-full bg-stone-900 hover:bg-stone-800 text-white font-sans font-bold text-xs sm:text-sm tracking-[0.16em] uppercase transition-all duration-300 shadow-[0_6px_25px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.22)] active:scale-95 flex items-center gap-3 cursor-pointer border border-stone-800 group"
+          >
+            <LayoutGrid size={16} className="text-[#DEB853]" />
+            <span>View All Architects ({architectList.length})</span>
+            <ArrowUpRight size={15} className="text-[#DEB853] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+        </div>
       </div>
 
       {/* ═══════════════════════════════════════════════════
@@ -318,7 +443,7 @@ export default function ArchitectShowcase({ onSelectArchitect, architects: propA
 
             {/* Signature Works */}
             <div className="mb-8">
-              <h4 className="text-xs uppercase tracking-wider font-semibold mb-4 text-charcoal-light font-sans">Blueprint Concepts & Works:</h4>
+              <h4 className="text-xs uppercase tracking-wider font-semibold mb-4 text-charcoal-light font-sans">Blueprint Concepts &amp; Works:</h4>
               <div className="grid grid-cols-3 gap-3">
                 {activeProfile.works.map((work) => (
                   <div

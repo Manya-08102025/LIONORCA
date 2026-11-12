@@ -4,7 +4,7 @@ import { Sparkles, MapPin, ShieldCheck, Compass } from 'lucide-react'
 export default function TrustStrip() {
   const items = [
     { icon: Compass, text: 'Handpicked Architects and Interior Designers' },
-    { icon: ShieldCheck, text: 'One Accountable Turnkey Contract' },
+    { icon: ShieldCheck, text: 'One Accountable end - to - end contract' },
     { icon: MapPin, text: 'Indore, Bhopal, Ujjain & Central India' },
   ]
 
@@ -44,7 +44,7 @@ export default function TrustStrip() {
             </span>
           </div>
           <p className="text-center text-[12px] leading-relaxed text-charcoal-muted">
-            Handpicked Architects and Interior Designers • One accountable turnkey delivery • Central India
+            Handpicked Architects and Interior Designers • One Accountable end - to - end contract • Central India
           </p>
         </div>
       </ScrollReveal>

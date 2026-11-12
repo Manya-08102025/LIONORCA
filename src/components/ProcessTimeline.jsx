@@ -44,8 +44,8 @@ const STEPS = [
     title: 'Guarded supervision & Key handover',
     icon: KeyRound,
     description:
-      "Aligned with the principal designer, Lionorca's in-house team of engineers, project managers, and supervisors provide complete turnkey execution or site management consultancy until final key handover.",
-    deliverable: 'A impeccably executed luxury home with full transparency, under Turnkey or Consultancy management.',
+      "Aligned with the principal designer, Lionorca's in-house team of designers, civil engineers, project managers, and site supervisors maintain a constant hold on the execution and hand over the final keys.",
+    deliverable: 'A well-finished home with no surprises.',
   },
 ]
 
@@ -74,15 +74,15 @@ export default function ProcessTimeline() {
       <div className="max-w-[1440px] mx-auto relative z-10">
         {/* ─── Centered Section Header ─── */}
         <ScrollReveal duration={0.7} y={24}>
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
-            <p className="text-[11px] sm:text-xs font-sans font-bold uppercase tracking-[0.25em] text-[#9A7228] mb-2.5">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <p className="text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.25em] text-[#8E651E] mb-3">
               SIMPLE &amp; STRESS FREE
             </p>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-bold tracking-tight text-[#111827] leading-[1.16] mb-3.5">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight text-[#111827] leading-[1.18] mb-4">
               STEPS TO CLARITY
             </h2>
-            <p className="font-sans text-[15px] sm:text-[16.5px] text-[#1F2937] leading-relaxed font-medium max-w-2xl mx-auto">
-              A transparent 5-step journey — tailored for full turnkey execution or project management consultancy — with zero surprises.
+            <p className="font-sans text-sm sm:text-base text-stone-600 leading-relaxed font-normal max-w-2xl mx-auto">
+              A transparent 5-step journey from your initial vision to final handover with zero surprises.
             </p>
           </div>
         </ScrollReveal>
