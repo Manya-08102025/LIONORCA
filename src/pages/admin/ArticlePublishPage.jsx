@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { Calendar, CheckCircle2, FileText, Bold, Italic, Heading3, Quote, List, Eye, Edit2 } from 'lucide-react'
-import ImageUploader from '../components/ImageUploader'
-import { useSimpleCms } from '../context/SimpleCmsContext'
+import ImageUploader from '../../components/admin/ImageUploader'
+import { useSimpleCms } from '../../context/admin/SimpleCmsContext'
 
 export default function ArticlePublishPage() {
   const { publishArticle } = useSimpleCms()

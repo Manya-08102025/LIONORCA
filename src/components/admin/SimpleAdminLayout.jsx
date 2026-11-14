@@ -8,9 +8,11 @@ import {
   Menu,
   X,
   CheckCircle2,
+  MessageSquare,
+  Image as ImageIcon,
 } from 'lucide-react'
-import { useAdminAuth } from '../context/AdminAuthContext'
-import { useSimpleCms } from '../context/SimpleCmsContext'
+import { useAdminAuth } from '../../context/admin/AdminAuthContext'
+import { useSimpleCms } from '../../context/admin/SimpleCmsContext'
 
 const NAV_ITEMS = [
   {
@@ -30,6 +32,18 @@ const NAV_ITEMS = [
     label: 'Media & Insights',
     description: 'Publish editorial articles',
     icon: FileText,
+  },
+  {
+    id: 'leads',
+    label: 'Consultation Leads',
+    description: 'View client inquiries & CRM',
+    icon: MessageSquare,
+  },
+  {
+    id: 'portfolio',
+    label: 'Portfolio Manager',
+    description: 'Manage categorized projects',
+    icon: ImageIcon,
   },
 ]
 

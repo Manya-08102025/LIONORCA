@@ -11,8 +11,8 @@ import {
   ExternalLink,
   ChevronRight,
 } from 'lucide-react';
-import { useAdminAuth } from '../context/AdminAuthContext';
-import { useAdminData } from '../context/AdminDataContext';
+import { useAdminAuth } from '../../context/admin/AdminAuthContext';
+import { useAdminData } from '../../context/admin/AdminDataContext';
 
 const navItems = [
   { key: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },

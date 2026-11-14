@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Mail, Lock, Eye, EyeOff, Loader2, ArrowRight, ShieldCheck, AlertCircle, Key, Check } from 'lucide-react'
-import { useAdminAuth } from '../context/AdminAuthContext'
+import { useAdminAuth } from '../../context/admin/AdminAuthContext'
 import { SUPABASE_PROJECT_ID, SUPABASE_REGION } from '../../services/supabase'
 
 export default function LoginPage() {

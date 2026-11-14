@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, lazy, Suspense } from 'react'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
 import { ThemeProvider } from './hooks/useTheme'
@@ -11,15 +11,17 @@ import Projects from './pages/Projects'
 import Footer from './components/Footer'
 import LeadModal from './components/LeadModal'
 import FloatingWhatsApp from './components/FloatingWhatsApp'
-import AdminApp from './admin/AdminApp'
+import ProtectedRoute from './components/admin/ProtectedRoute'
+
+const AdminApp = lazy(() => import('./pages/admin/AdminApp'))
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState(() => {
     if (typeof window !== 'undefined') {
       const pathname = window.location.pathname.toLowerCase()
       const search = window.location.search.toLowerCase()
-      if (pathname.includes('/admin') || search.includes('page=admin') || search.includes('admin')) {
-        return '/admin'
+      if (pathname.startsWith('/admin') || pathname.includes('/admin') || search.includes('page=admin') || search.includes('admin')) {
+        return pathname.startsWith('/admin') ? pathname : '/admin'
       }
       if (pathname.includes('/work-with-us') || pathname.includes('/partner') || search.includes('page=work-with-us') || search.includes('page=partner')) {
         return '/work-with-us'
@@ -107,8 +109,8 @@ export default function App() {
     const handleLocationChange = () => {
       const pathname = window.location.pathname.toLowerCase()
       const search = window.location.search.toLowerCase()
-      if (pathname.includes('/admin') || search.includes('page=admin') || search.includes('admin')) {
-        setCurrentPath('/admin')
+      if (pathname.startsWith('/admin') || pathname.includes('/admin') || search.includes('page=admin') || search.includes('admin')) {
+        setCurrentPath(pathname.startsWith('/admin') ? pathname : '/admin')
       } else if (pathname.includes('/work-with-us') || pathname.includes('/partner') || search.includes('page=work-with-us') || search.includes('page=partner')) {
         setCurrentPath('/work-with-us')
       } else if (pathname.includes('/architects') || search.includes('page=architects') || search.includes('architects')) {
@@ -283,7 +285,22 @@ export default function App() {
   // RENDER ADMIN CMS PORTAL (SECURE & ISOLATED)
   // ══════════════════════════════════════════════════════════
   if (currentPath === '/admin' || currentPath.startsWith('/admin')) {
-    return <AdminApp />
+    return (
+      <Suspense
+        fallback={
+          <div className="min-h-screen flex items-center justify-center bg-[#FBFBFA]">
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-8 h-8 border-2 border-neutral-300 border-t-neutral-900 rounded-full animate-spin" />
+              <span className="text-xs uppercase tracking-wider text-neutral-400 font-sans">
+                Loading Admin Portal...
+              </span>
+            </div>
+          </div>
+        }
+      >
+        <AdminApp />
+      </Suspense>
+    )
   }
 
   return (

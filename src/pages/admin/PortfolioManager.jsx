@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { useAdminData } from '../context/AdminDataContext'
+import { useAdminData } from '../../context/admin/AdminDataContext'
 import { Plus, Pencil, Trash2, X, Camera, Image, Eye, Filter } from 'lucide-react'
 
 const CATEGORIES = [

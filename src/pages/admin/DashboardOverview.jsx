@@ -1,5 +1,5 @@
 import { UserPlus, Users, Building2, Briefcase, Plus, PenLine, ArrowRight } from 'lucide-react';
-import { useAdminData } from '../context/AdminDataContext';
+import { useAdminData } from '../../context/admin/AdminDataContext';
 
 const statusColors = {
   New: 'bg-champagne/20 text-champagne',

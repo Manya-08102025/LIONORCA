@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { MapPin, CheckCircle2, Home } from 'lucide-react'
-import ImageUploader from '../components/ImageUploader'
-import { useSimpleCms } from '../context/SimpleCmsContext'
+import ImageUploader from '../../components/admin/ImageUploader'
+import { useSimpleCms } from '../../context/admin/SimpleCmsContext'
 
 export default function ProjectPublishPage() {
   const { publishProject } = useSimpleCms()

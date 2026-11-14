@@ -1,5 +1,5 @@
-import { useAdminAuth } from '../context/AdminAuthContext'
-import LoginPage from '../pages/LoginPage'
+import { useAdminAuth } from '../../context/admin/AdminAuthContext'
+import LoginPage from '../../pages/admin/LoginPage'
 
 /**
  * Protected Route Wrapper for Lionorca Admin Dashboard
