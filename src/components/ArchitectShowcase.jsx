@@ -231,9 +231,9 @@ export default function ArchitectShowcase({ onSelectArchitect, architects: propA
     city: item.city || item.location || 'Central India',
     style: item.style || item.specialization || item.aesthetic || 'Modern Luxury Architecture',
     experience: item.experience || item.yearsExperience || '10+ Years Metro Experience',
-    signatureProject: item.signatureProject || item.featuredProject || 'Bespoke Residence',
+    signatureProject: item.signatureProject || item.signature_project || item.featuredProject || 'Bespoke Residence',
     bio: item.bio || item.description || item.about || 'Specialises in climate-responsive luxury residences with bespoke interior and exterior architectural delivery.',
-    image: item.image?.asset?.url || item.image || item.photo || item.portrait || null,
+    image: item.image_url || item.imageUrl || item.image?.asset?.url || item.image || item.photo || item.portrait || null,
     works: Array.isArray(item.works || item.portfolio || item.gallery)
       ? (item.works || item.portfolio || item.gallery).map((w, wIdx) => ({
           id: w._id || w.id || `${idx}-${wIdx}`,

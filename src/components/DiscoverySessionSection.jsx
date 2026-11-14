@@ -7,7 +7,7 @@ export default function DiscoverySessionSection() {
     name: '',
     phone: '',
     budget: '',
-    propertyType: 'Private Villa / Independent House',
+    propertyType: 'Bespoke Villas',
     plotLocation: '',
   })
   const [status, setStatus] = useState('idle')
@@ -158,11 +158,12 @@ export default function DiscoverySessionSection() {
                       onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })}
                       className="w-full px-6 py-4 rounded-2xl text-base border focus:outline-none transition-colors font-sans bg-stone-50 border-stone-200 text-stone-900 focus:border-[#8E651E] focus:bg-white"
                     >
-                      <option value="Private Villa / Independent House">Private Villa / Independent House</option>
-                      <option value="Luxury Apartment / Penthouse">Luxury Apartment / Penthouse</option>
-                      <option value="Farmhouse / Country Estate">Farmhouse / Country Estate</option>
-                      <option value="Boutique Office / Hospitality">Boutique Office / Hospitality</option>
-                      <option value="Full Home Renovation / Extension">Full Home Renovation / Extension</option>
+                      <option value="Bespoke Villas">Bespoke Villas</option>
+                      <option value="Premium Apartments">Premium Apartments</option>
+                      <option value="Visionary Office Spaces">Visionary Office Spaces</option>
+                      <option value="Serene Farmhouses">Serene Farmhouses</option>
+                      <option value="Multi-storey Buildings">Multi-storey Buildings</option>
+                      <option value="Other / Custom Project">Other / Custom Project</option>
                     </select>
                   </div>
 

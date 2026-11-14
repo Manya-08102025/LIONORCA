@@ -1,5 +1,9 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
-import { supabase, isSupabaseConfigured } from '../../services/supabase'
+import {
+  getClient,
+  isSupabaseConfigured,
+  uploadImageToSupabase,
+} from '../../services/supabase'
 
 const SimpleCmsContext = createContext(null)
 
@@ -25,10 +29,17 @@ export function SimpleCmsProvider({ children }) {
   })
 
   const [notification, setNotification] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
-  // Persist locally
+  // Persist to localStorage for instant offline access & cross-component sync
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+      // Dispatch custom event to sync public components without reload
+      window.dispatchEvent(new CustomEvent('lionorca_cms_updated', { detail: data }))
+    } catch {
+      // ignore
+    }
   }, [data])
 
   // Toast notifier
@@ -39,7 +50,62 @@ export function SimpleCmsProvider({ children }) {
     }, 4500)
   }, [])
 
-  // 1. Insert into Supabase table: 'architects'
+  // ─── Fetch live data from Supabase on mount ───
+  const fetchLiveCmsData = useCallback(async () => {
+    try {
+      setIsLoading(true)
+      const client = getClient()
+
+      // 1. Fetch Architects
+      const { data: archs, error: archErr } = await client
+        .from('architects')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (archErr) console.warn('[CMS] Architects fetch note:', archErr.message)
+
+      // 2. Fetch Signature Projects
+      const { data: projs, error: projErr } = await client
+        .from('projects')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (projErr) console.warn('[CMS] Projects fetch note:', projErr.message)
+
+      // 3. Fetch Media / Articles (try media_insights first, then articles)
+      let mediaList = []
+      const { data: medData, error: medErr } = await client
+        .from('media_insights')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (!medErr && medData && medData.length > 0) {
+        mediaList = medData
+      } else {
+        const { data: artData } = await client
+          .from('articles')
+          .select('*')
+          .order('created_at', { ascending: false })
+        if (artData) mediaList = artData
+      }
+
+      setData((prev) => ({
+        architects: archs && archs.length > 0 ? archs : prev.architects,
+        projects: projs && projs.length > 0 ? projs : prev.projects,
+        articles: mediaList && mediaList.length > 0 ? mediaList : prev.articles,
+      }))
+    } catch (err) {
+      console.warn('[CMS] Supabase live fetch error:', err)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchLiveCmsData()
+  }, [fetchLiveCmsData])
+
+  // ─── 1. Publish / Upsert Architect ───
   const publishArchitect = useCallback(
     async (formData) => {
       const id = formData.id || `arch-${Date.now().toString(36)}`
@@ -50,19 +116,18 @@ export function SimpleCmsProvider({ children }) {
         specialization: formData.specialization,
         bio: formData.bio || '',
         image_url: formData.imageUrl,
-        created_at: new Date().toISOString(),
+        created_at: formData.createdAt || new Date().toISOString(),
       }
 
-      // Live Supabase Insertion
-      if (isSupabaseConfigured) {
-        try {
-          const { error } = await supabase.from('architects').insert([payload])
-          if (error) {
-            console.warn('Supabase architects insert note:', error.message)
-          }
-        } catch (err) {
-          console.warn('Supabase connection note:', err)
+      // Live Supabase Upsert
+      try {
+        const client = getClient()
+        const { error } = await client.from('architects').upsert([payload])
+        if (error) {
+          console.warn('[CMS] Supabase architects upsert note:', error.message)
         }
+      } catch (err) {
+        console.warn('[CMS] Supabase connection note:', err)
       }
 
       // Update local state
@@ -77,29 +142,48 @@ export function SimpleCmsProvider({ children }) {
     [notify]
   )
 
-  // 2. Insert into Supabase table: 'projects'
+  // ─── Delete Architect ───
+  const deleteArchitect = useCallback(
+    async (id) => {
+      try {
+        const client = getClient()
+        await client.from('architects').delete().eq('id', id)
+      } catch (err) {
+        console.warn('[CMS] Delete architect note:', err)
+      }
+
+      setData((prev) => ({
+        ...prev,
+        architects: prev.architects.filter((a) => a.id !== id),
+      }))
+
+      notify('Architect removed from website.', 'info')
+    },
+    [notify]
+  )
+
+  // ─── 2. Publish / Upsert Project ───
   const publishProject = useCallback(
     async (formData) => {
       const id = formData.id || `proj-${Date.now().toString(36)}`
       const payload = {
         id,
         title: formData.title,
-        subtitle: formData.subtitle,
+        subtitle: formData.subtitle || formData.typology || 'Bespoke Residence',
         description: formData.description,
         image_url: formData.imageUrl,
-        created_at: new Date().toISOString(),
+        created_at: formData.createdAt || new Date().toISOString(),
       }
 
-      // Live Supabase Insertion
-      if (isSupabaseConfigured) {
-        try {
-          const { error } = await supabase.from('projects').insert([payload])
-          if (error) {
-            console.warn('Supabase projects insert note:', error.message)
-          }
-        } catch (err) {
-          console.warn('Supabase connection note:', err)
+      // Live Supabase Upsert
+      try {
+        const client = getClient()
+        const { error } = await client.from('projects').upsert([payload])
+        if (error) {
+          console.warn('[CMS] Supabase projects upsert note:', error.message)
         }
+      } catch (err) {
+        console.warn('[CMS] Supabase connection note:', err)
       }
 
       // Update local state
@@ -114,7 +198,27 @@ export function SimpleCmsProvider({ children }) {
     [notify]
   )
 
-  // 3. Insert into Supabase table: 'articles'
+  // ─── Delete Project ───
+  const deleteProject = useCallback(
+    async (id) => {
+      try {
+        const client = getClient()
+        await client.from('projects').delete().eq('id', id)
+      } catch (err) {
+        console.warn('[CMS] Delete project note:', err)
+      }
+
+      setData((prev) => ({
+        ...prev,
+        projects: prev.projects.filter((p) => p.id !== id),
+      }))
+
+      notify('Project removed from website.', 'info')
+    },
+    [notify]
+  )
+
+  // ─── 3. Publish / Upsert Article or Media Item ───
   const publishArticle = useCallback(
     async (formData) => {
       const id = formData.id || `art-${Date.now().toString(36)}`
@@ -124,19 +228,18 @@ export function SimpleCmsProvider({ children }) {
         date: formData.date || new Date().toISOString().slice(0, 10),
         cover_image: formData.coverImage,
         body: formData.body,
-        created_at: new Date().toISOString(),
+        created_at: formData.createdAt || new Date().toISOString(),
       }
 
-      // Live Supabase Insertion
-      if (isSupabaseConfigured) {
-        try {
-          const { error } = await supabase.from('articles').insert([payload])
-          if (error) {
-            console.warn('Supabase articles insert note:', error.message)
-          }
-        } catch (err) {
-          console.warn('Supabase connection note:', err)
+      // Live Supabase Upsert (try media_insights, then articles)
+      try {
+        const client = getClient()
+        const { error: medErr } = await client.from('media_insights').upsert([payload])
+        if (medErr) {
+          await client.from('articles').upsert([payload])
         }
+      } catch (err) {
+        console.warn('[CMS] Supabase article connection note:', err)
       }
 
       // Update local state
@@ -151,15 +254,42 @@ export function SimpleCmsProvider({ children }) {
     [notify]
   )
 
+  // ─── Delete Article ───
+  const deleteArticle = useCallback(
+    async (id) => {
+      try {
+        const client = getClient()
+        await client.from('media_insights').delete().eq('id', id)
+        await client.from('articles').delete().eq('id', id)
+      } catch (err) {
+        console.warn('[CMS] Delete article note:', err)
+      }
+
+      setData((prev) => ({
+        ...prev,
+        articles: prev.articles.filter((a) => a.id !== id),
+      }))
+
+      notify('Article removed from website.', 'info')
+    },
+    [notify]
+  )
+
   return (
     <SimpleCmsContext.Provider
       value={{
         architects: data.architects,
         projects: data.projects,
         articles: data.articles,
+        isLoading,
         publishArchitect,
+        deleteArchitect,
         publishProject,
+        deleteProject,
         publishArticle,
+        deleteArticle,
+        refreshCmsData: fetchLiveCmsData,
+        uploadImageToSupabase,
         notification,
         dismissNotification: () => setNotification(null),
         isSupabaseConfigured,

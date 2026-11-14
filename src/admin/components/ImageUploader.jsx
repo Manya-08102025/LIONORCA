@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
-import { UploadCloud, Image as ImageIcon, Link, X, Check } from 'lucide-react'
+import { UploadCloud, Image as ImageIcon, Link, X, Check, Loader2 } from 'lucide-react'
+import { uploadImageToSupabase } from '../../services/supabase'
 
 export default function ImageUploader({
   value,
@@ -10,6 +11,8 @@ export default function ImageUploader({
   const [isDragging, setIsDragging] = useState(false)
   const [showUrlInput, setShowUrlInput] = useState(false)
   const [urlInput, setUrlInput] = useState('')
+  const [isUploading, setIsUploading] = useState(false)
+  const [statusMessage, setStatusMessage] = useState('')
   const fileInputRef = useRef(null)
 
   const handleDragOver = (e) => {
@@ -36,15 +39,39 @@ export default function ImageUploader({
     }
   }
 
-  const processFile = (file) => {
+  const processFile = async (file) => {
     if (!file.type.startsWith('image/')) {
       alert('Please upload an image file (JPG, PNG, WebP)')
       return
     }
 
+    setIsUploading(true)
+    setStatusMessage('Uploading to Supabase Storage...')
+
+    try {
+      // 1. Attempt direct upload to Supabase public-assets bucket
+      const publicUrl = await uploadImageToSupabase(file, 'public-assets')
+      if (publicUrl) {
+        onChange(publicUrl)
+        setStatusMessage('')
+        setIsUploading(false)
+        return
+      }
+    } catch (err) {
+      console.warn('Direct Supabase storage upload fell back to local reader:', err?.message || err)
+    }
+
+    // 2. Fallback: Base64 data URL
     const reader = new FileReader()
     reader.onload = (event) => {
       onChange(event.target.result)
+      setIsUploading(false)
+      setStatusMessage('')
+    }
+    reader.onerror = () => {
+      setIsUploading(false)
+      setStatusMessage('')
+      alert('Failed to read image file')
     }
     reader.readAsDataURL(file)
   }
@@ -110,24 +137,34 @@ export default function ImageUploader({
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          onClick={() => fileInputRef.current?.click()}
+          onClick={() => !isUploading && fileInputRef.current?.click()}
           className={`rounded-2xl p-8 sm:p-10 text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
             isDragging
               ? 'bg-amber-50/70 ring-2 ring-amber-500/40'
               : 'bg-neutral-50 hover:bg-neutral-100/70'
-          }`}
+          } ${isUploading ? 'opacity-75 pointer-events-none' : ''}`}
         >
-          <div className="w-12 h-12 rounded-full bg-white shadow-sm text-neutral-700 flex items-center justify-center mb-3">
-            <UploadCloud size={24} strokeWidth={1.75} />
-          </div>
+          {isUploading ? (
+            <div className="flex flex-col items-center justify-center py-4">
+              <Loader2 size={32} className="animate-spin text-amber-700 mb-2" />
+              <p className="text-sm font-medium text-neutral-800">{statusMessage || 'Uploading...'}</p>
+              <p className="text-xs text-neutral-400">Saving securely to cloud storage</p>
+            </div>
+          ) : (
+            <>
+              <div className="w-12 h-12 rounded-full bg-white shadow-sm text-neutral-700 flex items-center justify-center mb-3">
+                <UploadCloud size={24} strokeWidth={1.75} />
+              </div>
 
-          <p className="text-sm font-medium text-neutral-800 mb-1">
-            Drag &amp; drop image here, or{' '}
-            <span className="text-amber-700 underline font-medium">browse device</span>
-          </p>
-          <p className="text-xs text-neutral-400">
-            Click anywhere in this box to pick a file
-          </p>
+              <p className="text-sm font-medium text-neutral-800 mb-1">
+                Drag &amp; drop image here, or{' '}
+                <span className="text-amber-700 underline font-medium">browse device</span>
+              </p>
+              <p className="text-xs text-neutral-400">
+                Click anywhere in this box to pick a file
+              </p>
+            </>
+          )}
 
           {/* Paste URL Option */}
           <div className="mt-4 pt-3 flex flex-col items-center gap-2">

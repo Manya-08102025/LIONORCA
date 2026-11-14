@@ -5,6 +5,7 @@ import FoundersPhilosophy from '../components/FoundersPhilosophy'
 import ValueProposition from '../components/ValueProposition'
 import ArchitectShowcase from '../components/ArchitectShowcase'
 import ProcessTimeline from '../components/ProcessTimeline'
+import ServicesSection from '../components/ServicesSection'
 import PortfolioGallery from '../components/PortfolioGallery'
 import MediaSection from '../components/MediaSection'
 import DiscoverySessionSection from '../components/DiscoverySessionSection'
@@ -61,9 +62,14 @@ export default function Home({
         />
       </div>
 
-      {/* 05: How We Work / Process Timeline */}
+      {/* 05: How We Work / Process Timeline (Steps to Clarity) */}
       <div className="w-full">
         <ProcessTimeline />
+      </div>
+
+      {/* 05.5: Services: Every Kind of Luxury. Delivered Complete. */}
+      <div className="w-full">
+        <ServicesSection onOpenConsult={onOpenConsult} />
       </div>
 
       {/* 06: Signature Projects / Typologies */}

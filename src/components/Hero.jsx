@@ -8,9 +8,10 @@ const SLIDES = [
     image: '/images/hero-bright-1.jpg',
     quote: 'The Complete Delivery of Luxury.',
     description:
-      'Bring your vision to life under one roof — offering complete turnkey execution and dedicated project management consultancy from architectural sketch to final keys.',
+      'Bring your vision to life under one roof- offering complete End - To - End Project Management Solutions from first sketch to final keys.',
     ctaText: 'Book a Discovery Session',
     action: 'consult',
+    duration: 10000, // Slide 1 stays for 10 seconds per user request
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ const SLIDES = [
       'Lionorca Architeriors owns it end to end with guaranteed milestones and verified craftsmanship.',
     ctaText: 'Book a Discovery Session',
     action: 'consult',
+    duration: 6500,
   },
   {
     id: 3,
@@ -29,6 +31,7 @@ const SLIDES = [
       'Handpicked architects and designers with relentless onsite end - to - end delivery.',
     ctaText: 'Book a Discovery Session',
     action: 'consult',
+    duration: 6500,
   },
 ];
 
@@ -46,14 +49,16 @@ export default function Hero({ onOpenConsult }) {
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
-  // Auto-slide every 6.5 seconds (6-7s duration)
+  // Auto-advance with dynamic duration: Slide 1 stays for 10 seconds, others for 6.5 seconds
   useEffect(() => {
     if (isPaused) return;
-    const interval = setInterval(() => {
+    const slideDuration = SLIDES[currentSlide]?.duration || 6500;
+    const timer = setTimeout(() => {
       setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
-    }, 6500);
-    return () => clearInterval(interval);
-  }, [isPaused]);
+    }, slideDuration);
+
+    return () => clearTimeout(timer);
+  }, [currentSlide, isPaused]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
@@ -199,9 +204,9 @@ export default function Hero({ onOpenConsult }) {
                 >
                   {index === 0 ? (
                     <>
-                      Bring your vision to life under one roof — <br className="hidden sm:inline" />
-                      offering complete turnkey execution and dedicated <br className="hidden sm:inline" />
-                      project management consultancy from sketch to final keys.
+                      Bring your vision to life under one roof- <br className="hidden sm:inline" />
+                      offering complete End - To - End Project Management <br className="hidden sm:inline" />
+                      Solutions from first sketch to final keys.
                     </>
                   ) : index === 1 ? (
                     <>
@@ -267,6 +272,3 @@ export default function Hero({ onOpenConsult }) {
     </section>
   );
 }
-
-
-

@@ -2,38 +2,37 @@ import { Building2, CheckCircle2 } from 'lucide-react'
 import ScrollReveal from './ScrollReveal'
 
 export default function ValueProposition() {
-  const contrasts = [
+  const regularItems = [
     {
-      problemTitle: 'Dealing with Too Many People',
-      problemDesc:
-        'You have to manage the architect, different contractors, and daily labor yourself. It turns into a constant headache.',
-      promiseTitle: 'Everything at One Place',
-      promiseDesc:
-        'You talk to just one team. Lionorca handles the architects, contractors, materials, and daily site work for you.',
+      title: 'Limited Site Visits and Unlimited Mistakes',
+      desc: 'The site needs multiple quality checks, but visits are limited under the contract, resulting in multiple flaws.',
     },
     {
-      problemTitle: 'No One Takes Responsibility',
-      problemDesc:
-        'When something goes wrong, the architect blames the builder and the builder blames the drawings. Nobody owns the mistake.',
-      promiseTitle: 'We Take Full Responsibility',
-      promiseDesc:
-        'Lionorca owns the outcome from the first sketch to final keys. If anything isn’t right, we fix it—no excuses.',
+      title: 'Multiple Authorities - Pending Decisions',
+      desc: 'Without clear ground rules defining authority, decision-making breaks down and causes significant delays.',
     },
     {
-      problemTitle: 'Hidden Costs & Constant Delays',
-      problemDesc:
-        'Initial quotes look cheap, but prices shoot up mid-project with surprise bills and endless project delays.',
-      promiseTitle: 'Fixed Price & On-Time Handover',
-      promiseDesc:
-        'Clear, fixed milestone costs agreed upfront before construction starts. Zero hidden fees and guaranteed timelines.',
+      title: 'Civil & Interior Coordination - The Haunting Tales',
+      desc: 'Interior team enters when most of the ground changes are already missed by the civil team & you end up either compromising or paying the damages.',
+    },
+  ]
+
+  const lionorcaItems = [
+    {
+      title: 'Multiple Visits & Complete Control',
+      desc: 'Every step is preplanned and executed. Regular inspections are performed by Lionorca’s in-house team.',
     },
     {
-      problemTitle: 'Multiple Authorities – Pending Decisions',
-      problemDesc:
-        'No ground rules over authority leads to multiple failure over several decisions resulting in delays.',
-      promiseTitle: 'Pre-Defined Authorities',
-      promiseDesc:
-        'Who will take which decision and when. This is pre-discussed and assigned even before the beginning of the designs.',
+      title: 'Predefined Authorities',
+      desc: 'Clearly establishes decision-makers and timelines before design work starts.',
+    },
+    {
+      title: 'We manage responsibilities from every end.',
+      desc: 'Whether it is design or payment, every step is approved before being executed.',
+    },
+    {
+      title: 'Single Point Coordination for Both Civil & Interior',
+      desc: 'Whether it’s a civil or interior work, everything will flow through Lionorca’s execution funnel. We decide who will enter & when.',
     },
   ]
 
@@ -63,11 +62,11 @@ export default function ValueProposition() {
         <ScrollReveal duration={0.7} y={24}>
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight text-[#111827] leading-[1.18] mb-4">
-              Building a <span className="text-[#C5A059] font-bold">luxury home</span> is more <br className="hidden sm:inline" /> than what you think.
+              Building a <span className="text-[#C5A059] font-bold">luxury project</span> is more <br className="hidden sm:inline" /> than what you think.
             </h2>
 
             <p className="font-sans text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
-              A luxury home requires more than 70 contractors &amp; vendors to coordinate. Absence of your knowledge &amp; time can cost you quality of your home, your money, your work &amp; your peace.
+              A luxury project requires more than 70 contractors and vendors to coordinate. A lack of knowledge, expertise, or time can cost you your budget, quality of work, peace of mind, and current profession.
             </p>
           </div>
         </ScrollReveal>
@@ -84,7 +83,7 @@ export default function ValueProposition() {
                   </div>
                   <div>
                     <span className="text-[10.5px] sm:text-[11px] font-['Plus_Jakarta_Sans',sans-serif] font-bold uppercase tracking-[0.16em] text-[#6B7280] block leading-tight">
-                      Regular Setup
+                      REGULAR MODEL
                     </span>
                     <h3 className="font-['Playfair_Display',serif] text-[23px] sm:text-[24px] font-bold text-[#111827] leading-snug">
                       The Daily Headache
@@ -95,17 +94,17 @@ export default function ValueProposition() {
                 <div className="w-full h-[1px] bg-[#F3F4F6] my-4.5" />
 
                 <div className="space-y-4.5 sm:space-y-5">
-                  {contrasts.map((item, idx) => (
+                  {regularItems.map((item, idx) => (
                     <div key={idx} className="flex items-start gap-3.5">
                       <span className="w-[22px] h-[22px] rounded-full flex items-center justify-center shrink-0 text-xs font-bold mt-0.5 bg-[#E5E7EB] text-[#4B5563]">
                         –
                       </span>
                       <div>
                         <h4 className="font-['Plus_Jakarta_Sans',sans-serif] text-[15px] sm:text-[16px] font-bold mb-0.5 text-[#111827] leading-snug">
-                          {item.problemTitle}
+                          {item.title}
                         </h4>
                         <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[12.5px] sm:text-[13px] leading-[1.55] text-[#4B5563] font-normal">
-                          {item.problemDesc}
+                          {item.desc}
                         </p>
                       </div>
                     </div>
@@ -115,7 +114,7 @@ export default function ValueProposition() {
             </div>
           </ScrollReveal>
 
-          {/* THE LIONORCA PROMISE (Why Lionorca is Different) */}
+          {/* THE LIONORCA PROMISE (Lionorca's Model) */}
           <ScrollReveal delay={120} duration={0.8} y={30} className="h-full">
             <div className="h-full p-7 sm:p-8 rounded-[24px] bg-[#FCF9F2] border-[1.5px] border-[#DECA9E] shadow-[0_8px_30px_rgba(202,168,103,0.12)] text-left luxury-card-hover flex flex-col justify-between">
               <div>
@@ -125,10 +124,10 @@ export default function ValueProposition() {
                   </div>
                   <div>
                     <span className="text-[10.5px] sm:text-[11px] font-['Plus_Jakarta_Sans',sans-serif] font-bold uppercase tracking-[0.16em] text-[#9A7228] block leading-tight">
-                      Why Lionorca is Different
+                      LIONORCA'S MODEL
                     </span>
                     <h3 className="font-['Playfair_Display',serif] text-[23px] sm:text-[24px] font-bold text-[#111827] leading-snug">
-                      Everything in One Place
+                      The Complete Delivery
                     </h3>
                   </div>
                 </div>
@@ -136,17 +135,17 @@ export default function ValueProposition() {
                 <div className="w-full h-[1px] bg-[#EBDDBF] my-4.5" />
 
                 <div className="space-y-4.5 sm:space-y-5">
-                  {contrasts.map((item, idx) => (
+                  {lionorcaItems.map((item, idx) => (
                     <div key={idx} className="flex items-start gap-3.5">
                       <span className="w-[22px] h-[22px] rounded-full flex items-center justify-center shrink-0 text-xs font-bold mt-0.5 bg-[#EFE3C8] text-[#9A7228]">
                         ✓
                       </span>
                       <div>
                         <h4 className="font-['Plus_Jakarta_Sans',sans-serif] text-[15px] sm:text-[16px] font-bold mb-0.5 text-[#9A7228] leading-snug">
-                          {item.promiseTitle}
+                          {item.title}
                         </h4>
                         <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[12.5px] sm:text-[13px] leading-[1.55] text-[#374151] font-normal">
-                          {item.promiseDesc}
+                          {item.desc}
                         </p>
                       </div>
                     </div>

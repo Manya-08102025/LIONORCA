@@ -220,7 +220,7 @@ export default function PortfolioGallery({
       p.description ||
       p.excerpt ||
       'Handcrafted luxury residence executed with single-contract turnkey precision.',
-    image: p.image?.asset?.url || p.image || p.coverImage || p.mainImage || '/images/bg-villa.jpg',
+    image: p.image_url || p.imageUrl || p.image?.asset?.url || p.image || p.coverImage || p.mainImage || '/images/bg-villa.jpg',
     highlights:
       p.highlights || [
         'Turnkey Execution Guarantee',

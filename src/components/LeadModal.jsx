@@ -1,17 +1,79 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { X, CheckCircle2, MessageCircle, Shield, ArrowRight, AlertCircle } from 'lucide-react'
 import { db, isFirebaseConfigured, doc, setDoc } from '../services/firebase'
+
+export const SERVICES_PROJECT_TYPES = [
+  'Bespoke Villas',
+  'Premium Apartments',
+  'Visionary Office Spaces',
+  'Serene Farmhouses',
+  'Multi-storey Buildings',
+  'Other / Custom Project',
+]
+
+function resolveProjectTypology(param) {
+  if (!param) return 'Bespoke Villas'
+  const raw = typeof param === 'string' ? param : param.typology || param.propertyType || param.name || ''
+  const str = raw.trim()
+  if (!str) return 'Bespoke Villas'
+
+  // 1. Exact match against SERVICES_PROJECT_TYPES first
+  const exact = SERVICES_PROJECT_TYPES.find((t) => t.toLowerCase() === str.toLowerCase())
+  if (exact) return exact
+
+  // 2. Keyword matching with specific terms first
+  const lower = str.toLowerCase()
+  if (lower.includes('farmhouse')) return 'Serene Farmhouses'
+  if (lower.includes('apartment') || lower.includes('penthouse') || lower.includes('condo')) return 'Premium Apartments'
+  if (lower.includes('office') || lower.includes('commercial') || lower.includes('work')) return 'Visionary Office Spaces'
+  if (lower.includes('building') || lower.includes('storey') || lower.includes('tower')) return 'Multi-storey Buildings'
+  if (lower.includes('villa') || lower.includes('bungalow') || lower.includes('house')) return 'Bespoke Villas'
+
+  return 'Bespoke Villas'
+}
 
 export default function LeadModal({ isOpen, onClose, preselectedArchitect = null }) {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     budget: '',
-    propertyType: 'Private Villa / Independent House',
-    projectNeeds: preselectedArchitect ? `Interested in consultation with ${preselectedArchitect.name}` : '',
+    propertyType: 'Bespoke Villas',
+    projectNeeds: '',
   })
 
   const [status, setStatus] = useState('idle')
+
+  // Reactive pre-selection when opening modal from Services picture or Architect card
+  useEffect(() => {
+    if (!isOpen) return
+
+    const raw = preselectedArchitect
+    const isTypology =
+      raw &&
+      (raw.typology ||
+        (typeof raw === 'string' &&
+          SERVICES_PROJECT_TYPES.some((t) => t.toLowerCase() === raw.toLowerCase())) ||
+        (raw.name &&
+          SERVICES_PROJECT_TYPES.some((t) => t.toLowerCase() === raw.name.toLowerCase())))
+
+    const resolvedType = isTypology ? resolveProjectTypology(raw) : 'Bespoke Villas'
+
+    const isArchitect =
+      !isTypology &&
+      raw &&
+      (raw.style || raw.specialization || raw.experience || (raw.name && !isTypology))
+
+    setFormData((prev) => ({
+      ...prev,
+      propertyType: resolvedType,
+      projectNeeds: isArchitect
+        ? `Interested in consultation with ${raw.name}`
+        : isTypology
+        ? `Inquiry for ${resolvedType}`
+        : prev.projectNeeds || '',
+    }))
+    setStatus('idle')
+  }, [isOpen, preselectedArchitect])
 
   if (!isOpen) return null
 
@@ -58,7 +120,7 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
         projectType: formData.propertyType,
         investmentRange: budgetText,
         status: 'New',
-        notes: formData.projectNeeds || (preselectedArchitect ? `Preferred Architect: ${preselectedArchitect.name}` : ''),
+        notes: formData.projectNeeds || (preselectedArchitect ? `Preferred: ${preselectedArchitect.name}` : ''),
       }
 
       // 1. Sync to local storage
@@ -89,43 +151,37 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
       `*Contact Phone:* ${formData.phone}\n` +
       `*Expected Investment Range:* ${budgetText}\n` +
       `*Type of Project:* ${formData.propertyType}\n` +
-      (preselectedArchitect ? `*Preferred Architect:* ${preselectedArchitect.name}\n` : '') +
+      (preselectedArchitect?.style ? `*Preferred Architect:* ${preselectedArchitect.name}\n` : '') +
       `*Project Scope / Area:* ${formData.projectNeeds || 'Turnkey luxury home design and construction'}\n\n` +
       `---\n` +
-      `_Hello! I would like to schedule a consultation for my upcoming residence in Indore._`
+      `_Hello! I would like to schedule a consultation for my upcoming project in Indore._`
     )
 
     setTimeout(() => {
       setStatus('success')
       window.open(`https://wa.me/${targetPhone}?text=${encodedMessage}`, '_blank')
-    }, 500)
+    }, 450)
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-      {/* Backdrop */}
+    <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 sm:p-6 bg-charcoal/70 backdrop-blur-sm animate-fade-in">
       <div
-        className="fixed inset-0 bg-charcoal/60 backdrop-blur-sm transition-opacity"
-        onClick={onClose}
-      />
-
-      {/* Modal Card */}
-      <div className="relative w-full max-w-xl rounded-3xl shadow-2xl border border-ash p-8 sm:p-10 my-8 z-10 bg-alabaster text-charcoal">
-        {/* Close Button */}
+        className="relative w-full max-w-xl bg-alabaster rounded-3xl p-6 sm:p-10 shadow-2xl border border-ash/30 max-h-[92vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           onClick={onClose}
           type="button"
-          aria-label="Close dialog"
-          className="absolute top-6 right-6 p-2 rounded-full hover:bg-greige transition-colors text-charcoal-light hover:text-charcoal cursor-pointer"
+          aria-label="Close modal"
+          className="absolute top-6 right-6 w-9 h-9 rounded-full bg-greige/70 hover:bg-ash/50 text-charcoal flex items-center justify-center transition-colors cursor-pointer"
         >
-          <X size={20} />
+          <X size={18} />
         </button>
 
-        {/* Modal Header */}
-        <div className="mb-8">
-          <div className="inline-flex items-center gap-1.5 text-xs font-sans tracking-wider uppercase font-semibold mb-2 text-champagne">
-            <Shield size={14} />
-            <span>Private Briefing</span>
+        <div className="mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-champagne/15 text-champagne mb-3">
+            <Shield size={12} />
+            <span>Direct Client Onboarding</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-serif font-light tracking-tight text-charcoal">
             Schedule a Consultation
@@ -190,13 +246,13 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
                 <select
                   value={formData.propertyType}
                   onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })}
-                  className="w-full px-5 py-3.5 rounded-2xl text-sm border focus:outline-none transition-colors bg-greige/70 border-ash text-charcoal focus:border-champagne"
+                  className="w-full px-5 py-3.5 rounded-2xl text-sm border focus:outline-none transition-colors bg-greige/70 border-ash text-charcoal focus:border-champagne font-medium"
                 >
-                  <option value="Private Villa / Independent House">Private Villa / Independent House</option>
-                  <option value="Luxury Apartment / Penthouse">Luxury Apartment / Penthouse</option>
-                  <option value="Farmhouse / Country Estate">Farmhouse / Country Estate</option>
-                  <option value="Boutique Office / Hospitality">Boutique Office / Hospitality</option>
-                  <option value="Full Home Renovation / Extension">Full Home Renovation / Extension</option>
+                  {SERVICES_PROJECT_TYPES.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -221,43 +277,36 @@ export default function LeadModal({ isOpen, onClose, preselectedArchitect = null
             </div>
 
             {status === 'declined' && (
-              <div className="p-5 rounded-2xl border flex items-start gap-3 text-xs leading-relaxed bg-champagne/10 border-champagne/25 text-charcoal">
-                <AlertCircle size={20} className="shrink-0 mt-0.5 text-champagne" />
+              <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3 text-charcoal text-xs">
+                <AlertCircle size={18} className="text-amber-600 shrink-0 mt-0.5" />
                 <div>
-                  <strong className="block font-semibold mb-1 text-champagne">Project Scope</strong>
-                  Lionorca Architeriors handles full turnkey home design and construction starting from ₹25 Lakhs (with primary focus on ₹1Cr+ bespoke residences).
+                  <strong className="block font-semibold mb-0.5 text-amber-900">Project Feasibility Notice</strong>
+                  Lionorca focuses on complete architectural execution starting from ₹25 Lakhs to ensure quality craftsmanship and dedicated supervision.
                 </div>
               </div>
             )}
 
             <div>
               <label className="block text-xs uppercase tracking-wider font-semibold mb-2 text-charcoal-muted">
-                Approximate Area (Sq. Ft.) &amp; Location (Optional)
+                Project Scope / Area &amp; City (Optional)
               </label>
               <textarea
-                rows={3}
-                placeholder="e.g. 3,000 sq ft plot in Indore. Looking for a modern 4 BHK villa with bespoke interior execution."
+                rows={2}
+                placeholder="e.g. 4,500 sq ft plot in Indore Bypass. Looking for modern courtyard villa architecture."
                 value={formData.projectNeeds}
                 onChange={(e) => setFormData({ ...formData, projectNeeds: e.target.value })}
                 className="w-full px-5 py-3 rounded-2xl text-sm border focus:outline-none transition-colors bg-greige/70 border-ash text-charcoal placeholder-charcoal-light/60 focus:border-champagne"
               />
             </div>
 
-            <div className="pt-3">
-              <button
-                type="submit"
-                disabled={status === 'declined' || !formData.budget}
-                className={`w-full py-4 px-6 rounded-full text-xs font-semibold tracking-wider uppercase transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-xs ${
-                  status === 'declined' || !formData.budget
-                    ? 'bg-greige text-charcoal-light cursor-not-allowed'
-                    : 'bg-charcoal hover:bg-champagne text-alabaster active:scale-98'
-                }`}
-              >
-                <MessageCircle size={17} className="fill-alabaster stroke-none" />
-                <span>Confirm on WhatsApp & Book Consultation</span>
-                <ArrowRight size={15} />
-              </button>
-            </div>
+            <button
+              type="submit"
+              disabled={status === 'submitting'}
+              className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#D4AC55] via-[#C99E4A] to-[#B88D38] hover:from-[#C99E4A] hover:to-[#A87D2A] text-neutral-950 font-sans font-bold text-xs uppercase tracking-widest transition-all duration-300 shadow-md hover:shadow-lg active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <span>Confirm on WhatsApp &amp; Book Consultation</span>
+              <ArrowRight size={15} />
+            </button>
           </form>
         )}
       </div>

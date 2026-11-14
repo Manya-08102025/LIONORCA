@@ -40,7 +40,7 @@ export default function Contact({ onOpenConsult }) {
     name: '',
     phone: '',
     budget: '',
-    propertyType: 'Private Villa / Independent House',
+    propertyType: 'Bespoke Villas',
     notes: '',
   })
   const [status, setStatus] = useState('idle')
@@ -178,11 +178,12 @@ export default function Contact({ onOpenConsult }) {
                       onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl text-sm border border-slate-300 focus:outline-none focus:border-[#D1B67F] transition-colors bg-white"
                     >
-                      <option value="Private Villa / Independent House">Private Villa / Independent House</option>
-                      <option value="Luxury Apartment / Penthouse">Luxury Apartment / Penthouse</option>
-                      <option value="Farmhouse / Country Estate">Farmhouse / Country Estate</option>
-                      <option value="Boutique Office / Hospitality">Boutique Office / Hospitality</option>
-                      <option value="Full Home Renovation / Extension">Full Home Renovation / Extension</option>
+                      <option value="Bespoke Villas">Bespoke Villas</option>
+                      <option value="Premium Apartments">Premium Apartments</option>
+                      <option value="Visionary Office Spaces">Visionary Office Spaces</option>
+                      <option value="Serene Farmhouses">Serene Farmhouses</option>
+                      <option value="Multi-storey Buildings">Multi-storey Buildings</option>
+                      <option value="Other / Custom Project">Other / Custom Project</option>
                     </select>
                   </div>
 

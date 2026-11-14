@@ -54,6 +54,55 @@ export default function App() {
   const [selectedArchitect, setSelectedArchitect] = useState(null)
   const lenisRef = useRef(null)
 
+  // ─── Live Supabase CMS Data Synchronization ───
+  const [cmsData, setCmsData] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('lionorca_supabase_cms_data')
+      if (saved) {
+        try {
+          return JSON.parse(saved)
+        } catch {
+          // ignore
+        }
+      }
+    }
+    return { architects: null, projects: null, articles: null }
+  })
+
+  useEffect(() => {
+    // Listen for live updates dispatched by Admin SimpleCmsContext
+    const handleCmsUpdate = (e) => {
+      if (e.detail) {
+        setCmsData(e.detail)
+      }
+    }
+    window.addEventListener('lionorca_cms_updated', handleCmsUpdate)
+
+    // Initial silent fetch from Supabase if not populated
+    const fetchPublicCms = async () => {
+      try {
+        const { getClient } = await import('./services/supabase')
+        const client = getClient()
+        const [{ data: archs }, { data: projs }] = await Promise.all([
+          client.from('architects').select('*').order('created_at', { ascending: false }),
+          client.from('projects').select('*').order('created_at', { ascending: false }),
+        ])
+        if ((archs && archs.length > 0) || (projs && projs.length > 0)) {
+          setCmsData((prev) => ({
+            ...prev,
+            architects: archs && archs.length > 0 ? archs : prev.architects,
+            projects: projs && projs.length > 0 ? projs : prev.projects,
+          }))
+        }
+      } catch {
+        // Safe fallback to curated static data
+      }
+    }
+    fetchPublicCms()
+
+    return () => window.removeEventListener('lionorca_cms_updated', handleCmsUpdate)
+  }, [])
+
   useEffect(() => {
     const handleLocationChange = () => {
       const pathname = window.location.pathname.toLowerCase()
@@ -260,17 +309,21 @@ export default function App() {
             <Architects
               onOpenConsult={handleOpenConsult}
               onBack={() => handleNavigate('/', '#architects')}
+              architects={cmsData.architects && cmsData.architects.length > 0 ? cmsData.architects : null}
             />
           ) : currentPath === '/projects' || currentPath === '/signature-projects' ? (
             <Projects
               onOpenConsult={handleOpenConsult}
               onBack={() => handleNavigate('/', '#houses')}
+              projects={cmsData.projects && cmsData.projects.length > 0 ? cmsData.projects : null}
             />
           ) : (
             <Home
               onOpenConsult={handleOpenConsult}
               onViewAllArchitects={() => handleNavigate('/architects')}
               onViewAllProjects={() => handleNavigate('/projects')}
+              architects={cmsData.architects && cmsData.architects.length > 0 ? cmsData.architects : null}
+              projects={cmsData.projects && cmsData.projects.length > 0 ? cmsData.projects : null}
             />
           )}
         </main>
