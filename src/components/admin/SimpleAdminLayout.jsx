@@ -8,8 +8,6 @@ import {
   Menu,
   X,
   CheckCircle2,
-  MessageSquare,
-  Image as ImageIcon,
 } from 'lucide-react'
 import { useAdminAuth } from '../../context/admin/AdminAuthContext'
 import { useSimpleCms } from '../../context/admin/SimpleCmsContext'
@@ -32,18 +30,6 @@ const NAV_ITEMS = [
     label: 'Media & Insights',
     description: 'Publish editorial articles',
     icon: FileText,
-  },
-  {
-    id: 'leads',
-    label: 'Consultation Leads',
-    description: 'View client inquiries & CRM',
-    icon: MessageSquare,
-  },
-  {
-    id: 'portfolio',
-    label: 'Portfolio Manager',
-    description: 'Manage categorized projects',
-    icon: ImageIcon,
   },
 ]
 
@@ -188,37 +174,19 @@ export default function SimpleAdminLayout({ currentTab, onSelectTab, children })
             <Menu size={20} />
           </button>
 
-          <div className="hidden lg:flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" />
-            <span className="text-xs font-medium text-neutral-400">
-              Founder Portal
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3 ml-auto">
-            <div className="text-right">
+          <div className="flex items-center gap-3.5 ml-auto">
+            <div className="flex flex-col justify-center text-right">
               <p className="text-xs font-medium text-neutral-800 leading-tight">
-                {user?.name || user?.email || 'Akshay Jadaun'}
+                {user?.email || 'akshay.kyz@gmail.com'}
               </p>
-              <p className="text-[11px] text-neutral-400 leading-tight">
+              <p className="text-[11px] text-neutral-400 leading-tight mt-0.5">
                 Founder &amp; Principal
               </p>
-            </div>
-            <div className="w-8 h-8 rounded-full bg-neutral-200 overflow-hidden">
-              <img
-                src={user?.avatar || '/images/akshay-jadaun.jpg'}
-                alt="Akshay Jadaun"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.target.onerror = null
-                  e.target.src = '/images/lionorca-emblem-transparent.png'
-                }}
-              />
             </div>
             <button
               onClick={logout}
               title="Sign Out"
-              className="p-1.5 text-neutral-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer ml-1"
+              className="p-2 text-neutral-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer flex items-center justify-center"
             >
               <LogOut size={16} />
             </button>

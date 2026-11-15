@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import {
   LayoutDashboard,
-  MessageSquare,
   Building2,
-  Image,
   FileText,
   LogOut,
   Menu,
@@ -16,17 +14,13 @@ import { useAdminData } from '../../context/admin/AdminDataContext';
 
 const navItems = [
   { key: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { key: 'leads', label: 'Consultation Leads', icon: MessageSquare },
   { key: 'vendors', label: 'Vendor & Team', icon: Building2 },
-  { key: 'portfolio', label: 'Portfolio', icon: Image },
   { key: 'articles', label: 'Insights & Articles', icon: FileText },
 ];
 
 const pageTitles = {
   dashboard: 'Dashboard',
-  leads: 'Consultation Leads',
   vendors: 'Vendor & Team',
-  portfolio: 'Portfolio',
   articles: 'Insights & Articles',
 };
 
@@ -161,59 +155,25 @@ export default function AdminLayout({ currentPage, onNavigate, children }) {
             <h1 className="text-[#2E2D2B] font-semibold text-base">
               {pageTitle}
             </h1>
-            <span
-              className={`hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-sans font-medium tracking-wide border ${
-                dbMode === 'firestore'
-                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                  : 'bg-amber-50 text-amber-800 border-amber-200'
-              }`}
-              title={
-                dbMode === 'firestore'
-                  ? 'Connected to live Firebase Firestore'
-                  : 'Operating in Local Storage cache mode (configure .env for live Firebase)'
-              }
-            >
-              <span
-                className={`w-1.5 h-1.5 rounded-full ${
-                  dbMode === 'firestore' ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'
-                }`}
-              />
-              {dbMode === 'firestore' ? 'Firestore Live' : 'Local Storage'}
-            </span>
           </div>
         </div>
 
         {/* Right: User profile + Logout */}
-        <div className="flex items-center gap-4">
-          <div className="hidden sm:flex flex-col items-end">
-            <span className="text-sm font-sans font-medium text-[#2E2D2B] leading-tight">
-              {user?.name || 'Admin'}
+        <div className="flex items-center gap-3.5">
+          <div className="flex flex-col justify-center text-right">
+            <span className="text-xs font-sans font-medium text-[#2E2D2B] leading-tight">
+              {user?.email || 'akshay.kyz@gmail.com'}
             </span>
-            <span className="text-[11px] font-sans text-[#7A7772] leading-tight">
-              {user?.role || 'Administrator'}
+            <span className="text-[11px] font-sans text-[#7A7772] leading-tight mt-0.5">
+              Founder &amp; Principal
             </span>
-          </div>
-
-          {/* Avatar */}
-          <div className="w-9 h-9 rounded-full bg-[#F4F3EE] border border-[#E6E4DD] flex items-center justify-center overflow-hidden shrink-0">
-            {user?.avatar ? (
-              <img
-                src={user.avatar}
-                alt={user.name}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <span className="text-sm font-serif font-semibold text-[#C5A059]">
-                {(user?.name || 'A').charAt(0).toUpperCase()}
-              </span>
-            )}
           </div>
 
           {/* Logout */}
           <button
             onClick={logout}
             title="Logout"
-            className="p-2 rounded-lg text-[#7A7772] hover:bg-red-50 hover:text-red-500 transition-colors cursor-pointer"
+            className="p-2 rounded-lg text-[#7A7772] hover:bg-red-50 hover:text-red-500 transition-colors cursor-pointer flex items-center justify-center"
           >
             <LogOut className="w-[18px] h-[18px]" />
           </button>
